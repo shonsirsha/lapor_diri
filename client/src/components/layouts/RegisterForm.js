@@ -127,7 +127,7 @@ const RegisterForm = () => {
           type='submit'
           value='Daftar'
           className='btn btn-primary btn-pill'
-          style={{ display: "inline-block", width: "15%" }}
+          style={{ display: "inline-block", width: "180px" }}
         />
       </div>
     </form>
