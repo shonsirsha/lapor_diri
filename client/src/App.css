@@ -453,7 +453,7 @@ table th {
 
   /* Navbar */
   .navbar {
-    display: block;
+    /* display: block; */
     text-align: center;
   }
 
