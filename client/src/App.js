@@ -2,12 +2,15 @@ import React from "react";
 import "./App.css";
 import Navbar from "./components/layouts/MyNavbar";
 import Home from "./components/pages/Home";
+
+import AuthState from "./context/auth/AuthState";
+
 function App() {
   return (
-    <div>
+    <AuthState>
       <Navbar />
       <Home />
-    </div>
+    </AuthState>
   );
 }
 

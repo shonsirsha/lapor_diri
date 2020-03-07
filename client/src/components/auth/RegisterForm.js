@@ -1,19 +1,63 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
+import AuthContext from "../../context/auth/authContext";
 
-const RegisterForm = () => {
+const RegisterForm = props => {
+  const authContext = useContext(AuthContext);
+  const { registerUser } = authContext;
+  useEffect(() => {}, []);
+
+  const [user, setUser] = useState({
+    nama_depan: "",
+    nama_belakang: "",
+    paspor: "",
+    password: "",
+    email: "",
+    ponsel: "",
+    alamat: "",
+    kota_kodepos: ""
+  });
+
+  const {
+    nama_depan,
+    nama_belakang,
+    paspor,
+    password,
+    email,
+    ponsel,
+    alamat,
+    kota_kodepos
+  } = user;
+
+  const onChange = e => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+
+    registerUser({
+      nama_depan,
+      nama_belakang,
+      paspor,
+      password,
+      email,
+      ponsel,
+      alamat,
+      kota_kodepos
+    });
+  };
+
   return (
-    <form
-
-    //    onSubmit={onSubmit}
-    >
+    <form onSubmit={onSubmit}>
       <div class='grid-2'>
         <div>
           <div className='form-group'>
-            <label htmlFor='namadepan'>Nama Depan</label>
+            <label htmlFor='nama_depan'>Nama Depan</label>
             <input
               type='text'
-              name='namadepan'
-              //    value={} onChange={}
+              name='nama_depan'
+              //  value={}
+              onChange={onChange}
               required
             />
           </div>
@@ -32,11 +76,12 @@ const RegisterForm = () => {
 
         <div>
           <div className='form-group'>
-            <label htmlFor='namabelakang'>Nama Belakang</label>
+            <label htmlFor='nama_belakang'>Nama Belakang</label>
             <input
               type='text'
-              name='namabelakang'
-              //    value={} onChange={}
+              name='nama_belakang'
+              //    value={}
+              onChange={onChange}
               required
             />
           </div>
@@ -50,7 +95,8 @@ const RegisterForm = () => {
             <input
               type='text'
               name='paspor'
-              //    value={} onChange={}
+              //    value={}
+              onChange={onChange}
               required
             />
           </div>
@@ -63,7 +109,7 @@ const RegisterForm = () => {
               type='password'
               name='password'
               // value={}
-              // onChange={}
+              onChange={onChange}
               required
             />
           </div>
@@ -77,7 +123,8 @@ const RegisterForm = () => {
             <input
               type='email'
               name='email'
-              //    value={} onChange={}
+              //    value={}
+              onChange={onChange}
               required
             />
           </div>
@@ -89,7 +136,8 @@ const RegisterForm = () => {
             <input
               type='text'
               name='ponsel'
-              //    value={} onChange={}
+              //    value={}
+              onChange={onChange}
               required
             />
           </div>
@@ -103,7 +151,8 @@ const RegisterForm = () => {
             <input
               type='text'
               name='alamat'
-              //    value={} onChange={}
+              //    value={}
+              onChange={onChange}
               required
             />
           </div>
@@ -111,11 +160,12 @@ const RegisterForm = () => {
 
         <div>
           <div className='form-group'>
-            <label htmlFor='kodepos'>Kodepos</label>
+            <label htmlFor='kota_kodepos'>kota_kodepos</label>
             <input
               type='text'
-              name='kodepos'
-              //    value={} onChange={}
+              name='kota_kodepos'
+              //    value={}
+              onChange={onChange}
               required
             />
           </div>

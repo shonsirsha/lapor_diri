@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import RegisterForm from "../layouts/RegisterForm";
+import RegisterForm from "../auth/RegisterForm";
 const Home = () => {
   return (
     <Fragment>
