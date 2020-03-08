@@ -1,12 +1,14 @@
+process.env.NODE_ENV = "test";
+
 const expect = require("chai").expect;
 const request = require("supertest");
 const server = require("../../../server");
 const connectDB = require("../../../config/db");
 
 describe("POST /users", async () => {
-  before(async () => {
+  before(() => {
     try {
-      await connectDB();
+      connectDB();
     } catch (err) {
       console.log(err);
     }
@@ -25,13 +27,12 @@ describe("POST /users", async () => {
         email: "test@code.berlin",
         password: "1234567"
       })
-      .end((e, res) => {
-        try {
-          expect(res.body).to.contain.property("token");
-          done();
-        } catch (e) {
-          done(e);
-        }
+      .then(res => {
+        expect(res.body).to.contain.property("token");
+        done();
+      })
+      .catch(err => {
+        done(err);
       });
   });
 });
