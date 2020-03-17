@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
-
+import FormInput from "./RegisterForm/FormInput";
 const RegisterForm = props => {
   const authContext = useContext(AuthContext);
   const { registerUser } = authContext;
@@ -48,41 +48,26 @@ const RegisterForm = props => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form testId='register-form' onSubmit={onSubmit}>
       <div class='grid-2'>
         <div>
           <div className='form-group'>
             <label htmlFor='nama_depan'>Nama Depan</label>
-            <input
-              type='text'
-              name='nama_depan'
-              //  value={}
-              onChange={onChange}
-              required
+            <FormInput
+              inputName='nama_depan'
+              inputType='text'
+              onChangeMethod={onChange}
             />
           </div>
-
-          {/* <div className='form-group'>
-            <label htmlFor='password'>Password</label>
-            <input
-              type='password'
-              name='password'
-              // value={}
-              // onChange={}
-              required
-            />
-          </div> */}
         </div>
 
         <div>
           <div className='form-group'>
             <label htmlFor='nama_belakang'>Nama Belakang</label>
-            <input
-              type='text'
-              name='nama_belakang'
-              //    value={}
-              onChange={onChange}
-              required
+            <FormInput
+              inputName='nama_belakang'
+              inputType='text'
+              onChangeMethod={onChange}
             />
           </div>
         </div>
@@ -92,12 +77,10 @@ const RegisterForm = props => {
         <div>
           <div className='form-group'>
             <label htmlFor='paspor'>Nomor Paspor (tanpa spasi)</label>
-            <input
-              type='text'
-              name='paspor'
-              //    value={}
-              onChange={onChange}
-              required
+            <FormInput
+              inputName='paspor'
+              inputType='text'
+              onChangeMethod={onChange}
             />
           </div>
         </div>
@@ -105,12 +88,10 @@ const RegisterForm = props => {
         <div>
           <div className='form-group'>
             <label htmlFor='password'>Password</label>
-            <input
-              type='password'
-              name='password'
-              // value={}
-              onChange={onChange}
-              required
+            <FormInput
+              inputName='password'
+              inputType='password'
+              onChangeMethod={onChange}
             />
           </div>
         </div>
@@ -120,12 +101,10 @@ const RegisterForm = props => {
         <div>
           <div className='form-group'>
             <label htmlFor='email'>Email</label>
-            <input
-              type='email'
-              name='email'
-              //    value={}
-              onChange={onChange}
-              required
+            <FormInput
+              inputName='email'
+              inputType='email'
+              onChangeMethod={onChange}
             />
           </div>
         </div>
@@ -133,12 +112,10 @@ const RegisterForm = props => {
         <div>
           <div className='form-group'>
             <label htmlFor='ponsel'>Nomor Ponsel</label>
-            <input
-              type='text'
-              name='ponsel'
-              //    value={}
-              onChange={onChange}
-              required
+            <FormInput
+              inputName='ponsel'
+              inputType='text'
+              onChangeMethod={onChange}
             />
           </div>
         </div>
@@ -148,12 +125,10 @@ const RegisterForm = props => {
         <div>
           <div className='form-group'>
             <label htmlFor='alamat'>Alamat di Jerman</label>
-            <input
-              type='text'
-              name='alamat'
-              //    value={}
-              onChange={onChange}
-              required
+            <FormInput
+              inputName='alamat'
+              inputType='text'
+              onChangeMethod={onChange}
             />
           </div>
         </div>
@@ -161,12 +136,10 @@ const RegisterForm = props => {
         <div>
           <div className='form-group'>
             <label htmlFor='kota_kodepos'>kota_kodepos</label>
-            <input
-              type='text'
-              name='kota_kodepos'
-              //    value={}
-              onChange={onChange}
-              required
+            <FormInput
+              inputName='kota_kodepos'
+              inputType='text'
+              onChangeMethod={onChange}
             />
           </div>
         </div>
