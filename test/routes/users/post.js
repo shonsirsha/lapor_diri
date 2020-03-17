@@ -14,7 +14,7 @@ describe("POST /users", async () => {
     }
   });
 
-  it("OK, Creating a new user works!", done => {
+  it("Creating a new user works!", done => {
     request(server)
       .post("/api/users")
       .send({
