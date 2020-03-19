@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 const FormInput = ({ inputType, inputName, onChangeMethod }) => {
   return (
-    <input
+    <Form.Control
       data-testid='formInput'
       type={inputType}
       name={inputName}
