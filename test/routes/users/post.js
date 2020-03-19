@@ -3,7 +3,7 @@ process.env.NODE_ENV = "test";
 const expect = require("chai").expect;
 const request = require("supertest");
 const server = require("../../../server");
-const connectDB = require("../../../config/db");
+const connectDB = require("../../../config/db.test");
 
 describe("POST /users", async () => {
   before(() => {
