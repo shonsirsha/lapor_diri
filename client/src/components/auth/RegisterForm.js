@@ -4,7 +4,7 @@ import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import FormInput from "./RegisterForm/FormInput";
 const RegisterForm = props => {
   const authContext = useContext(AuthContext);
-  const { registerUser } = authContext;
+  const { registerUser, loadUser } = authContext;
   useEffect(() => {}, []);
 
   const [user, setUser] = useState({

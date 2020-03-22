@@ -2,10 +2,10 @@ import React, { useReducer } from "react";
 
 import AuthContext from "./authContext";
 import AuthReducer from "./authReducer";
-
 import axios from "axios";
+import setAuthToken from "../../utils/setAuthToken";
 
-import { REGISTER_ERROR, REGISTER_SUCCESS } from "../types";
+import { REGISTER_ERROR, REGISTER_SUCCESS, USER_LOADED } from "../types";
 
 const AuthState = props => {
   const initialState = {
@@ -16,6 +16,38 @@ const AuthState = props => {
     error: null
   };
   const [state, dispatch] = useReducer(AuthReducer, initialState);
+
+  //load user
+
+  const loadUser2 = async () => {
+    try {
+      const res = await axios.get("/api/jancuk");
+
+      // dispatch({
+      //   // type: USER_LOADED,
+      //   // payload: res.data
+      // });
+      return res.data.result;
+    } catch (err) {
+      // d
+      ispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
+    }
+  };
+
+  const loadUser = async () => {
+    setAuthToken(localStorage.token); //setting global headers for x-auth-token
+
+    try {
+      const res = await axios.get("/api/auth");
+
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
+      });
+    } catch (err) {
+      // dispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
+    }
+  };
 
   const registerUser = async formData => {
     const config = {
@@ -31,8 +63,6 @@ const AuthState = props => {
         payload: res.data
       });
     } catch (err) {
-      console.log("aaaaaaa");
-      console.log(err.response.data.msg);
       dispatch({
         type: REGISTER_ERROR,
         payload: err.response.data.msg
@@ -43,7 +73,8 @@ const AuthState = props => {
   return (
     <AuthContext.Provider
       value={{
-        registerUser
+        registerUser,
+        loadUser
       }}
     >
       {props.children}
