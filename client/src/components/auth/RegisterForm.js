@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import FormInput from "./RegisterForm/FormInput";
+import FormLabel from "./RegisterForm/FormLabel";
+
 const RegisterForm = props => {
   const authContext = useContext(AuthContext);
   const { registerUser, loadUser } = authContext;
@@ -51,7 +53,7 @@ const RegisterForm = props => {
   return (
     <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
       <Form.Group controlId='nama_depan'>
-        <Form.Label htmlFor='nama_depan'>Nama Depan</Form.Label>
+        <FormLabel htmlFor='nama_depan' text='Nama Depan' />
         <FormInput
           inputName='nama_depan'
           inputType='text'
@@ -60,7 +62,7 @@ const RegisterForm = props => {
       </Form.Group>
 
       <Form.Group controlId='nama_belakang'>
-        <Form.Label htmlFor='nama_belakang'>Nama Belakang</Form.Label>
+        <FormLabel htmlFor='nama_belakang' text='Nama Belakang' />
         <FormInput
           inputName='nama_belakang'
           inputType='text'
@@ -69,7 +71,8 @@ const RegisterForm = props => {
       </Form.Group>
 
       <Form.Group controlId='paspor'>
-        <Form.Label htmlFor='paspor'>Nomor Paspor (tanpa spasi)</Form.Label>
+        <FormLabel htmlFor='paspor' text='Nomor Paspor (tanpa spasi)' />
+
         <FormInput
           inputName='paspor'
           inputType='text'
@@ -78,7 +81,8 @@ const RegisterForm = props => {
       </Form.Group>
 
       <Form.Group controlId='password'>
-        <Form.Label htmlFor='password'>Password</Form.Label>
+        <FormLabel htmlFor='password' text='Password' />
+
         <FormInput
           inputName='password'
           inputType='password'
@@ -86,8 +90,9 @@ const RegisterForm = props => {
         />
       </Form.Group>
 
-      <Form.Group controlId='password'>
-        <Form.Label htmlFor='email'>Email</Form.Label>
+      <Form.Group controlId='email'>
+        <FormLabel htmlFor='email' text='Email' />
+
         <FormInput
           inputName='email'
           inputType='email'
@@ -98,8 +103,9 @@ const RegisterForm = props => {
         </Form.Text>
       </Form.Group>
 
-      <Form.Group controlId='password'>
+      <Form.Group controlId='ponsel'>
         <Form.Label htmlFor='ponsel'>Nomor Ponsel</Form.Label>
+
         <FormInput
           inputName='ponsel'
           inputType='text'
@@ -109,6 +115,7 @@ const RegisterForm = props => {
 
       <Form.Group controlId='alamat'>
         <Form.Label htmlFor='alamat'>Alamat di Jerman</Form.Label>
+
         <FormInput
           inputName='alamat'
           inputType='text'
@@ -118,6 +125,7 @@ const RegisterForm = props => {
 
       <Form.Group controlId='kota_kodepos'>
         <Form.Label htmlFor='kota_kodepos'>Kota & Kodepos</Form.Label>
+
         <FormInput
           inputName='kota_kodepos'
           inputType='text'

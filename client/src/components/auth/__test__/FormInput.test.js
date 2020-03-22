@@ -14,9 +14,18 @@ it("Form elements rendered properly (no crash)", () => {
   ReactDOM.render(<FormLabel></FormLabel>, div);
 });
 
-it("Renders with correct type and name", () => {
+it("Form Input Renders with correct type and name", () => {
   const { getByTestId } = render(
     <FormInput inputType='text' inputName='nama_depan'></FormInput>
   );
   expect(getByTestId("formInput")).toHaveAttribute("type", "text");
+  expect(getByTestId("formInput")).toHaveAttribute("name", "nama_depan");
+});
+
+it("Form Label Renders with correct type and name", () => {
+  const { getByTestId } = render(
+    <FormLabel htmlFor='nama_depan' text='Nama Depan'></FormLabel>
+  );
+  expect(getByTestId("formLabel")).toHaveAttribute("for", "nama_depan");
+  expect(getByTestId("formLabel")).toHaveTextContent("Nama Depan");
 });
