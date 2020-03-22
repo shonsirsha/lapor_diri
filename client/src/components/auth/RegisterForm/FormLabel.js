@@ -6,11 +6,13 @@ const FormLabel = ({ htmlFor, text }) => {
 };
 
 FormLabel.propTypes = {
-  htmlFor: PropTypes.string.isRequired
+  htmlFor: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 };
 
 FormLabel.defaultProps = {
-  htmlFor: "some html element"
+  htmlFor: "some html element",
+  text: "label text"
 };
 
 export default FormLabel;
