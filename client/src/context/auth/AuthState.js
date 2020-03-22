@@ -18,22 +18,6 @@ const AuthState = props => {
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
   //load user
-
-  const loadUser2 = async () => {
-    try {
-      const res = await axios.get("/api/jancuk");
-
-      // dispatch({
-      //   // type: USER_LOADED,
-      //   // payload: res.data
-      // });
-      return res.data.result;
-    } catch (err) {
-      // d
-      ispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
-    }
-  };
-
   const loadUser = async () => {
     setAuthToken(localStorage.token); //setting global headers for x-auth-token
 
