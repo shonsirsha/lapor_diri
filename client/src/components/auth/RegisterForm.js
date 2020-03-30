@@ -136,6 +136,15 @@ const RegisterForm = props => {
       <Button variant='primary' type='submit'>
         Daftar
       </Button>
+      <Button
+        id='testbtn'
+        onClick={() => {
+          alert("asdsa");
+        }}
+        variant='primary'
+      >
+        Test
+      </Button>
     </Form>
   );
 };

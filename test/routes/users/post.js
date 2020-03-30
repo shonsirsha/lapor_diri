@@ -4,6 +4,7 @@ const expect = require("chai").expect;
 const request = require("supertest");
 const server = require("../../../server");
 const connectDB = require("../../../config/db.test");
+const sinon = require("sinon");
 
 describe("POST /users", async () => {
   before(() => {

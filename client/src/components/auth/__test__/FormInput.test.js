@@ -5,8 +5,10 @@ import FormLabel from "../RegisterForm/FormLabel";
 
 import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
+import puppeteer from "puppeteer";
 
 afterEach(cleanup);
+jest.setTimeout(30000);
 
 it("Form elements rendered properly (no crash)", () => {
   const div = document.createElement("div");
@@ -22,10 +24,22 @@ it("Form Input Renders with correct type and name", () => {
   expect(getByTestId("formInput")).toHaveAttribute("name", "nama_depan");
 });
 
-it("Form Label Renders with correct type and name", () => {
+it("Form Label Renders with correct htmlfor and text content", () => {
   const { getByTestId } = render(
     <FormLabel htmlFor='nama_depan' text='Nama Depan'></FormLabel>
   );
   expect(getByTestId("formLabel")).toHaveAttribute("for", "nama_depan");
   expect(getByTestId("formLabel")).toHaveTextContent("Nama Depan");
+});
+
+test("btn clicked", async () => {
+  const browser = await puppeteer.launch({
+    headless: false,
+    slowMo: 150,
+    args: ["--window-size=1920,1080"]
+  });
+
+  const page = await browser.newPage();
+  await page.goto("http://localhost:3000/");
+  await page.click("#testbtn");
 });
