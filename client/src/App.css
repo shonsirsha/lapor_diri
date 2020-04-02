@@ -1,3 +1,13 @@
 img {
   width: 100%;
 }
+
+.noStyleLink {
+  text-decoration: none;
+  color: rgb(94, 94, 94);
+}
+
+.noStyleLink:hover {
+  text-decoration: none;
+  color: rgb(55, 55, 55);
+}

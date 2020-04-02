@@ -9,7 +9,9 @@ import {
   REGISTER_ERROR,
   REGISTER_SUCCESS,
   USER_LOADED,
-  AUTH_ERROR
+  AUTH_ERROR,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS
 } from "../types";
 
 const AuthState = props => {
@@ -59,13 +61,40 @@ const AuthState = props => {
     }
   };
 
+  //login user
+  const loginUser = async formData => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    try {
+      const res = await axios.post("/api/auth", formData, config);
+
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      });
+      loadUser();
+    } catch (err) {
+      console.log(err.response.data.msg);
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err.response.data.msg
+      });
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated: state.isAuthenticated,
         loading: state.loading,
+        user: state.user,
         registerUser,
-        loadUser
+        loadUser,
+        loginUser
       }}
     >
       {props.children}
