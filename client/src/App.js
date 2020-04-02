@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/layouts/MyNavbar";
 import Home from "./components/pages/Home";
 import Register from "./components/auth/RegisterForm";
+import Lapor from "./components/lapor/Lapor";
 import AuthState from "./context/auth/AuthState";
 import setAuthToken from "./utils/setAuthToken";
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -21,7 +22,7 @@ const App = () => {
           <Switch>
             <Route exact path='/register' component={Register} />
             <Route exact path='/' component={Home} />
-            <PrivateRoute exact path='/lapor' component={Home} />
+            <PrivateRoute exact path='/lapor' component={Lapor} />
           </Switch>
         </Fragment>
       </Router>

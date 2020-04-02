@@ -3,6 +3,31 @@ import { Navbar, Nav } from "react-bootstrap";
 import Logo from "../imgs/logo.png";
 
 const MyNavbar = () => {
+  const authLinks = (
+    <Fragment>
+      {/* <li>Halo, {user ? user.name : null}!</li>
+      <li>
+        <a href='#!'>
+          <i className='fas fa-sign-out' />{" "}
+          <span className='hide-sm' onClick={onLogout}>
+            Logout
+          </span>
+        </a>
+      </li> */}
+    </Fragment>
+  );
+
+  const guessLinks = (
+    <Fragment>
+      <li>
+        <Link to='/register'>Register</Link>
+      </li>
+      <li>
+        <Link to='/login'>Login</Link>
+      </li>
+    </Fragment>
+  );
+
   return (
     <Fragment>
       <Navbar bg='light' variant='light'>
