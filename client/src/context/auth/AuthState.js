@@ -5,7 +5,12 @@ import AuthReducer from "./authReducer";
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 
-import { REGISTER_ERROR, REGISTER_SUCCESS, USER_LOADED } from "../types";
+import {
+  REGISTER_ERROR,
+  REGISTER_SUCCESS,
+  USER_LOADED,
+  AUTH_ERROR
+} from "../types";
 
 const AuthState = props => {
   const initialState = {
@@ -29,7 +34,7 @@ const AuthState = props => {
         payload: res.data
       });
     } catch (err) {
-      // dispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
+      dispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
     }
   };
 
