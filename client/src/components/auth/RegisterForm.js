@@ -28,7 +28,8 @@ const RegisterForm = (props) => {
     }
 
     if (error === "User already exists") {
-      setAlert(error, "danger");
+      setAlert("Email tersebut telah digunakan", "danger");
+      scrollTop();
     }
   }, [error, isAuthenticated, props.history]);
 
@@ -72,6 +73,14 @@ const RegisterForm = (props) => {
       kota_kodepos,
     });
   };
+
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   if (!isAuthenticated && !loading) {
     return (
       <div style={{ marginTop: "32px" }} className='container'>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import AuthContext from "../../context/auth/authContext";
+import AlertContext from "../../context/alert/alertContext";
 
 import {
   Container,
@@ -8,21 +9,26 @@ import {
   Form,
   Button,
   Card,
-  InputGroup
+  InputGroup,
 } from "react-bootstrap";
 import FormInput from "./RegisterForm/FormInput";
 
-const Login = props => {
+const Login = (props) => {
   const [user, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const { email, password } = user;
 
   const authContext = useContext(AuthContext);
-  const { loginUser, loadUser, isAuthenticated, loading } = authContext;
+  const alertContext = useContext(AlertContext);
+
+  const { error, loginUser, loadUser, isAuthenticated, loading } = authContext;
+  const { setAlert, clearAllAlerts } = alertContext;
+
   useEffect(() => {
+    clearAllAlerts();
     loadUser();
   }, []);
 
@@ -30,20 +36,25 @@ const Login = props => {
     if (isAuthenticated) {
       props.history.push("/");
     }
-  }, [isAuthenticated]);
 
-  const onChange = e => {
+    if (error === "Invalid credentials") {
+      setAlert("Akun tidak dapat ditemukan", "danger");
+      scrollTop();
+    }
+  }, [error, isAuthenticated]);
+
+  const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (email === "" || password === "") {
       //   setAlert("Please fill in all fields", "danger");
     } else {
       loginUser({
         email: email,
-        password: password
+        password: password,
       });
     }
   };
@@ -55,7 +66,7 @@ const Login = props => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
         className='container'
       >
