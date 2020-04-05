@@ -1,10 +1,11 @@
-import { SET_ALERT, REMOVE_ALERT } from "../types";
+import { SET_ALERT, CLEAR_ALERT } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
     case SET_ALERT:
+      console.log("ASDASDASDAS " + action.payload.id);
       return [...state, action.payload];
-    case REMOVE_ALERT:
+    case CLEAR_ALERT:
       state = [];
       return state;
     // state.filter(alert => alert.id !== action.payload);

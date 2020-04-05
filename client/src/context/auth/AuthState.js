@@ -12,7 +12,7 @@ import {
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  ADD_ALERT,
+  SET_ALERT,
   CLEAR_ALERT,
 } from "../types";
 
@@ -94,6 +94,7 @@ const AuthState = (props) => {
         isAuthenticated: state.isAuthenticated,
         loading: state.loading,
         user: state.user,
+        error: state.error,
         registerUser,
         loadUser,
         loginUser,

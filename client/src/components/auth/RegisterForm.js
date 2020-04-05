@@ -1,20 +1,36 @@
 import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import { Row, Col, Form, Button, Card } from "react-bootstrap";
 import FormInput from "./RegisterForm/FormInput";
 import FormLabel from "./RegisterForm/FormLabel";
+import AlertContext from "../../context/alert/alertContext";
 
-const RegisterForm = props => {
+const RegisterForm = (props) => {
   const authContext = useContext(AuthContext);
-  const { registerUser, loadUser, isAuthenticated, loading } = authContext;
+  const alertContext = useContext(AlertContext);
+
+  const {
+    error,
+    registerUser,
+    loadUser,
+    isAuthenticated,
+    loading,
+  } = authContext;
+  const { setAlert, clearAllAlerts } = alertContext;
+
   useEffect(() => {
+    clearAllAlerts();
     loadUser();
   }, []);
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push("/");
     }
-  }, [isAuthenticated, props.history]);
+
+    if (error === "User already exists") {
+      setAlert(error, "danger");
+    }
+  }, [error, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
     nama_depan: "",
@@ -24,7 +40,7 @@ const RegisterForm = props => {
     email: "",
     ponsel: "",
     alamat: "",
-    kota_kodepos: ""
+    kota_kodepos: "",
   });
 
   const {
@@ -35,14 +51,14 @@ const RegisterForm = props => {
     email,
     ponsel,
     alamat,
-    kota_kodepos
+    kota_kodepos,
   } = user;
 
-  const onChange = e => {
+  const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     registerUser({
@@ -53,7 +69,7 @@ const RegisterForm = props => {
       email,
       ponsel,
       alamat,
-      kota_kodepos
+      kota_kodepos,
     });
   };
   if (!isAuthenticated && !loading) {
@@ -61,7 +77,7 @@ const RegisterForm = props => {
       <div style={{ marginTop: "32px" }} className='container'>
         <h1>Formulir Layanan Mandiri</h1>
         <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
-          <Form.Group controlId='nama_depan'>
+          <Form.Group>
             <FormLabel htmlFor='nama_depan' text='Nama Depan' />
             <FormInput
               inputName='nama_depan'
@@ -70,7 +86,7 @@ const RegisterForm = props => {
             />
           </Form.Group>
 
-          <Form.Group controlId='nama_belakang'>
+          <Form.Group>
             <FormLabel htmlFor='nama_belakang' text='Nama Belakang' />
             <FormInput
               inputName='nama_belakang'
@@ -79,7 +95,7 @@ const RegisterForm = props => {
             />
           </Form.Group>
 
-          <Form.Group controlId='paspor'>
+          <Form.Group>
             <FormLabel htmlFor='paspor' text='Nomor Paspor (tanpa spasi)' />
 
             <FormInput
@@ -89,17 +105,21 @@ const RegisterForm = props => {
             />
           </Form.Group>
 
-          <Form.Group controlId='password'>
-            <FormLabel htmlFor='password' text='Password' />
+          <Form.Group>
+            <FormLabel htmlFor='password' text='Kata Sandi' />
 
             <FormInput
               inputName='password'
               inputType='password'
+              minLength='6'
               onChangeMethod={onChange}
             />
+            <Form.Text className='text-muted'>
+              Kata sandi harus mengandung 6 karakter atau lebih.
+            </Form.Text>
           </Form.Group>
 
-          <Form.Group controlId='email'>
+          <Form.Group>
             <FormLabel htmlFor='email' text='Email' />
 
             <FormInput
@@ -112,7 +132,7 @@ const RegisterForm = props => {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group controlId='ponsel'>
+          <Form.Group>
             <Form.Label htmlFor='ponsel'>Nomor Ponsel</Form.Label>
 
             <FormInput
@@ -122,7 +142,7 @@ const RegisterForm = props => {
             />
           </Form.Group>
 
-          <Form.Group controlId='alamat'>
+          <Form.Group>
             <Form.Label htmlFor='alamat'>Alamat di Jerman</Form.Label>
 
             <FormInput
@@ -132,7 +152,7 @@ const RegisterForm = props => {
             />
           </Form.Group>
 
-          <Form.Group controlId='kota_kodepos'>
+          <Form.Group>
             <Form.Label htmlFor='kota_kodepos'>Kota & Kodepos</Form.Label>
 
             <FormInput
