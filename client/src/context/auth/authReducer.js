@@ -4,7 +4,9 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
-  LOGIN_FAIL
+  LOGIN_FAIL,
+  CLEAR_ALERT,
+  ADD_ALERT,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {
@@ -15,7 +17,7 @@ export default (state, action) => {
         ...state,
         ...action.payload, //token
         isAuthenticated: true,
-        loading: false
+        loading: false,
       };
 
     case USER_LOADED:
@@ -24,7 +26,7 @@ export default (state, action) => {
         isAuthenticated: true,
         loading: false,
         user: action.payload,
-        error: null
+        error: null,
       };
     case AUTH_ERROR:
     case REGISTER_ERROR:
@@ -36,7 +38,7 @@ export default (state, action) => {
         isAuthenticated: false,
         loading: false,
         user: null,
-        error: action.payload
+        error: action.payload,
       };
     default:
       return state;
