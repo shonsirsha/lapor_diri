@@ -12,8 +12,7 @@ import {
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  SET_ALERT,
-  CLEAR_ALERT,
+  LOGOUT,
 } from "../types";
 
 const AuthState = (props) => {
@@ -88,6 +87,11 @@ const AuthState = (props) => {
     }
   };
 
+  //logout
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -98,6 +102,7 @@ const AuthState = (props) => {
         registerUser,
         loadUser,
         loginUser,
+        logoutUser,
       }}
     >
       {props.children}

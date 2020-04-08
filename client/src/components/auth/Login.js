@@ -58,6 +58,14 @@ const Login = (props) => {
       });
     }
   };
+
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   if (!isAuthenticated && !loading) {
     return (
       <div

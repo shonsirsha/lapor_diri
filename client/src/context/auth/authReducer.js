@@ -5,8 +5,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  CLEAR_ALERT,
-  SET_ALERT,
+  LOGOUT,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {
@@ -31,6 +30,7 @@ export default (state, action) => {
     case AUTH_ERROR:
     case REGISTER_ERROR:
     case LOGIN_FAIL:
+    case LOGOUT:
       localStorage.removeItem("token");
       return {
         ...state,

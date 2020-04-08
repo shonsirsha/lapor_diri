@@ -6,9 +6,11 @@ import AuthContext from "../../context/auth/authContext";
 
 const MyNavbar = () => {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, loading, user } = authContext;
+  const { isAuthenticated, user, logoutUser } = authContext;
 
-  const onLogout = () => {};
+  const onLogout = () => {
+    logoutUser();
+  };
   const authLinks = (
     <Fragment>
       <Navbar.Text>
