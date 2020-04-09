@@ -18,25 +18,42 @@ const Home = () => {
   const alertContext = useContext(AlertContext);
   const { clearAllAlerts } = alertContext;
 
-  const { loadUser } = authContext;
+  const { loadUser, user, loading, isAuthenticated } = authContext;
   useEffect(() => {
     clearAllAlerts();
     loadUser();
     //eslint-disable-next-line
+    console.log(isAuthenticated);
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      alert("asdas");
+    }
+  }, [isAuthenticated]);
   return (
     <Fragment>
       <Jumbotron>
         <Container>
           <h1 className='heroh1'>Selamat Datang di Layanan Mandiri</h1>
           <h2 style={{ marginBottom: "32px" }} className='lead'>
-            Lapor diri secara mandiri dan gratis untuk WNI di wilayah Jerman
+            {!isAuthenticated && !loading
+              ? "Lapor diri secara mandiri dan gratis untuk WNI di wilayah Jerman"
+              : "Anda telah terdaftar."}
           </h2>
-          <Link to='/register'>
-            <Button style={{ marginRight: "8px" }} variant='success'>
-              Mendaftar
-            </Button>{" "}
-          </Link>
+          {!isAuthenticated ? (
+            <Link to='/register'>
+              <Button style={{ marginRight: "8px" }} variant='success'>
+                Mendaftar
+              </Button>{" "}
+            </Link>
+          ) : (
+            <Link to='/register'>
+              <Button style={{ marginRight: "8px" }} variant='success'>
+                Ubah Data
+              </Button>{" "}
+            </Link>
+          )}
         </Container>
       </Jumbotron>
       <Container>
@@ -67,7 +84,7 @@ const Home = () => {
         </Row>
 
         <Row>
-          <Col>
+          <Col style={{ marginBottom: "64px" }}>
             <Accordion defaultActiveKey='0'>
               <Card>
                 <Card.Header>
