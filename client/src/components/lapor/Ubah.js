@@ -75,13 +75,23 @@ const Ubah = (props) => {
     loadUser();
   }, []);
 
+  useEffect(() => {
+    if (authContext.user) {
+      console.log(authContext.user.nama_depan);
+    } else {
+      console.log(authContext.user);
+    }
+    //todo is to setUser for each var into its inputs.
+  }, [authContext.user]);
+
   return (
     <Container style={{ marginTop: "32px" }}>
       <Row>
         <Col>
           <h2>Data Sean Liesanggoro saat ini</h2>
           <Button style={{ marginTop: "8px" }} variant='success' href='#unggah'>
-            Unggah Dokumen
+            Unggah Dokumen{" "}
+            {authContext.user ? authContext.user.first_name : "asdas"}
           </Button>
           <hr />
         </Col>
@@ -100,6 +110,15 @@ const Ubah = (props) => {
                       <FormLabel htmlFor='nama_depan' text='Nama Depan' />
                       <FormInput
                         inputName='nama_depan'
+                        inputType='text'
+                        onChangeMethod={onChange}
+                      />
+                    </Form.Group>
+
+                    <Form.Group>
+                      <FormLabel htmlFor='nama_belakang' text='Nama Belakang' />
+                      <FormInput
+                        inputName='nama_belakang'
                         inputType='text'
                         onChangeMethod={onChange}
                       />
