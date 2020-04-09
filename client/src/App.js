@@ -9,6 +9,7 @@ import Home from "./components/pages/Home";
 import Register from "./components/auth/RegisterForm";
 import Login from "./components/auth/Login";
 import Lapor from "./components/lapor/Lapor";
+import Ubah from "./components/lapor/Ubah";
 import MyAlert from "./components/layouts/MyAlert";
 
 import AuthState from "./context/auth/AuthState";
@@ -35,6 +36,7 @@ const App = () => {
               <Route exact path='/' component={Home} />
               <Route exact path='/login' component={Login} />
               <PrivateRoute exact path='/lapor' component={Lapor} />
+              <Route exact path='/ubah' component={Ubah} />
             </Switch>
             <Footer />
           </Fragment>

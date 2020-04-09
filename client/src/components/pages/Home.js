@@ -26,11 +26,6 @@ const Home = () => {
     console.log(isAuthenticated);
   }, []);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      alert("asdas");
-    }
-  }, [isAuthenticated]);
   return (
     <Fragment>
       <Jumbotron>
@@ -48,7 +43,7 @@ const Home = () => {
               </Button>{" "}
             </Link>
           ) : (
-            <Link to='/register'>
+            <Link to='/ubah'>
               <Button style={{ marginRight: "8px" }} variant='success'>
                 Ubah Data
               </Button>{" "}
