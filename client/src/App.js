@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Navbar from "./components/layouts/MyNavbar";
+import Footer from "./components/layouts/Footer";
 
 import Home from "./components/pages/Home";
 import Register from "./components/auth/RegisterForm";
@@ -35,6 +36,7 @@ const App = () => {
               <Route exact path='/login' component={Login} />
               <PrivateRoute exact path='/lapor' component={Lapor} />
             </Switch>
+            <Footer />
           </Fragment>
         </Router>
       </AlertState>
