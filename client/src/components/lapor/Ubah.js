@@ -77,6 +77,11 @@ const Ubah = (props) => {
 
   useEffect(() => {
     if (authContext.user) {
+      setUser({
+        nama_depan: authContext.user.nama_depan,
+        nama_belakang: authContext.user.nama_belakang,
+        paspor: authContext.user.paspor,
+      });
       console.log(authContext.user.nama_depan);
     } else {
       console.log(authContext.user);
@@ -91,7 +96,9 @@ const Ubah = (props) => {
           <h2>Data Sean Liesanggoro saat ini</h2>
           <Button style={{ marginTop: "8px" }} variant='success' href='#unggah'>
             Unggah Dokumen{" "}
-            {authContext.user ? authContext.user.first_name : "asdas"}
+            {
+              authContext.user ? authContext.user.first_name : "asdas" //should use the state here not the actual context.user
+            }
           </Button>
           <hr />
         </Col>
@@ -112,6 +119,7 @@ const Ubah = (props) => {
                         inputName='nama_depan'
                         inputType='text'
                         onChangeMethod={onChange}
+                        value={nama_depan}
                       />
                     </Form.Group>
 
@@ -121,6 +129,7 @@ const Ubah = (props) => {
                         inputName='nama_belakang'
                         inputType='text'
                         onChangeMethod={onChange}
+                        value={nama_belakang}
                       />
                     </Form.Group>
                   </Form>

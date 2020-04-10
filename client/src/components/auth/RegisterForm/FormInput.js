@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
-const FormInput = ({ inputType, inputName, onChangeMethod, minLength }) => {
+const FormInput = ({
+  inputType,
+  inputName,
+  onChangeMethod,
+  minLength,
+  value,
+}) => {
   return (
     <Form.Control
       data-testid='formInput'
@@ -9,6 +15,7 @@ const FormInput = ({ inputType, inputName, onChangeMethod, minLength }) => {
       name={inputName}
       onChange={onChangeMethod}
       minlength={minLength}
+      value={value}
       required
     />
   );
@@ -18,6 +25,7 @@ FormInput.propTypes = {
   inputName: PropTypes.string.isRequired,
   onChangeMethod: PropTypes.func,
   minLength: PropTypes.number,
+  value: PropTypes.string,
 };
 
 FormInput.defaultProps = {
