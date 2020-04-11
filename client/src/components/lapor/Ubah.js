@@ -81,6 +81,10 @@ const Ubah = (props) => {
         nama_depan: authContext.user.nama_depan,
         nama_belakang: authContext.user.nama_belakang,
         paspor: authContext.user.paspor,
+        email: authContext.user.email,
+        ponsel: authContext.user.ponsel,
+        alamat: authContext.user.alamat,
+        kota_kodepos: authContext.user.kota_kodepos,
       });
       console.log(authContext.user.nama_depan);
     } else {
@@ -132,6 +136,16 @@ const Ubah = (props) => {
                         value={nama_belakang}
                       />
                     </Form.Group>
+
+                    <Form.Group>
+                      <FormLabel htmlFor='paspor' text='Nomor Paspor' />
+                      <FormInput
+                        inputName='paspor'
+                        inputType='text'
+                        onChangeMethod={onChange}
+                        value={paspor}
+                      />
+                    </Form.Group>
                   </Form>
                 </Card.Body>
               </Accordion.Collapse>
@@ -145,28 +159,27 @@ const Ubah = (props) => {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey='0'>
                 <Card.Body>
-                  <p className='lead'>
-                    Dengan melaporkan diri pengatasan masalah akan menjadi lebih
-                    mudah :
-                  </p>
-                  <ol>
-                    <li>
-                      Pembuatan Dokumen yang hilang akan menjadi lebih cepat dan
-                      mudah pengurusannya
-                    </li>
-                    <li>
-                      Dapat memberikan bantuan secara cepat apabila terjadi
-                      musibah
-                    </li>
-                    <li>
-                      Pemberian Informasi yang akurat kepada keluarga di
-                      Indonesia
-                    </li>
-                    <li>
-                      Memberi kemudahan dalam mengurus surat-surat yang
-                      membutuhkan legalisasi pada perwakilan RI di Jerman
-                    </li>
-                  </ol>
+                  <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
+                    <Form.Group>
+                      <FormLabel htmlFor='alamat' text='Alamat di Jerman' />
+                      <FormInput
+                        inputName='alamat'
+                        inputType='text'
+                        onChangeMethod={onChange}
+                        value={alamat}
+                      />
+                    </Form.Group>
+
+                    <Form.Group>
+                      <FormLabel htmlFor='kota_kodepos' text='Kodepos & Kota' />
+                      <FormInput
+                        inputName='kota_kodepos'
+                        inputType='text'
+                        onChangeMethod={onChange}
+                        value={kota_kodepos}
+                      />
+                    </Form.Group>
+                  </Form>
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
@@ -179,28 +192,27 @@ const Ubah = (props) => {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey='0'>
                 <Card.Body>
-                  <p className='lead'>
-                    Dengan melaporkan diri pengatasan masalah akan menjadi lebih
-                    mudah :
-                  </p>
-                  <ol>
-                    <li>
-                      Pembuatan Dokumen yang hilang akan menjadi lebih cepat dan
-                      mudah pengurusannya
-                    </li>
-                    <li>
-                      Dapat memberikan bantuan secara cepat apabila terjadi
-                      musibah
-                    </li>
-                    <li>
-                      Pemberian Informasi yang akurat kepada keluarga di
-                      Indonesia
-                    </li>
-                    <li>
-                      Memberi kemudahan dalam mengurus surat-surat yang
-                      membutuhkan legalisasi pada perwakilan RI di Jerman
-                    </li>
-                  </ol>
+                  <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
+                    <Form.Group>
+                      <FormLabel htmlFor='email' text='Email' />
+                      <FormInput
+                        inputName='email'
+                        inputType='text'
+                        onChangeMethod={onChange}
+                        value={email}
+                      />
+                    </Form.Group>
+
+                    <Form.Group>
+                      <FormLabel htmlFor='ponsel' text='Ponsel' />
+                      <FormInput
+                        inputName='ponsel'
+                        inputType='text'
+                        onChangeMethod={onChange}
+                        value={ponsel}
+                      />
+                    </Form.Group>
+                  </Form>
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
