@@ -90,7 +90,7 @@ const AuthState = (props) => {
 
   //update contact
 
-  const updateContact = async (user) => {
+  const updateUser = async (user) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -118,6 +118,7 @@ const AuthState = (props) => {
         user: state.user,
         error: state.error,
         registerUser,
+        updateUser,
         loadUser,
         loginUser,
         logoutUser,

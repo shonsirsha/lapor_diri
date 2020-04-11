@@ -20,18 +20,13 @@ const Ubah = (props) => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
 
-  const {
-    error,
-    registerUser,
-    loadUser,
-    isAuthenticated,
-    loading,
-  } = authContext;
+  const { error, updateUser, loadUser, isAuthenticated, loading } = authContext;
   const { setAlert, clearAllAlerts } = alertContext;
 
   const [saved, setSaved] = useState(true);
 
   const [user, setUser] = useState({
+    _id: "",
     nama_depan: "",
     nama_belakang: "",
     paspor: "",
@@ -60,7 +55,7 @@ const Ubah = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+    updateUser(user);
     // registerUser({
     //   nama_depan,
     //   nama_belakang,
@@ -71,6 +66,7 @@ const Ubah = (props) => {
     //   alamat,
     //   kota_kodepos,
     // });
+    console.log(user);
 
     setSaved(true);
   };
@@ -83,6 +79,7 @@ const Ubah = (props) => {
   useEffect(() => {
     if (authContext.user) {
       setUser({
+        _id: authContext.user._id,
         nama_depan: authContext.user.nama_depan,
         nama_belakang: authContext.user.nama_belakang,
         paspor: authContext.user.paspor,
@@ -180,7 +177,7 @@ const Ubah = (props) => {
                   <Card.Body>
                     <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
                       <Form.Group>
-                        <FormLabel htmlFor='alamat' text='Alamat di Jerman' />
+                        <FormLabel htmlFor='alamat' text='Nama Jalan' />
                         <FormInput
                           inputName='alamat'
                           inputType='text'
@@ -206,7 +203,6 @@ const Ubah = (props) => {
                         type='submit'
                         style={{ marginTop: "8px" }}
                         variant='success'
-                        href='#unggah'
                       >
                         Simpan & perbarui
                       </Button>
@@ -235,7 +231,7 @@ const Ubah = (props) => {
                       </Form.Group>
 
                       <Form.Group>
-                        <FormLabel htmlFor='ponsel' text='Ponsel' />
+                        <FormLabel htmlFor='ponsel' text='Nomor Ponsel' />
                         <FormInput
                           inputName='ponsel'
                           inputType='text'
@@ -248,7 +244,6 @@ const Ubah = (props) => {
                         type='submit'
                         style={{ marginTop: "8px" }}
                         variant='success'
-                        href='#unggah'
                       >
                         Simpan & perbarui
                       </Button>
