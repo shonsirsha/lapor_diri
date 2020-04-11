@@ -13,6 +13,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
+  UPDATE_USER,
 } from "../types";
 
 const AuthState = (props) => {
@@ -48,7 +49,7 @@ const AuthState = (props) => {
       },
     };
     try {
-      const res = await axios.post("/api/users", formData, config);
+      const res = await axios.post("/api/user", formData, config);
 
       dispatch({
         type: REGISTER_SUCCESS,
@@ -84,6 +85,23 @@ const AuthState = (props) => {
         type: LOGIN_FAIL,
         payload: err.response.data.msg,
       });
+    }
+  };
+
+  //update contact
+
+  const updateContact = async (user) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.put(`/api/user/${user._id}`, user, config);
+      dispatch({ type: UPDATE_USER, payload: res.data });
+    } catch (err) {
+      // dispatch({ type: CONTACT_ERROR, payload: err.response.data });
     }
   };
 

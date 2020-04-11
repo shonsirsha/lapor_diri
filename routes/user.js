@@ -7,7 +7,7 @@ const config = require("config");
 const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
 
-//@route    POST api/users
+//@route    POST api/user
 //@desc     Register a user
 //@access   Public
 router.post(
@@ -92,7 +92,7 @@ router.post(
 
 module.exports = router;
 
-//@route    PUT api/users/:id
+//@route    PUT api/user/:id
 //@desc     Edit a user with id
 //@access   Private
 router.put("/:id", auth, async (req, res) => {

@@ -61,16 +61,18 @@ const Ubah = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    registerUser({
-      nama_depan,
-      nama_belakang,
-      paspor,
-      password,
-      email,
-      ponsel,
-      alamat,
-      kota_kodepos,
-    });
+    // registerUser({
+    //   nama_depan,
+    //   nama_belakang,
+    //   paspor,
+    //   password,
+    //   email,
+    //   ponsel,
+    //   alamat,
+    //   kota_kodepos,
+    // });
+
+    setSaved(true);
   };
 
   useEffect(() => {
@@ -93,17 +95,16 @@ const Ubah = (props) => {
     } else {
       console.log(authContext.user);
     }
-    //todo is to setUser for each var into its inputs.
   }, [authContext.user]);
   if (isAuthenticated && !loading) {
     return (
       <Container style={{ marginTop: "32px", position: "relative" }}>
-        <Alert className='statusBanner' variant='success'>
-          Data tersimpan
+        <Alert className='statusBanner' variant={saved ? "success" : "danger"}>
+          {saved ? "Data tersimpan" : "Data belum tersimpan"}
         </Alert>
         <Row>
           <Col>
-            <h2>Data {nama_depan + " " + nama_belakang} saat ini</h2>
+            <h2>Data Anda saat ini</h2>
             <Button
               style={{ marginTop: "8px" }}
               variant='outline-success'
@@ -161,7 +162,6 @@ const Ubah = (props) => {
                         type='submit'
                         style={{ marginTop: "8px" }}
                         variant='success'
-                        href='#unggah'
                       >
                         Simpan & perbarui
                       </Button>

@@ -58,4 +58,9 @@ img {
   right: 40px !important;
   z-index: 10;
   width: 256px;
+  text-align: center;
+}
+
+.statusBanner p {
+  text-align: center;
 }
