@@ -51,3 +51,11 @@ img {
   color: white;
   font-weight: bold;
 }
+
+.statusBanner {
+  position: fixed !important;
+  bottom: 0 !important;
+  right: 40px !important;
+  z-index: 10;
+  width: 256px;
+}
