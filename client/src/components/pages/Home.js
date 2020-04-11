@@ -51,7 +51,7 @@ const Home = () => {
     </Row>
   );
 
-  const guestHome = (
+  const homeGuest = (
     <Fragment>
       {notice}
       <Row>
@@ -166,7 +166,7 @@ const Home = () => {
           )}
         </Container>
       </Jumbotron>
-      <Container>{loading || !isAuthenticated ? guestHome : null}</Container>
+      <Container>{loading || !isAuthenticated ? homeGuest : null}</Container>
     </Fragment>
   );
 };
