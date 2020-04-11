@@ -54,8 +54,11 @@ img {
 
 .statusBanner {
   position: fixed !important;
-  bottom: 0 !important;
-  right: 40px !important;
+  top: 64px !important;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
   z-index: 10;
   width: 256px;
   text-align: center;

@@ -9,6 +9,7 @@ import {
   Alert,
   Accordion,
   Form,
+  Toast,
 } from "react-bootstrap";
 import FormInput from "../auth/RegisterForm/FormInput";
 import FormLabel from "../auth/RegisterForm/FormLabel";
@@ -24,7 +25,10 @@ const Ubah = (props) => {
   const { setAlert, clearAllAlerts } = alertContext;
 
   const [saved, setSaved] = useState(true);
-
+  const [showBanner, setShowBanner] = useState(false);
+  const toggleShowBanner = () => {
+    setShowBanner(!showBanner);
+  };
   const [user, setUser] = useState({
     _id: "",
     nama_depan: "",
@@ -52,7 +56,6 @@ const Ubah = (props) => {
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
-    setSaved(false);
   };
 
   const onSubmit = (e) => {
@@ -68,9 +71,15 @@ const Ubah = (props) => {
     //   alamat,
     //   kota_kodepos,
     // });
-    console.log(user);
 
-    setSaved(true);
+    setShowBanner(false);
+    setTimeout(() => {
+      setShowBanner(true);
+    }, 350);
+
+    setTimeout(() => {
+      setShowBanner(false);
+    }, 1850);
   };
 
   useEffect(() => {
@@ -99,13 +108,22 @@ const Ubah = (props) => {
   if (isAuthenticated && !loading) {
     return (
       <Container style={{ marginTop: "32px", position: "relative" }}>
-        <Alert
+        <Toast
           className='statusBanner'
-          variant={saved ? "success" : "danger"}
-          dismissible
+          show={showBanner}
+          onClose={toggleShowBanner}
         >
-          {saved ? "Data tersimpan" : "Data belum tersimpan"}
-        </Alert>
+          <Toast.Header>
+            <strong className='mr-auto'>Pemberitahuan</strong>
+          </Toast.Header>
+          <Toast.Body>
+            {" "}
+            <Alert variant={saved ? "success" : "danger"}>
+              {saved ? "Data tersimpan" : "Data belum tersimpan"}
+            </Alert>
+          </Toast.Body>
+        </Toast>
+
         <Row>
           <Col>
             <h2>Data Anda saat ini</h2>
