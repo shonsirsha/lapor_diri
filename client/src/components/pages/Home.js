@@ -26,17 +26,42 @@ const Home = () => {
     console.log(isAuthenticated);
   }, []);
 
+  const notice = (
+    <Row>
+      <Col>
+        <Alert
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+          key='1'
+          variant='warning'
+        >
+          <h3>PEMBERITAHUAN</h3>
+          <b>
+            Bagi WNI yang telah lapor diri sebelum adanya aplikasi ini, harap
+            mengaktualisasi datanya dengan{" "}
+            <Link style={{ textDecoration: "underline" }} to='/cekregistrasi'>
+              Cek Registrasi
+            </Link>
+          </b>
+        </Alert>
+      </Col>
+    </Row>
+  );
+
   return (
     <Fragment>
       <Jumbotron>
         <Container>
           <h1 className='heroh1'>Selamat Datang di Layanan Mandiri</h1>
           <h2 style={{ marginBottom: "32px" }} className='lead'>
-            {!isAuthenticated && !loading
+            {!isAuthenticated || loading
               ? "Lapor diri secara mandiri dan gratis untuk WNI di wilayah Jerman"
               : "Anda telah terdaftar."}
           </h2>
-          {!isAuthenticated ? (
+          {!isAuthenticated || loading ? (
             <Link to='/register'>
               <Button style={{ marginRight: "8px" }} variant='success'>
                 Mendaftar
@@ -45,38 +70,14 @@ const Home = () => {
           ) : (
             <Link to='/ubah'>
               <Button style={{ marginRight: "8px" }} variant='success'>
-                Ubah Data
+                Ubah / Perbarui Data
               </Button>{" "}
             </Link>
           )}
         </Container>
       </Jumbotron>
       <Container>
-        <Row>
-          <Col>
-            <Alert
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-              key='1'
-              variant='warning'
-            >
-              <h3>PEMBERITAHUAN</h3>
-              <b>
-                Bagi WNI yang telah lapor diri sebelum adanya aplikasi ini,
-                harap mengaktualisasi datanya dengan{" "}
-                <Link
-                  style={{ textDecoration: "underline" }}
-                  to='/cekregistrasi'
-                >
-                  Cek Registrasi
-                </Link>
-              </b>
-            </Alert>
-          </Col>
-        </Row>
+        {loading || !isAuthenticated ? notice : null}
 
         <Row>
           <Col style={{ marginBottom: "64px" }}>
