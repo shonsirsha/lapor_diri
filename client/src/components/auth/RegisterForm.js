@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
-import { Row, Col, Form, Button, Card } from "react-bootstrap";
+import { Row, Col, Form, Button, Card, Container } from "react-bootstrap";
 import FormInput from "./RegisterForm/FormInput";
 import FormLabel from "./RegisterForm/FormLabel";
 import AlertContext from "../../context/alert/alertContext";
@@ -83,26 +83,68 @@ const RegisterForm = (props) => {
 
   if (!isAuthenticated && !loading) {
     return (
-      <div style={{ marginTop: "32px" }} className='container'>
+      <Container style={{ marginTop: "32px" }}>
         <h1>Formulir Layanan Mandiri</h1>
-        <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
-          <Form.Group>
-            <FormLabel htmlFor='nama_depan' text='Nama Depan' />
-            <FormInput
-              inputName='nama_depan'
-              inputType='text'
-              onChangeMethod={onChange}
-            />
-          </Form.Group>
+        <Form
+          style={{ marginBottom: "32px", marginTop: "32px" }}
+          onSubmit={onSubmit}
+        >
+          <Row>
+            <Col sm={12} lg={6}>
+              <Form.Group>
+                <FormLabel htmlFor='nama_depan' text='Nama Depan' />
+                <FormInput
+                  inputName='nama_depan'
+                  inputType='text'
+                  onChangeMethod={onChange}
+                />
+              </Form.Group>
+            </Col>
 
-          <Form.Group>
-            <FormLabel htmlFor='nama_belakang' text='Nama Belakang' />
-            <FormInput
-              inputName='nama_belakang'
-              inputType='text'
-              onChangeMethod={onChange}
-            />
-          </Form.Group>
+            <Col sm={12} lg={6}>
+              <Form.Group>
+                <FormLabel htmlFor='nama_belakang' text='Nama Belakang' />
+                <FormInput
+                  inputName='nama_belakang'
+                  inputType='text'
+                  onChangeMethod={onChange}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm={12} lg={6}>
+              <Form.Group>
+                <FormLabel htmlFor='email' text='Email' />
+
+                <FormInput
+                  inputName='email'
+                  inputType='email'
+                  onChangeMethod={onChange}
+                />
+                <Form.Text className='text-muted'>
+                  Kami tidak akan pernah membagikan email Anda dengan orang
+                  lain.
+                </Form.Text>
+              </Form.Group>
+            </Col>
+            <Col sm={12} lg={6}>
+              <Form.Group>
+                <FormLabel htmlFor='password' text='Kata Sandi' />
+
+                <FormInput
+                  inputName='password'
+                  inputType='password'
+                  minLength='6'
+                  onChangeMethod={onChange}
+                />
+                <Form.Text className='text-muted'>
+                  Kata sandi harus mengandung 6 karakter atau lebih.
+                </Form.Text>
+              </Form.Group>
+            </Col>
+          </Row>
 
           <Form.Group>
             <FormLabel htmlFor='paspor' text='Nomor Paspor (tanpa spasi)' />
@@ -112,33 +154,6 @@ const RegisterForm = (props) => {
               inputType='text'
               onChangeMethod={onChange}
             />
-          </Form.Group>
-
-          <Form.Group>
-            <FormLabel htmlFor='password' text='Kata Sandi' />
-
-            <FormInput
-              inputName='password'
-              inputType='password'
-              minLength='6'
-              onChangeMethod={onChange}
-            />
-            <Form.Text className='text-muted'>
-              Kata sandi harus mengandung 6 karakter atau lebih.
-            </Form.Text>
-          </Form.Group>
-
-          <Form.Group>
-            <FormLabel htmlFor='email' text='Email' />
-
-            <FormInput
-              inputName='email'
-              inputType='email'
-              onChangeMethod={onChange}
-            />
-            <Form.Text className='text-muted'>
-              Kami tidak akan pernah membagikan email Anda dengan orang lain.
-            </Form.Text>
           </Form.Group>
 
           <Form.Group>
@@ -184,7 +199,7 @@ const RegisterForm = (props) => {
           Test
         </Button> */}
         </Form>
-      </div>
+      </Container>
     );
   } else {
     return <div></div>;

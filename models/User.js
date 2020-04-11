@@ -3,41 +3,45 @@ const mongoose = require("mongoose");
 const UserSchema = mongoose.Schema({
   nama_depan: {
     type: String,
-    required: true
+    required: true,
   },
   nama_belakang: {
     type: String,
-    required: true
+    required: true,
   },
   paspor: {
     type: String,
-    required: true
+    required: true,
+  },
+  kantor_pengeluaran: {
+    type: String,
+    required: true,
   },
   ponsel: {
     type: String,
-    required: true
+    required: true,
   },
   alamat: {
     type: String,
-    required: true
+    required: true,
   },
   kota_kodepos: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("user", UserSchema);

@@ -16,6 +16,9 @@ router.post(
     check("nama_depan", "Please include nama depan").not().isEmpty(),
     check("nama_belakang", "Please include nama belakang").not().isEmpty(),
     check("paspor", "Please include paspor").not().isEmpty(),
+    check("kantor_pengeluaran", "Please include kantor_pengeluaran")
+      .not()
+      .isEmpty(),
     check("ponsel", "Please include ponsel").not().isEmpty(),
     check("alamat", "Please include alamat").not().isEmpty(),
     check("kota_kodepos", "Please include kota_kodepos").not().isEmpty(),
@@ -35,6 +38,7 @@ router.post(
       nama_depan,
       nama_belakang,
       paspor,
+      kantor_pengeluaran,
       ponsel,
       alamat,
       kota_kodepos,
@@ -52,6 +56,7 @@ router.post(
         nama_depan: nama_depan,
         nama_belakang: nama_belakang,
         paspor: paspor,
+        kantor_pengeluaran: kantor_pengeluaran,
         ponsel: ponsel,
         alamat: alamat,
         kota_kodepos: kota_kodepos,

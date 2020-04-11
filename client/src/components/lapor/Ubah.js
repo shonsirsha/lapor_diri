@@ -96,7 +96,11 @@ const Ubah = (props) => {
   if (isAuthenticated && !loading) {
     return (
       <Container style={{ marginTop: "32px", position: "relative" }}>
-        <Alert className='statusBanner' variant={saved ? "success" : "danger"}>
+        <Alert
+          className='statusBanner'
+          variant={saved ? "success" : "danger"}
+          dismissible
+        >
           {saved ? "Data tersimpan" : "Data belum tersimpan"}
         </Alert>
         <Row>
