@@ -38,6 +38,7 @@ const RegisterForm = (props) => {
     nama_belakang: "",
     paspor: "",
     password: "",
+    kantor_pengeluaran: "",
     email: "",
     ponsel: "",
     alamat: "",
@@ -48,6 +49,7 @@ const RegisterForm = (props) => {
     nama_depan,
     nama_belakang,
     paspor,
+    kantor_pengeluaran,
     password,
     email,
     ponsel,
@@ -66,6 +68,7 @@ const RegisterForm = (props) => {
       nama_depan,
       nama_belakang,
       paspor,
+      kantor_pengeluaran,
       password,
       email,
       ponsel,
@@ -146,15 +149,34 @@ const RegisterForm = (props) => {
             </Col>
           </Row>
 
-          <Form.Group>
-            <FormLabel htmlFor='paspor' text='Nomor Paspor (tanpa spasi)' />
+          <Row>
+            <Col sm={12} lg={6}>
+              <Form.Group>
+                <FormLabel htmlFor='paspor' text='Nomor Paspor (tanpa spasi)' />
 
-            <FormInput
-              inputName='paspor'
-              inputType='text'
-              onChangeMethod={onChange}
-            />
-          </Form.Group>
+                <FormInput
+                  inputName='paspor'
+                  inputType='text'
+                  onChangeMethod={onChange}
+                />
+              </Form.Group>
+            </Col>
+
+            <Col sm={12} lg={6}>
+              <Form.Group>
+                <FormLabel
+                  htmlFor='kantor_pengeluaran'
+                  text='Kantor Pengeluaran Paspor'
+                />
+
+                <FormInput
+                  inputName='kantor_pengeluaran'
+                  inputType='text'
+                  onChangeMethod={onChange}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
 
           <Form.Group>
             <Form.Label htmlFor='ponsel'>Nomor Ponsel</Form.Label>

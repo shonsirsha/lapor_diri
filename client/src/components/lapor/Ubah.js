@@ -30,6 +30,7 @@ const Ubah = (props) => {
     nama_depan: "",
     nama_belakang: "",
     paspor: "",
+    kantor_pengeluaran: "",
     password: "",
     email: "",
     ponsel: "",
@@ -41,6 +42,7 @@ const Ubah = (props) => {
     nama_depan,
     nama_belakang,
     paspor,
+    kantor_pengeluaran,
     password,
     email,
     ponsel,
@@ -83,6 +85,7 @@ const Ubah = (props) => {
         nama_depan: authContext.user.nama_depan,
         nama_belakang: authContext.user.nama_belakang,
         paspor: authContext.user.paspor,
+        kantor_pengeluaran: authContext.user.kantor_pengeluaran,
         email: authContext.user.email,
         ponsel: authContext.user.ponsel,
         alamat: authContext.user.alamat,
@@ -156,6 +159,19 @@ const Ubah = (props) => {
                           inputType='text'
                           onChangeMethod={onChange}
                           value={paspor}
+                        />
+                      </Form.Group>
+
+                      <Form.Group>
+                        <FormLabel
+                          htmlFor='kantor_pengeluaran'
+                          text='Kantor Pengeluaran Paspor'
+                        />
+                        <FormInput
+                          inputName='kantor_pengeluaran'
+                          inputType='text'
+                          onChangeMethod={onChange}
+                          value={kantor_pengeluaran}
                         />
                       </Form.Group>
 
