@@ -115,13 +115,6 @@ const Ubah = (props) => {
         <Row>
           <Col>
             <h2>Data Anda saat ini</h2>
-            <Button
-              style={{ marginTop: "8px" }}
-              variant='outline-success'
-              href='#unggah'
-            >
-              Unggah Dokumen{" "}
-            </Button>
             <hr />
           </Col>
         </Row>
