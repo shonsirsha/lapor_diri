@@ -24,7 +24,14 @@ const Lapor = (props) => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
 
-  const { error, updateUser, loadUser, isAuthenticated, loading } = authContext;
+  const {
+    changePassword,
+    error,
+    updateUser,
+    loadUser,
+    isAuthenticated,
+    loading,
+  } = authContext;
   const { setAlert, clearAllAlerts } = alertContext;
 
   const [showBanner, setShowBanner] = useState(false);
@@ -69,6 +76,8 @@ const Lapor = (props) => {
   };
 
   const onSubmitChangePassword = (e) => {
+    e.preventDefault();
+    changePassword(user, password);
     //change password method here
   };
 
@@ -131,6 +140,9 @@ const Lapor = (props) => {
                 <Form.Text className='text-muted'>
                   Kata sandi harus mengandung 6 karakter atau lebih.
                 </Form.Text>
+                <Button type='submit' variant='success'>
+                  Simpan & perbarui
+                </Button>
               </Form.Group>
             </Form>
           </Modal.Body>
@@ -138,7 +150,7 @@ const Lapor = (props) => {
             <Button variant='secondary' onClick={toggleShowModal}>
               Batal
             </Button>
-            <Button variant='success' onClick={toggleShowModal}>
+            <Button variant='success' onClick={onSubmitChangePassword}>
               Simpan & perbarui
             </Button>
           </Modal.Footer>

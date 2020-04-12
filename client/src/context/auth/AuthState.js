@@ -99,9 +99,28 @@ const AuthState = (props) => {
 
     try {
       const res = await axios.put(`/api/user/${user._id}`, user, config);
-      dispatch({ type: UPDATE_USER, payload: res.data });
+      // dispatch({ type: UPDATE_USER, payload: res.data });
     } catch (err) {
       // dispatch({ type: CONTACT_ERROR, payload: err.response.data });
+    }
+  };
+
+  const changePassword = async (user, password) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.put(
+        `/api/user/change-password/${user._id}`,
+        { password: password },
+        config
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err.response);
     }
   };
 
@@ -119,6 +138,7 @@ const AuthState = (props) => {
         error: state.error,
         registerUser,
         updateUser,
+        changePassword,
         loadUser,
         loginUser,
         logoutUser,
