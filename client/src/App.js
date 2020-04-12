@@ -8,7 +8,6 @@ import Footer from "./components/layouts/Footer";
 import Home from "./components/pages/Home";
 import Register from "./components/auth/RegisterForm";
 import Login from "./components/auth/Login";
-import UbahSandi from "./components/pages/UbahSandi";
 import MyAlert from "./components/layouts/MyAlert";
 
 import AuthState from "./context/auth/AuthState";

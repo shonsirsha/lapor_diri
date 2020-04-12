@@ -8,7 +8,7 @@ import AuthContext from "../../context/auth/authContext";
 import Spinner from "../layouts/Spinner";
 
 import {
-  Jumbotron,
+  Modal,
   Button,
   Row,
   Col,
@@ -27,18 +27,24 @@ const Lapor = (props) => {
   const { error, updateUser, loadUser, isAuthenticated, loading } = authContext;
   const { setAlert, clearAllAlerts } = alertContext;
 
-  const [saved, setSaved] = useState(true);
   const [showBanner, setShowBanner] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+
   const toggleShowBanner = () => {
     setShowBanner(!showBanner);
+  };
+
+  const toggleShowModal = () => {
+    setShowModal(!showModal);
   };
   const [user, setUser] = useState({
     _id: "",
     nama_depan: "",
     nama_belakang: "",
     paspor: "",
-    kantor_pengeluaran: "",
     password: "",
+    kantor_pengeluaran: "",
     email: "",
     ponsel: "",
     alamat: "",
@@ -49,8 +55,8 @@ const Lapor = (props) => {
     nama_depan,
     nama_belakang,
     paspor,
-    kantor_pengeluaran,
     password,
+    kantor_pengeluaran,
     email,
     status,
     ponsel,
@@ -60,6 +66,10 @@ const Lapor = (props) => {
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const onSubmitChangePassword = (e) => {
+    //change password method here
   };
 
   const onSubmit = (e) => {
@@ -101,6 +111,38 @@ const Lapor = (props) => {
   if (isAuthenticated && !loading) {
     return (
       <Container style={{ marginTop: "32px", position: "relative" }}>
+        <Modal show={showModal} onHide={toggleShowModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Ubah Kata Sandi</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form
+              style={{ marginBottom: "32px" }}
+              onSubmit={onSubmitChangePassword}
+            >
+              <Form.Group>
+                <FormLabel htmlFor='password' text='Kata Sandi Baru' />
+                <FormInput
+                  inputName='password'
+                  inputType='password'
+                  onChangeMethod={onChange}
+                  value={password}
+                />
+                <Form.Text className='text-muted'>
+                  Kata sandi harus mengandung 6 karakter atau lebih.
+                </Form.Text>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={toggleShowModal}>
+              Batal
+            </Button>
+            <Button variant='success' onClick={toggleShowModal}>
+              Simpan & perbarui
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Toast
           className='statusBanner'
           show={showBanner}
@@ -110,10 +152,7 @@ const Lapor = (props) => {
             <strong className='mr-auto'>Pemberitahuan</strong>
           </Toast.Header>
           <Toast.Body>
-            {" "}
-            <Alert variant={saved ? "success" : "danger"}>
-              {saved ? "Data tersimpan" : "Data belum tersimpan"}
-            </Alert>
+            <Alert variant='success'>Data tersimpan</Alert>
           </Toast.Body>
         </Toast>
 
@@ -134,11 +173,16 @@ const Lapor = (props) => {
             )}
           </Col>
         </Row>
-
         <Row>
           <Col>
             <h2>Data Anda saat ini</h2>
-
+            <Button
+              style={{ marginTop: "4px", marginBottom: "8px" }}
+              variant='outline-success'
+              onClick={toggleShowModal}
+            >
+              Ubah Kata Sandi
+            </Button>
             <hr />
           </Col>
         </Row>
@@ -258,7 +302,7 @@ const Lapor = (props) => {
             <Accordion defaultActiveKey='0'>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey='0'>
-                  Kontak
+                  Kontak / Detail Akun
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey='0'>
                   <Card.Body>
