@@ -15,9 +15,12 @@ import FormInput from "../auth/RegisterForm/FormInput";
 import FormLabel from "../auth/RegisterForm/FormLabel";
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
+
+import Spinner from "../layouts/Spinner";
+
 import { Link } from "react-router-dom";
 
-const Ubah = (props) => {
+const Lapor = (props) => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
 
@@ -283,8 +286,12 @@ const Ubah = (props) => {
       </Container>
     );
   } else {
-    return <div></div>;
+    return (
+      
+        <Spinner />
+      
+    );
   }
 };
 
-export default Ubah;
+export default Lapor;
