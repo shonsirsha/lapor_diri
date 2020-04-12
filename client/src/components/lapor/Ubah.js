@@ -61,16 +61,6 @@ const Ubah = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     updateUser(user);
-    // registerUser({
-    //   nama_depan,
-    //   nama_belakang,
-    //   paspor,
-    //   password,
-    //   email,
-    //   ponsel,
-    //   alamat,
-    //   kota_kodepos,
-    // });
 
     setShowBanner(false);
     setTimeout(() => {
@@ -100,9 +90,7 @@ const Ubah = (props) => {
         alamat: authContext.user.alamat,
         kota_kodepos: authContext.user.kota_kodepos,
       });
-      console.log(authContext.user.nama_depan);
     } else {
-      console.log(authContext.user);
     }
   }, [authContext.user]);
   if (isAuthenticated && !loading) {

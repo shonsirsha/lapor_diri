@@ -105,6 +105,7 @@ router.put("/:id", auth, async (req, res) => {
     nama_depan,
     nama_belakang,
     paspor,
+    kantor_pengeluaran,
     ponsel,
     alamat,
     kota_kodepos,
@@ -112,27 +113,30 @@ router.put("/:id", auth, async (req, res) => {
   } = req.body;
 
   //build user object
-  const userFields = {};
+  const userField = {};
   if (nama_depan) {
-    userFields.nama_depan = nama_depan;
+    userField.nama_depan = nama_depan;
   }
   if (nama_belakang) {
-    userFields.nama_belakang = nama_belakang;
+    userField.nama_belakang = nama_belakang;
   }
   if (paspor) {
-    userFields.paspor = paspor;
+    userField.paspor = paspor;
+  }
+  if (kantor_pengeluaran) {
+    userField.kantor_pengeluaran = kantor_pengeluaran;
   }
   if (ponsel) {
-    userFields.ponsel = ponsel;
+    userField.ponsel = ponsel;
   }
   if (kota_kodepos) {
-    userFields.kota_kodepos = kota_kodepos;
+    userField.kota_kodepos = kota_kodepos;
   }
   if (alamat) {
-    userFields.alamat = alamat;
+    userField.alamat = alamat;
   }
   if (email) {
-    userFields.email = email;
+    userField.email = email;
   }
 
   try {
@@ -144,7 +148,7 @@ router.put("/:id", auth, async (req, res) => {
     user = await User.findByIdAndUpdate(
       req.params.id,
       {
-        $set: userFields,
+        $set: userField,
       },
       { new: true }
     );
