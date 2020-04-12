@@ -1,4 +1,12 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
+
+import FormInput from "../auth/RegisterForm/FormInput";
+import FormLabel from "../auth/RegisterForm/FormLabel";
+import AlertContext from "../../context/alert/alertContext";
+import AuthContext from "../../context/auth/authContext";
+
+import Spinner from "../layouts/Spinner";
+
 import {
   Jumbotron,
   Button,
@@ -11,14 +19,6 @@ import {
   Form,
   Toast,
 } from "react-bootstrap";
-import FormInput from "../auth/RegisterForm/FormInput";
-import FormLabel from "../auth/RegisterForm/FormLabel";
-import AlertContext from "../../context/alert/alertContext";
-import AuthContext from "../../context/auth/authContext";
-
-import Spinner from "../layouts/Spinner";
-
-import { Link } from "react-router-dom";
 
 const Lapor = (props) => {
   const authContext = useContext(AuthContext);

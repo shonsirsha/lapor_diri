@@ -8,7 +8,7 @@ import Footer from "./components/layouts/Footer";
 import Home from "./components/pages/Home";
 import Register from "./components/auth/RegisterForm";
 import Login from "./components/auth/Login";
-// import Ubah from "./components/lapor/Ubah";
+import UbahSandi from "./components/pages/UbahSandi";
 import MyAlert from "./components/layouts/MyAlert";
 
 import AuthState from "./context/auth/AuthState";
@@ -34,7 +34,7 @@ const App = () => {
               <Route exact path='/register' component={Register} />
               <Route exact path='/' component={Home} />
               <Route exact path='/login' component={Login} />
-              {/* <PrivateRoute exact path='/ubah' component={Ubah} /> */}
+              <PrivateRoute exact path='/ubah-sandi' component={UbahSandi} />
             </Switch>
             <Footer />
           </Fragment>
