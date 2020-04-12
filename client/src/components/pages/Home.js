@@ -13,6 +13,7 @@ import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import HomeGuest from "../layouts/HomeGuest";
 import HomeAuth from "../lapor/Lapor";
+import Spinner from "../layouts/Spinner";
 
 import { Link } from "react-router-dom";
 
@@ -51,7 +52,13 @@ const Home = () => {
         </Container>
       </Jumbotron>
       <Container>
-        {loading || !isAuthenticated ? <HomeGuest /> : <HomeAuth />}
+        {loading ? (
+          <Spinner />
+        ) : !isAuthenticated ? (
+          <HomeGuest />
+        ) : (
+          <HomeAuth />
+        )}
       </Container>
     </Fragment>
   );
