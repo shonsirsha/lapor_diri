@@ -67,3 +67,10 @@ img {
 .statusBanner p {
   text-align: center;
 }
+.hero {
+  background: linear-gradient(rgba(21, 21, 21, 0.4), rgba(21, 21, 21, 0.4)),
+    url("./components/imgs/hero.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+}

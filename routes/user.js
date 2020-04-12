@@ -185,7 +185,6 @@ router.put("/change-password/:id", auth, async (req, res) => {
     );
     res.json(user);
   } catch (e) {
-    console.error(e.message);
     res.status(500).send("Server error");
   }
 });

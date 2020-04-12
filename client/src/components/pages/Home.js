@@ -31,7 +31,7 @@ const Home = () => {
 
   return (
     <Fragment>
-      <Jumbotron>
+      <Jumbotron className='hero'>
         <Container>
           <h1 className='heroh1'>Selamat Datang di Layanan Mandiri</h1>
           <h2 style={{ marginBottom: "32px" }} className='lead'>
