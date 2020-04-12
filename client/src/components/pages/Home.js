@@ -35,9 +35,7 @@ const Home = () => {
         <Container>
           <h1 className='heroh1'>Selamat Datang di Layanan Mandiri</h1>
           <h2 style={{ marginBottom: "32px" }} className='lead'>
-            {!isAuthenticated || loading
-              ? "Lapor diri secara mandiri dan gratis untuk WNI di wilayah Jerman"
-              : "Anda telah terdaftar."}
+            Lapor diri secara mandiri dan gratis untuk WNI di wilayah Jerman
           </h2>
           {!isAuthenticated || loading ? (
             <Link to='/register'>

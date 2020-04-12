@@ -24,7 +24,6 @@ const Ubah = (props) => {
   const { error, updateUser, loadUser, isAuthenticated, loading } = authContext;
   const { setAlert, clearAllAlerts } = alertContext;
 
-  const [saved, setSaved] = useState(true);
   const [showBanner, setShowBanner] = useState(false);
   const toggleShowBanner = () => {
     setShowBanner(!showBanner);
@@ -106,9 +105,7 @@ const Ubah = (props) => {
           </Toast.Header>
           <Toast.Body>
             {" "}
-            <Alert variant={saved ? "success" : "danger"}>
-              {saved ? "Data tersimpan" : "Data belum tersimpan"}
-            </Alert>
+            <Alert variant='success'>Data tersimpan</Alert>
           </Toast.Body>
         </Toast>
 

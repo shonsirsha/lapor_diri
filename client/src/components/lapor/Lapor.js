@@ -52,6 +52,7 @@ const Lapor = (props) => {
     kantor_pengeluaran,
     password,
     email,
+    status,
     ponsel,
     alamat,
     kota_kodepos,
@@ -89,6 +90,7 @@ const Lapor = (props) => {
         paspor: authContext.user.paspor,
         kantor_pengeluaran: authContext.user.kantor_pengeluaran,
         email: authContext.user.email,
+        status: authContext.user.status,
         ponsel: authContext.user.ponsel,
         alamat: authContext.user.alamat,
         kota_kodepos: authContext.user.kota_kodepos,
@@ -114,6 +116,24 @@ const Lapor = (props) => {
             </Alert>
           </Toast.Body>
         </Toast>
+
+        <Row style={{ marginBottom: "16px" }}>
+          <Col>
+            {status && !loading ? (
+              <Alert key='1' variant='success'>
+                <p class='lead'>Pendaftaran Anda telah lengkap.</p>
+              </Alert>
+            ) : (
+              <Alert key='1' variant='danger'>
+                <b>PENTING</b>
+                <p class='lead'>Pendaftaran Anda telah lengkap.</p>
+                <Button href='#unggah' variant='outline-danger'>
+                  Unggah dokumen
+                </Button>
+              </Alert>
+            )}
+          </Col>
+        </Row>
 
         <Row>
           <Col>
@@ -286,11 +306,7 @@ const Lapor = (props) => {
       </Container>
     );
   } else {
-    return (
-      
-        <Spinner />
-      
-    );
+    return <Spinner />;
   }
 };
 
