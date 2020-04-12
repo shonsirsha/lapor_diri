@@ -158,3 +158,34 @@ router.put("/:id", auth, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+//@route    PUT api/user/change-password/:id
+//@desc     Edit a user's password with id
+//@access   Private
+router.put("/change-password/:id", auth, async (req, res) => {
+  const { password } = req.body;
+
+  const salt = await bcrypt.genSalt(10);
+
+  const userField = {};
+  userField.password = await bcrypt.hash(password, salt);
+
+  try {
+    let user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    user = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: userField,
+      },
+      { new: true }
+    );
+    res.json(user);
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send("Server error");
+  }
+});
