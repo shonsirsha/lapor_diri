@@ -78,6 +78,14 @@ const Lapor = (props) => {
   const onSubmitChangePassword = (e) => {
     e.preventDefault();
     changePassword(user, password);
+    setShowBanner(false);
+    setTimeout(() => {
+      setShowBanner(true);
+    }, 350);
+
+    setTimeout(() => {
+      setShowBanner(false);
+    }, 1850);
     //change password method here
   };
 
@@ -125,10 +133,7 @@ const Lapor = (props) => {
             <Modal.Title>Ubah Kata Sandi</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form
-              style={{ marginBottom: "32px" }}
-              onSubmit={onSubmitChangePassword}
-            >
+            <Form style={{ marginBottom: "32px" }}>
               <Form.Group>
                 <FormLabel htmlFor='password' text='Kata Sandi Baru' />
                 <FormInput
@@ -140,9 +145,6 @@ const Lapor = (props) => {
                 <Form.Text className='text-muted'>
                   Kata sandi harus mengandung 6 karakter atau lebih.
                 </Form.Text>
-                <Button type='submit' variant='success'>
-                  Simpan & perbarui
-                </Button>
               </Form.Group>
             </Form>
           </Modal.Body>
@@ -177,7 +179,13 @@ const Lapor = (props) => {
             ) : (
               <Alert key='1' variant='danger'>
                 <b>PENTING</b>
-                <p class='lead'>Pendaftaran Anda telah lengkap.</p>
+                <p class='lead'>
+                  Pendaftaran Anda{" "}
+                  <b>
+                    belum lengkap.
+                    <br /> Mohon unggah dokumen yang diperlukan.
+                  </b>
+                </p>
                 <Button href='#unggah' variant='outline-danger'>
                   Unggah dokumen
                 </Button>
