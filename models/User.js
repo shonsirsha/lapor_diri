@@ -43,6 +43,14 @@ const UserSchema = mongoose.Schema({
     required: true,
     default: 0,
   },
+  melde_pic: {
+    type: String,
+    required: false,
+  },
+  paspor_pic: {
+    type: String,
+    required: false,
+  },
   date: {
     type: Date,
     default: Date.now,
