@@ -1,6 +1,14 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
+
+import FormInput from "../auth/RegisterForm/FormInput";
+import FormLabel from "../auth/RegisterForm/FormLabel";
+import AlertContext from "../../context/alert/alertContext";
+import AuthContext from "../../context/auth/authContext";
+
+import Spinner from "./Spinner";
+
 import {
-  Jumbotron,
+  Modal,
   Button,
   Row,
   Col,
@@ -10,31 +18,43 @@ import {
   Accordion,
   Form,
   Toast,
+  FormGroup,
 } from "react-bootstrap";
-import FormInput from "../auth/RegisterForm/FormInput";
-import FormLabel from "../auth/RegisterForm/FormLabel";
-import AlertContext from "../../context/alert/alertContext";
-import AuthContext from "../../context/auth/authContext";
-import { Link } from "react-router-dom";
 
-const Ubah = (props) => {
+const HomeAuth = (props) => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
 
-  const { error, updateUser, loadUser, isAuthenticated, loading } = authContext;
+  const {
+    changePassword,
+    error,
+    updateUser,
+    loadUser,
+    isAuthenticated,
+    loading,
+  } = authContext;
   const { setAlert, clearAllAlerts } = alertContext;
 
   const [showBanner, setShowBanner] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+  const [fileNameMelde, setFileNameMelde] = useState(
+    "Pilh dokumen Meldebescheinigung"
+  );
   const toggleShowBanner = () => {
     setShowBanner(!showBanner);
+  };
+
+  const toggleShowModal = () => {
+    setShowModal(!showModal);
   };
   const [user, setUser] = useState({
     _id: "",
     nama_depan: "",
     nama_belakang: "",
     paspor: "",
-    kantor_pengeluaran: "",
     password: "",
+    kantor_pengeluaran: "",
     email: "",
     ponsel: "",
     alamat: "",
@@ -45,9 +65,10 @@ const Ubah = (props) => {
     nama_depan,
     nama_belakang,
     paspor,
-    kantor_pengeluaran,
     password,
+    kantor_pengeluaran,
     email,
+    status,
     ponsel,
     alamat,
     kota_kodepos,
@@ -55,6 +76,24 @@ const Ubah = (props) => {
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const onChangeUploadImg = (e) => {
+    setFileNameMelde(e.target.files[0].name);
+  };
+
+  const onSubmitChangePassword = (e) => {
+    e.preventDefault();
+    changePassword(user, password);
+    setShowBanner(false);
+    setTimeout(() => {
+      setShowBanner(true);
+    }, 350);
+
+    setTimeout(() => {
+      setShowBanner(false);
+    }, 1850);
+    //change password method here
   };
 
   const onSubmit = (e) => {
@@ -85,6 +124,7 @@ const Ubah = (props) => {
         paspor: authContext.user.paspor,
         kantor_pengeluaran: authContext.user.kantor_pengeluaran,
         email: authContext.user.email,
+        status: authContext.user.status,
         ponsel: authContext.user.ponsel,
         alamat: authContext.user.alamat,
         kota_kodepos: authContext.user.kota_kodepos,
@@ -95,6 +135,36 @@ const Ubah = (props) => {
   if (isAuthenticated && !loading) {
     return (
       <Container style={{ marginTop: "32px", position: "relative" }}>
+        <Modal show={showModal} onHide={toggleShowModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Ubah Kata Sandi</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form style={{ marginBottom: "32px" }}>
+              ``
+              <Form.Group>
+                <FormLabel htmlFor='password' text='Kata Sandi Baru' />
+                <FormInput
+                  inputName='password'
+                  inputType='password'
+                  onChangeMethod={onChange}
+                  value={password}
+                />
+                <Form.Text className='text-muted'>
+                  Kata sandi harus mengandung 6 karakter atau lebih.
+                </Form.Text>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={toggleShowModal}>
+              Batal
+            </Button>
+            <Button variant='success' onClick={onSubmitChangePassword}>
+              Simpan & perbarui
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Toast
           className='statusBanner'
           show={showBanner}
@@ -104,14 +174,43 @@ const Ubah = (props) => {
             <strong className='mr-auto'>Pemberitahuan</strong>
           </Toast.Header>
           <Toast.Body>
-            {" "}
             <Alert variant='success'>Data tersimpan</Alert>
           </Toast.Body>
         </Toast>
 
+        <Row style={{ marginBottom: "16px" }}>
+          <Col>
+            {status && !loading ? (
+              <Alert key='1' variant='success'>
+                <p class='lead'>Pendaftaran Anda telah lengkap.</p>
+              </Alert>
+            ) : (
+              <Alert key='1' variant='warning'>
+                <b>PENTING</b>
+                <p class='lead'>
+                  Pendaftaran Anda{" "}
+                  <b>
+                    belum lengkap.
+                    <br /> Mohon unggah dokumen yang diperlukan.
+                  </b>
+                </p>
+                <Button href='#unggah' variant='warning'>
+                  Unggah dokumen
+                </Button>
+              </Alert>
+            )}
+          </Col>
+        </Row>
         <Row>
           <Col>
             <h2>Data Anda saat ini</h2>
+            <Button
+              style={{ marginTop: "4px", marginBottom: "8px" }}
+              variant='outline-success'
+              onClick={toggleShowModal}
+            >
+              Ubah Kata Sandi
+            </Button>
             <hr />
           </Col>
         </Row>
@@ -231,7 +330,7 @@ const Ubah = (props) => {
             <Accordion defaultActiveKey='0'>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey='0'>
-                  Kontak
+                  Kontak / Detail Akun
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey='0'>
                   <Card.Body>
@@ -272,15 +371,44 @@ const Ubah = (props) => {
         </Row>
         <Row id='unggah'>
           <Col>
-            <hr />
-            <h2>Unggah dokumen</h2>
+            <h2 style={{ marginBottom: "16px" }}>Unggah dokumen</h2>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Accordion defaultActiveKey='0'>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey='0'>
+                  Kontak / Detail Akun
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey='0'>
+                  <Card.Body>
+                    <div class='custom-file '>
+                      <input
+                        type='file'
+                        class='custom-file-input'
+                        id='customFile'
+                        accept='image/*'
+                        onChange={onChangeUploadImg}
+                      />
+
+                      <label class='custom-file-label' for='customFile'>
+                        {fileNameMelde}
+                      </label>
+                    </div>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+
+            {/* */}
           </Col>
         </Row>
       </Container>
     );
   } else {
-    return <div></div>;
+    return <Spinner />;
   }
 };
 
-export default Ubah;
+export default HomeAuth;
