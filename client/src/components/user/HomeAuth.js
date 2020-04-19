@@ -35,15 +35,10 @@ const HomeAuth = (props) => {
   } = authContext;
   const { setAlert, clearAllAlerts } = alertContext;
 
-  const [showBanner, setShowBanner] = useState(false);
-
   const [showModal, setShowModal] = useState(false);
   const [fileNameMelde, setFileNameMelde] = useState(
     "Pilh dokumen Meldebescheinigung"
   );
-  const toggleShowBanner = () => {
-    setShowBanner(!showBanner);
-  };
 
   const toggleShowModal = () => {
     setShowModal(!showModal);
@@ -85,28 +80,11 @@ const HomeAuth = (props) => {
   const onSubmitChangePassword = (e) => {
     e.preventDefault();
     changePassword(user, password);
-    // setShowBanner(false);
-    // setTimeout(() => {
-    //   setShowBanner(true);
-    // }, 350);
-
-    // setTimeout(() => {
-    //   setShowBanner(false);
-    // }, 1850);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     updateUser(user);
-
-    setShowBanner(false);
-    setTimeout(() => {
-      setShowBanner(true);
-    }, 350);
-
-    setTimeout(() => {
-      setShowBanner(false);
-    }, 1850);
   };
 
   useEffect(() => {
@@ -139,8 +117,10 @@ const HomeAuth = (props) => {
             <Modal.Title>Ubah Kata Sandi</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form style={{ marginBottom: "32px" }}>
-              ``
+            <Form
+              style={{ marginBottom: "32px" }}
+              onSubmit={onSubmitChangePassword}
+            >
               <Form.Group>
                 <FormLabel htmlFor='password' text='Kata Sandi Baru' />
                 <FormInput
@@ -148,6 +128,7 @@ const HomeAuth = (props) => {
                   inputType='password'
                   onChangeMethod={onChange}
                   value={password}
+                  minLength='6'
                 />
                 <Form.Text className='text-muted'>
                   Kata sandi harus mengandung 6 karakter atau lebih.
@@ -164,7 +145,6 @@ const HomeAuth = (props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-        
 
         <Row style={{ marginBottom: "16px" }}>
           <Col>

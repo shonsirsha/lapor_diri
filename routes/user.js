@@ -164,32 +164,46 @@ router.put("/:id", auth, async (req, res) => {
 //@route    PUT api/user/change-password/:id
 //@desc     Edit a user's password with id
 //@access   Private
-router.put("/change-password/:id", auth, async (req, res) => {
-  const { password } = req.body;
-
-  const salt = await bcrypt.genSalt(10);
-
-  const userField = {};
-  userField.password = await bcrypt.hash(password, salt);
-
-  try {
-    let user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+router.put(
+  "/change-password/:id",
+  auth,
+  [
+    check(
+      "password",
+      "Please enter a password with 6 or more characters"
+    ).isLength({ min: 6 }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
+    const { password } = req.body;
 
-    user = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: userField,
-      },
-      { new: true }
-    );
-    res.json(user);
-  } catch (e) {
-    res.status(500).send("Server error");
+    const salt = await bcrypt.genSalt(10);
+
+    const userField = {};
+    userField.password = await bcrypt.hash(password, salt);
+
+    try {
+      let user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(404).json({ msg: "User not found" });
+      }
+
+      user = await User.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: userField,
+        },
+        { new: true }
+      );
+      res.json(user);
+    } catch (e) {
+      res.status(500).send("Server error");
+    }
   }
-});
+);
 
 //@route    PUT api/user/upload-melde/:id
 //@desc     Edit a user's password with id

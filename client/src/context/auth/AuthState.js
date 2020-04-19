@@ -108,6 +108,9 @@ const AuthState = (props) => {
       }, 800);
     } catch (err) {
       dispatch({ type: UPDATE_FAIL });
+      setTimeout(() => {
+        resetToast();
+      }, 800);
     }
   };
 
@@ -128,9 +131,15 @@ const AuthState = (props) => {
         { password: password },
         config
       );
-      console.log(res);
+      dispatch({ type: UPDATE_SUCCESS });
+      setTimeout(() => {
+        resetToast();
+      }, 800);
     } catch (err) {
-      console.log(err.response);
+      dispatch({ type: UPDATE_FAIL });
+      setTimeout(() => {
+        resetToast();
+      }, 800);
     }
   };
 
