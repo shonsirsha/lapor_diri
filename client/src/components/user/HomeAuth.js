@@ -85,15 +85,14 @@ const HomeAuth = (props) => {
   const onSubmitChangePassword = (e) => {
     e.preventDefault();
     changePassword(user, password);
-    setShowBanner(false);
-    setTimeout(() => {
-      setShowBanner(true);
-    }, 350);
+    // setShowBanner(false);
+    // setTimeout(() => {
+    //   setShowBanner(true);
+    // }, 350);
 
-    setTimeout(() => {
-      setShowBanner(false);
-    }, 1850);
-    //change password method here
+    // setTimeout(() => {
+    //   setShowBanner(false);
+    // }, 1850);
   };
 
   const onSubmit = (e) => {

@@ -13,7 +13,9 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
-  UPDATE_USER,
+  UPDATE_SUCCESS,
+  UPDATE_FAIL,
+  RESET_UPDATE,
 } from "../types";
 
 const AuthState = (props) => {
@@ -23,6 +25,7 @@ const AuthState = (props) => {
     loading: true,
     user: null,
     error: null,
+    updated: "hidden",
   };
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
@@ -99,10 +102,17 @@ const AuthState = (props) => {
 
     try {
       const res = await axios.put(`/api/user/${user._id}`, user, config);
-      // dispatch({ type: UPDATE_USER, payload: res.data });
+      dispatch({ type: UPDATE_SUCCESS });
+      setTimeout(() => {
+        resetToast();
+      }, 800);
     } catch (err) {
-      // dispatch({ type: CONTACT_ERROR, payload: err.response.data });
+      dispatch({ type: UPDATE_FAIL });
     }
+  };
+
+  const resetToast = () => {
+    dispatch({ type: RESET_UPDATE });
   };
 
   const changePassword = async (user, password) => {
@@ -136,6 +146,7 @@ const AuthState = (props) => {
         loading: state.loading,
         user: state.user,
         error: state.error,
+        updated: state.updated,
         registerUser,
         updateUser,
         changePassword,

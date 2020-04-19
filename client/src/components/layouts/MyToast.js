@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import AuthContext from "../../context/auth/authContext";
+
 import {
   Modal,
   Button,
@@ -13,23 +15,36 @@ import {
   FormGroup,
 } from "react-bootstrap";
 const MyToast = () => {
-  const [showBanner, setShowBanner] = useState(true);
+  const authContext = useContext(AuthContext);
 
-  const toggleShowBanner = () => {
-    setShowBanner(!showBanner);
+  const { updated } = authContext;
+  const [showtoast, setShowtoast] = useState(false);
+  const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    if (updated === "hidden") {
+      setShowtoast(false);
+    } else {
+      setShowtoast(true);
+      setStatus(updated);
+    }
+  }, [updated]);
+
+  const toggleShowtoast = () => {
+    setShowtoast(!showtoast);
   };
 
   return (
-    <Toast
-      className='statusBanner'
-      show={showBanner}
-      onClose={toggleShowBanner}
-    >
+    <Toast className='statusToast' show={showtoast} onClose={toggleShowtoast}>
       <Toast.Header>
         <strong className='mr-auto'>Pemberitahuan</strong>
       </Toast.Header>
       <Toast.Body>
-        <Alert variant='success'>Data tersimpan</Alert>
+        <Alert variant={status === "success" ? "success" : "danger"}>
+          {status === "success"
+            ? "Data tersimpan"
+            : "Mohon maaf, terjadi kesalahan dalam menyimpan"}
+        </Alert>
       </Toast.Body>
     </Toast>
   );

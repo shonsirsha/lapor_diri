@@ -6,6 +6,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  UPDATE_SUCCESS,
+  UPDATE_FAIL,
+  RESET_UPDATE,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {
@@ -26,6 +29,21 @@ export default (state, action) => {
         loading: false,
         user: action.payload,
         error: null,
+      };
+    case UPDATE_SUCCESS:
+      return {
+        ...state,
+        updated: "success",
+      };
+    case UPDATE_FAIL:
+      return {
+        ...state,
+        updated: "fail",
+      };
+    case RESET_UPDATE:
+      return {
+        ...state,
+        updated: "hidden",
       };
     case AUTH_ERROR:
     case REGISTER_ERROR:

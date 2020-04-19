@@ -14,4 +14,8 @@ export const CLEAR_ALERT = "CLEAR_ALERT";
 
 export const LOGOUT = "LOGOUT";
 
+export const UPDATE_SUCCESS = "UPDATE_SUCCESS";
+export const UPDATE_FAIL = "UPDATE_FAIL";
 export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
+
+export const RESET_UPDATE = "RESET_UPDATE";

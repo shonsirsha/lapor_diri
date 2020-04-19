@@ -52,7 +52,7 @@ img {
   font-weight: bold;
 }
 
-.statusBanner {
+.statusToast {
   position: fixed !important;
   top: 64px !important;
   right: 0;
@@ -64,7 +64,7 @@ img {
   text-align: center;
 }
 
-.statusBanner p {
+.statusToast p {
   text-align: center;
 }
 .hero {
