@@ -9,9 +9,11 @@ import Home from "./components/pages/Home";
 import Register from "./components/auth/RegisterForm";
 import Login from "./components/auth/Login";
 import MyAlert from "./components/layouts/MyAlert";
+import MyToast from "./components/layouts/MyToast";
 
 import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
+import ToastState from "./context/toast/ToastState";
 
 import setAuthToken from "./utils/setAuthToken";
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -29,6 +31,7 @@ const App = () => {
           <Fragment>
             <Navbar />
             <MyAlert />
+            <MyToast />
             <Switch>
               <Route exact path='/register' component={Register} />
               <Route exact path='/' component={Home} />

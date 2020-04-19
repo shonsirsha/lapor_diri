@@ -1,6 +1,6 @@
 import React, { Fragment, useContext } from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import Logo from "../imgs/logo.png";
+import Logo from "../../imgs/logo.png";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 

@@ -5,7 +5,7 @@ import FormLabel from "../auth/RegisterForm/FormLabel";
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 
-import Spinner from "./Spinner";
+import Spinner from "../layouts/Spinner";
 
 import {
   Modal,
@@ -165,18 +165,7 @@ const HomeAuth = (props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-        <Toast
-          className='statusBanner'
-          show={showBanner}
-          onClose={toggleShowBanner}
-        >
-          <Toast.Header>
-            <strong className='mr-auto'>Pemberitahuan</strong>
-          </Toast.Header>
-          <Toast.Body>
-            <Alert variant='success'>Data tersimpan</Alert>
-          </Toast.Body>
-        </Toast>
+        
 
         <Row style={{ marginBottom: "16px" }}>
           <Col>
@@ -374,7 +363,7 @@ const HomeAuth = (props) => {
             <h2 style={{ marginBottom: "16px" }}>Unggah dokumen</h2>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginBottom: "32px" }}>
           <Col>
             <Accordion defaultActiveKey='0'>
               <Card>

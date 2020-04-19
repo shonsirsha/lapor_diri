@@ -6,7 +6,6 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  UPDATE_PASSWORD,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {

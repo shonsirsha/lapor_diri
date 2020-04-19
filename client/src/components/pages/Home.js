@@ -12,7 +12,7 @@ import {
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import HomeGuest from "../layouts/HomeGuest";
-import HomeAuth from "../layouts/HomeAuth";
+import HomeAuth from "../user/HomeAuth";
 
 import { Link } from "react-router-dom";
 
