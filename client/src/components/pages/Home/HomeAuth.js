@@ -343,22 +343,26 @@ const HomeAuth = (props) => {
             <Accordion defaultActiveKey='0'>
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey='0'>
-                  Kontak / Detail Akun
+                  Dokumen
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey='0'>
                   <Card.Body>
-                    <FileUpload
-                      labelText='Pilih Dokumen Meldebescheinigung'
-                      pathToFirebase='melde'
-                    />
-                    {/* <ListGroup variant='flush'>
+                    <ListGroup variant='flush'>
                       <ListGroup.Item>
-                        <a href='#'>MeldeBeschanigung_sean.pdf</a>
+                        <FileUpload
+                          labelText='Meldebescheinigung'
+                          pathToFirebase='melde'
+                          documentName='Meldebescheinigung'
+                        />
                       </ListGroup.Item>
-                      <ListGroup.Item>
-                        <a href='#'>passport_sean.png</a>
+                      <ListGroup.Item style={{ marginTop: "8px" }}>
+                        <FileUpload
+                          labelText='Paspor'
+                          pathToFirebase='paspor'
+                          documentName='Paspor'
+                        />
                       </ListGroup.Item>
-                    </ListGroup> */}
+                    </ListGroup>
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
