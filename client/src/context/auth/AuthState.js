@@ -102,15 +102,15 @@ const AuthState = (props) => {
 
     try {
       const res = await axios.put(`/api/user/${user._id}`, user, config);
-      dispatch({ type: UPDATE_SUCCESS });
+      updateSuccess();
       setTimeout(() => {
         resetToast();
-      }, 800);
+      }, 1200);
     } catch (err) {
-      dispatch({ type: UPDATE_FAIL });
+      updateFail();
       setTimeout(() => {
         resetToast();
-      }, 800);
+      }, 1200);
     }
   };
 
@@ -131,21 +131,29 @@ const AuthState = (props) => {
         { password: password },
         config
       );
-      dispatch({ type: UPDATE_SUCCESS });
+      updateSuccess();
       setTimeout(() => {
         resetToast();
-      }, 800);
+      }, 1200);
     } catch (err) {
-      dispatch({ type: UPDATE_FAIL });
+      updateFail();
       setTimeout(() => {
         resetToast();
-      }, 800);
+      }, 1200);
     }
   };
 
   //logout
   const logoutUser = () => {
     dispatch({ type: LOGOUT });
+  };
+
+  const updateSuccess = () => {
+    dispatch({ type: UPDATE_SUCCESS });
+  };
+
+  const updateFail = () => {
+    dispatch({ type: UPDATE_FAIL });
   };
 
   return (
@@ -162,6 +170,9 @@ const AuthState = (props) => {
         loadUser,
         loginUser,
         logoutUser,
+        updateFail,
+        updateSuccess,
+        resetToast,
       }}
     >
       {props.children}

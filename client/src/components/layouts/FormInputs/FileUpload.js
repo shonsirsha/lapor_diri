@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import AlertContext from "../../../context/alert/alertContext";
 import AuthContext from "../../../context/auth/authContext";
 import Spinner from "../../layouts/Spinner";
 
@@ -24,40 +23,56 @@ import {
 import { storage } from "../../../firebase/index";
 
 const FileUpload = ({ labelText, pathToFirebase, documentName }) => {
-  const [fileMelde, setFileMelde] = useState(null);
-  const [fileMeldeProgress, setFileMeldeProgress] = useState(0);
+  const [fileDocument, setfileDocument] = useState(null);
+  const [fileDocumentProgress, setfileDocumentProgress] = useState(0);
   const [fileUrl, setFileUrl] = useState(null);
+  const authContext = useContext(AuthContext);
+  const { resetToast, updateFail, updateSuccess } = authContext;
   const onChangeUploadFile = (e) => {
-    setFileMelde(e.target.files[0]);
+    setfileDocument(e.target.files[0]);
   };
 
   const onClickUploadFile = (e) => {
-    const uploadTask = storage
-      .ref(`${pathToFirebase}/${fileMelde.name}`)
-      .put(fileMelde);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        var percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setFileMeldeProgress(percent);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        storage
-          .ref(`${pathToFirebase}`)
-          .child(fileMelde.name)
-          .getDownloadURL()
-          .then((url) => {
-            setFileUrl(url);
-          });
-      }
-    );
+    try {
+      const uploadTask = storage
+        .ref(`${pathToFirebase}/${fileDocument.name}`)
+        .put(fileDocument);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          var percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setfileDocumentProgress(percent);
+        },
+        (error) => {
+          updateFail();
+          setTimeout(() => {
+            resetToast();
+          }, 1200);
+        },
+        () => {
+          storage
+            .ref(`${pathToFirebase}`)
+            .child(fileDocument.name)
+            .getDownloadURL()
+            .then((url) => {
+              setFileUrl(url);
+              updateSuccess();
+              setTimeout(() => {
+                resetToast();
+              }, 1200);
+            });
+        }
+      );
+    } catch (e) {
+      updateFail();
+      setTimeout(() => {
+        resetToast();
+      }, 1200);
+    }
   };
   return (
     <div>
-      {fileMeldeProgress === 100 ? (
+      {fileDocumentProgress === 100 ? (
         <div
           style={{
             display: "flex",
@@ -69,7 +84,7 @@ const FileUpload = ({ labelText, pathToFirebase, documentName }) => {
             <p>{documentName}: </p>
           </b>
           <a href={fileUrl} target='_blank'>
-            {fileMelde.name}
+            {fileDocument.name}
           </a>
         </div>
       ) : (
@@ -79,20 +94,21 @@ const FileUpload = ({ labelText, pathToFirebase, documentName }) => {
               <input
                 type='file'
                 class='custom-file-input'
-                id='meldeFile'
-                inputName='meldeFile'
+                id='file'
+                inputName='file'
                 accept='image/*, .pdf'
                 onChange={onChangeUploadFile}
+                required
               />
 
-              <label class='custom-file-label' for='meldeFile'>
-                {fileMelde === null ? labelText : fileMelde.name}
+              <label class='custom-file-label' for='file'>
+                {fileDocument === null ? labelText : fileDocument.name}
               </label>
-              {fileMeldeProgress > 0 ? (
+              {fileDocumentProgress > 0 ? (
                 <ProgressBar
                   variant='success'
                   style={{ marginTop: "8px" }}
-                  now={fileMeldeProgress}
+                  now={fileDocumentProgress}
                 />
               ) : (
                 ""
