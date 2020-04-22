@@ -74,3 +74,11 @@ img {
   background-position: center;
   color: white;
 }
+
+.fa-trash {
+  color: rgb(84, 84, 84);
+}
+
+.fa-trash:hover {
+  color: rgb(57, 56, 56);
+}

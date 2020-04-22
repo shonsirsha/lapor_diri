@@ -21,22 +21,22 @@ import {
 } from "react-bootstrap";
 import { storage } from "../../../firebase/index";
 
-const FileUpload = ({
-  labelText,
-  pathToFirebase,
-  documentName,
-  userId,
-  documentUrl,
-}) => {
+const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   const [fileDocument, setfileDocument] = useState(null);
   const [fileDocumentProgress, setfileDocumentProgress] = useState(0);
   const [fileUrl, setFileUrl] = useState("");
-
+  const [fileName, setFileName] = useState("");
   const authContext = useContext(AuthContext);
   const { resetToast, updateFail, uploadDocument, loadUser } = authContext;
-
+  const urlPrefix = `https://firebasestorage.googleapis.com/v0/b/lapor-diri-webapp.appspot.com/o/${documentName}%2F`;
   const onChangeUploadFile = (e) => {
-    setfileDocument(e.target.files[0]);
+    let fileSize = e.target.files[0].size / 1024 / 1024;
+    if (fileSize <= 6) {
+      setfileDocument(e.target.files[0]);
+      setFileName(`${userId}-${e.target.files[0].name}`);
+    } else {
+      updateFail();
+    }
   };
 
   useEffect(() => {
@@ -46,18 +46,35 @@ const FileUpload = ({
   useEffect(() => {
     if (authContext.user) {
       if (documentName === "melde") {
-        setFileUrl(authContext.user.melde_pic);
+        if (authContext.user.melde_pic !== "") {
+          setFileUrl(urlPrefix + authContext.user.melde_pic);
+          setFileName(authContext.user.melde_pic);
+        }
       }
 
       if (documentName === "paspor") {
-        setFileUrl(authContext.user.paspor_pic);
+        if (authContext.user.paspor_pic !== "") {
+          setFileUrl(urlPrefix + authContext.user.paspor_pic);
+          setFileName(authContext.user.paspor_pic);
+        }
       }
     }
   }, [authContext.user]);
-
+  const onDelete = () => {
+    storage
+      .ref(`${pathToFirebase}`)
+      .child(fileName)
+      .delete()
+      .then(function () {
+        alert("deleted");
+      })
+      .catch(function (error) {
+        alert(fileName);
+        console.error("delete failed " + JSON.stringify(error));
+      });
+  };
   const onClickUploadFile = (e) => {
     try {
-      let fileName = `${userId}-${fileDocument.name}`;
       const uploadTask = storage
         .ref(`${pathToFirebase}/${fileName}`)
         .put(fileDocument);
@@ -80,7 +97,7 @@ const FileUpload = ({
             .getDownloadURL()
             .then((url) => {
               setFileUrl(url);
-              let docObj = { docName: documentName, docUrl: url };
+              let docObj = { docName: documentName, docUrl: fileName };
               uploadDocument(userId, docObj);
             });
         }
@@ -99,13 +116,32 @@ const FileUpload = ({
           style={{
             display: "flex",
             flexDirection: "row",
+            justifyContent: "space-between",
           }}
         >
-          <b>
-            <p style={{ marginRight: "4px" }}>{labelText}: </p>
-          </b>
-          <a href={fileUrl} target='_blank'>
-            Cek Dokumen
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <b>
+              <p style={{ marginRight: "4px" }}>{labelText}: </p>
+            </b>
+            <a
+              href={fileUrl + "?alt=media"}
+              style={{ marginRight: "8px" }}
+              target='_blank'
+            >
+              Cek Dokumen
+            </a>
+          </div>
+          <a
+            onClick={() => {
+              onDelete("asd");
+            }}
+          >
+            <i class='fas fa-trash'></i>
           </a>
         </div>
       ) : (
@@ -126,7 +162,8 @@ const FileUpload = ({
                 {fileDocument === null ? labelText : fileDocument.name}
               </label>
               <Form.Text className='text-muted'>
-                File maksimal berukuran 6MB dengan tipe: .jpg/.jpeg, .png, .pdf.
+                File maksimal berukuran 6MB dengan tipe: .jpg/.jpeg, .png, atau
+                .pdf.
               </Form.Text>
               {fileDocumentProgress > 0 ? (
                 <ProgressBar
