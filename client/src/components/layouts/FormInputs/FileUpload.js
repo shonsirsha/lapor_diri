@@ -57,8 +57,9 @@ const FileUpload = ({
 
   const onClickUploadFile = (e) => {
     try {
+      let fileName = `${userId}-${fileDocument.name}`;
       const uploadTask = storage
-        .ref(`${pathToFirebase}/${fileDocument.name}`)
+        .ref(`${pathToFirebase}/${fileName}`)
         .put(fileDocument);
       uploadTask.on(
         "state_changed",
@@ -75,7 +76,7 @@ const FileUpload = ({
         () => {
           storage
             .ref(`${pathToFirebase}`)
-            .child(fileDocument.name)
+            .child(fileName)
             .getDownloadURL()
             .then((url) => {
               setFileUrl(url);
