@@ -210,24 +210,20 @@ router.put(
 //@access   Private
 
 router.post("/upload-melde/:id", auth, async (req, res) => {
-  if (req.files === null) {
-    return res.status(400).json({ msg: "No file was uploaded." }); // bad req
-  }
-
-  const file = req.files.file;
-
-  const fileExt = path.extname(file.name);
-  let newFileName =
-    file.name.substr(0, file.name.lastIndexOf(".")).replace(/ /g, "") +
-    Date.now() +
-    fileExt;
-
-  file.mv(`${__dirname}/../client/public/img-melde/${newFileName}`, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ msg: `Server error ${err}` }); //server err
-    }
-
-    res.json({ fileName: file.name, filePath: `/img-melde/${newFileName}` });
-  });
+  // if (req.files === null) {
+  //   return res.status(400).json({ msg: "No file was uploaded." }); // bad req
+  // }
+  // const file = req.files.file;
+  // const fileExt = path.extname(file.name);
+  // let newFileName =
+  //   file.name.substr(0, file.name.lastIndexOf(".")).replace(/ /g, "") +
+  //   Date.now() +
+  //   fileExt;
+  // file.mv(`${__dirname}/../client/public/img-melde/${newFileName}`, (err) => {
+  //   if (err) {
+  //     console.error(err);
+  //     return res.status(500).json({ msg: `Server error ${err}` }); //server err
+  //   }
+  //   res.json({ fileName: file.name, filePath: `/img-melde/${newFileName}` });
+  // });
 });

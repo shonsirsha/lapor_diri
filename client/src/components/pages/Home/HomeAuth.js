@@ -1,11 +1,12 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 
-import FormInput from "../auth/RegisterForm/FormInput";
-import FormLabel from "../auth/RegisterForm/FormLabel";
-import AlertContext from "../../context/alert/alertContext";
-import AuthContext from "../../context/auth/authContext";
+import FormInput from "../../auth/FormInputs/FormInput";
+import FormLabel from "../../auth/FormInputs/FormLabel";
+import AlertContext from "../../../context/alert/alertContext";
+import AuthContext from "../../../context/auth/authContext";
+import Spinner from "../../layouts/Spinner";
 
-import Spinner from "../layouts/Spinner";
+import { storage } from "../../../firebase/index";
 
 import {
   Modal,
@@ -19,6 +20,8 @@ import {
   Form,
   Toast,
   FormGroup,
+  ProgressBar,
+  ListGroup,
 } from "react-bootstrap";
 
 const HomeAuth = (props) => {
@@ -36,10 +39,8 @@ const HomeAuth = (props) => {
   const { setAlert, clearAllAlerts } = alertContext;
 
   const [showModal, setShowModal] = useState(false);
-  const [fileNameMelde, setFileNameMelde] = useState(
-    "Pilh dokumen Meldebescheinigung"
-  );
-
+  const [fileMelde, setFileMelde] = useState(null);
+  const [fileMeldeProgress, setFileMeldeProgress] = useState(0);
   const toggleShowModal = () => {
     setShowModal(!showModal);
   };
@@ -73,8 +74,31 @@ const HomeAuth = (props) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const onChangeUploadImg = (e) => {
-    setFileNameMelde(e.target.files[0].name);
+  const onChangeUploadFile = (e) => {
+    setFileMelde(e.target.files[0]);
+  };
+
+  const onClickUploadImg = (e) => {
+    const uploadTask = storage.ref(`melde/${fileMelde.name}`).put(fileMelde);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        var percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setFileMeldeProgress(percent);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("melde")
+          .child(fileMelde.name)
+          .getDownloadURL()
+          .then((url) => {
+            console.log(url);
+          });
+      }
+    );
   };
 
   const onSubmitChangePassword = (e) => {
@@ -351,19 +375,50 @@ const HomeAuth = (props) => {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey='0'>
                   <Card.Body>
-                    <div class='custom-file '>
-                      <input
-                        type='file'
-                        class='custom-file-input'
-                        id='customFile'
-                        accept='image/*'
-                        onChange={onChangeUploadImg}
-                      />
+                    {/* <div class='custom-file '>
+                      <Form>
+                        <FormGroup>
+                          <input
+                            type='file'
+                            class='custom-file-input'
+                            id='meldeFile'
+                            inputName='meldeFile'
+                            accept='image/*, .pdf'
+                            onChange={onChangeUploadFile}
+                          />
 
-                      <label class='custom-file-label' for='customFile'>
-                        {fileNameMelde}
-                      </label>
-                    </div>
+                          <label class='custom-file-label' for='meldeFile'>
+                            {fileMelde === null
+                              ? "Pilih Dokumen Meldebescheinigung"
+                              : fileMelde.name}
+                          </label>
+                          {fileMeldeProgress > 0 ? (
+                            <ProgressBar
+                              variant='success'
+                              style={{ marginTop: "8px" }}
+                              now={fileMeldeProgress}
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </FormGroup>
+                        <Button
+                          variant='success'
+                          onClick={onClickUploadImg}
+                          style={{ marginTop: "8px", marginBottom: "32px" }}
+                        >
+                          Simpan & perbarui
+                        </Button>
+                      </Form> */}
+                    {/* </div> */}
+                    <ListGroup variant='flush'>
+                      <ListGroup.Item>
+                        <a href='#'>MeldeBeschanigung_sean.pdf</a>
+                      </ListGroup.Item>
+                      <ListGroup.Item>
+                        <a href='#'>passport_sean.png</a>
+                      </ListGroup.Item>
+                    </ListGroup>
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>

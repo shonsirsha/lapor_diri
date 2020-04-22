@@ -13,8 +13,8 @@ import {
   InputGroup,
   Jumbotron,
 } from "react-bootstrap";
-import FormInput from "./RegisterForm/FormInput";
-
+import FormInput from "../layouts/FormInputs/FormInput";
+import FormLabel from "../layouts/FormInputs/FormLabel";
 const Login = (props) => {
   const [user, setUser] = useState({
     email: "",

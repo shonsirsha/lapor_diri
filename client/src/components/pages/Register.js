@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
 import { Row, Col, Form, Button, Card, Container } from "react-bootstrap";
-import FormInput from "./RegisterForm/FormInput";
-import FormLabel from "./RegisterForm/FormLabel";
+import FormInput from "../layouts/FormInputs/FormInput";
+import FormLabel from "../layouts/FormInputs/FormLabel";
 import AlertContext from "../../context/alert/alertContext";
 
 const RegisterForm = (props) => {

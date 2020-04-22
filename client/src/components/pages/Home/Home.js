@@ -9,10 +9,11 @@ import {
   Alert,
   Accordion,
 } from "react-bootstrap";
-import AlertContext from "../../context/alert/alertContext";
-import AuthContext from "../../context/auth/authContext";
-import HomeGuest from "../layouts/HomeGuest";
-import HomeAuth from "../user/HomeAuth";
+
+import AlertContext from "../../../context/alert/alertContext";
+import AuthContext from "../../../context/auth/authContext";
+import HomeGuest from "./HomeGuest";
+import HomeAuth from "./HomeAuth";
 
 import { Link } from "react-router-dom";
 
