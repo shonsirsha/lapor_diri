@@ -22,12 +22,14 @@ import {
 } from "react-bootstrap";
 import { storage } from "../../../firebase/index";
 
-const FileUpload = ({ labelText, pathToFirebase, documentName }) => {
+const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   const [fileDocument, setfileDocument] = useState(null);
   const [fileDocumentProgress, setfileDocumentProgress] = useState(0);
   const [fileUrl, setFileUrl] = useState(null);
+
   const authContext = useContext(AuthContext);
-  const { resetToast, updateFail, updateSuccess } = authContext;
+  const { resetToast, updateFail, uploadDocument } = authContext;
+ 
   const onChangeUploadFile = (e) => {
     setfileDocument(e.target.files[0]);
   };
@@ -56,10 +58,8 @@ const FileUpload = ({ labelText, pathToFirebase, documentName }) => {
             .getDownloadURL()
             .then((url) => {
               setFileUrl(url);
-              updateSuccess();
-              setTimeout(() => {
-                resetToast();
-              }, 1200);
+              let docObj = { docName: documentName, docUrl: url };
+              uploadDocument(userId, docObj);
             });
         }
       );
@@ -80,7 +80,7 @@ const FileUpload = ({ labelText, pathToFirebase, documentName }) => {
           }}
         >
           <b>
-            <p style={{ marginRight: "4px" }}>{documentName}: </p>
+            <p style={{ marginRight: "4px" }}>{labelText}: </p>
           </b>
           <a href={fileUrl} target='_blank'>
             Cek Dokumen
@@ -131,6 +131,7 @@ FileUpload.propTypes = {
   labelText: PropTypes.string.isRequired,
   pathToFirebase: PropTypes.string.isRequired,
   documentName: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
 export default FileUpload;

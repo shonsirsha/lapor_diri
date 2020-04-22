@@ -198,18 +198,60 @@ router.put(
         },
         { new: true }
       );
-      res.json(user);
+      res.status(200).json(user);
     } catch (e) {
       res.status(500).send("Server error");
     }
   }
 );
 
-//@route    PUT api/user/upload-melde/:id
-//@desc     Edit a user's password with id
+//@route    POST api/user/upload-document/:id
+//@desc     Upload a document by userid
 //@access   Private
 
-router.post("/upload-melde/:id", auth, async (req, res) => {
+router.post("/upload-document/:id", auth, async (req, res) => {
+  const { docUrl, docName } = req.body;
+  const userField = {};
+  let status = 0;
+  if (docName === "paspor") {
+    userField.paspor_pic = docUrl;
+  }
+
+  if (docName === "melde") {
+    userField.melde_pic = docUrl;
+  }
+
+  try {
+    let user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    user = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: userField,
+      },
+      { new: true }
+    );
+
+    if (user.melde_pic !== "" && user.paspor_pic !== "") {
+      status = 1;
+    } else {
+      status = 0;
+    }
+    user = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: status,
+      },
+      { new: true }
+    );
+
+    res.status(200).json(user);
+  } catch (e) {
+    res.status(500).send("Server error");
+  }
   // if (req.files === null) {
   //   return res.status(400).json({ msg: "No file was uploaded." }); // bad req
   // }

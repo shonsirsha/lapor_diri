@@ -352,14 +352,16 @@ const HomeAuth = (props) => {
                         <FileUpload
                           labelText='Meldebescheinigung'
                           pathToFirebase='melde'
-                          documentName='Meldebescheinigung'
+                          documentName='melde'
+                          userId={user._id}
                         />
                       </ListGroup.Item>
                       <ListGroup.Item style={{ marginTop: "8px" }}>
                         <FileUpload
                           labelText='Paspor'
                           pathToFirebase='paspor'
-                          documentName='Paspor'
+                          documentName='paspor'
+                          userId={user._id}
                         />
                       </ListGroup.Item>
                     </ListGroup>

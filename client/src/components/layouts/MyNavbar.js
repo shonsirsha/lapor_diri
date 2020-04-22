@@ -13,10 +13,6 @@ const MyNavbar = () => {
   };
   const authLinks = (
     <Fragment>
-      <Navbar.Text>
-        Halo, <a href='#login'>{user ? user.nama_depan : null}! | </a>
-      </Navbar.Text>
-
       {/* <i className='fas fa-sign-out' />{" "} */}
       <Nav.Link onClick={onLogout}>Keluar</Nav.Link>
     </Fragment>

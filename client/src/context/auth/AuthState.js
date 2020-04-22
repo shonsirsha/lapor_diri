@@ -143,6 +143,33 @@ const AuthState = (props) => {
     }
   };
 
+  const uploadDocument = async (userId, doc) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.post(
+        `/api/user/upload-document/${userId}`,
+        doc,
+        config
+      );
+      loadUser();
+      updateSuccess();
+      setTimeout(() => {
+        resetToast();
+      }, 1200);
+    } catch (err) {
+      updateFail();
+      setTimeout(() => {
+        resetToast();
+      }, 1200);
+      console.error(err);
+      console.log("asdasdad" + err + userId);
+    }
+  };
   //logout
   const logoutUser = () => {
     dispatch({ type: LOGOUT });
@@ -170,6 +197,7 @@ const AuthState = (props) => {
         loadUser,
         loginUser,
         logoutUser,
+        uploadDocument,
         updateFail,
         updateSuccess,
         resetToast,
