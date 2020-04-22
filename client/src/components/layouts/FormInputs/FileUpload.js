@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import AuthContext from "../../../context/auth/authContext";
-import Spinner from "../../layouts/Spinner";
 
 import PropTypes from "prop-types";
 
@@ -22,17 +21,39 @@ import {
 } from "react-bootstrap";
 import { storage } from "../../../firebase/index";
 
-const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
+const FileUpload = ({
+  labelText,
+  pathToFirebase,
+  documentName,
+  userId,
+  documentUrl,
+}) => {
   const [fileDocument, setfileDocument] = useState(null);
   const [fileDocumentProgress, setfileDocumentProgress] = useState(0);
-  const [fileUrl, setFileUrl] = useState(null);
+  const [fileUrl, setFileUrl] = useState("");
 
   const authContext = useContext(AuthContext);
-  const { resetToast, updateFail, uploadDocument } = authContext;
- 
+  const { resetToast, updateFail, uploadDocument, loadUser } = authContext;
+
   const onChangeUploadFile = (e) => {
     setfileDocument(e.target.files[0]);
   };
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  useEffect(() => {
+    if (authContext.user) {
+      if (documentName === "melde") {
+        setFileUrl(authContext.user.melde_pic);
+      }
+
+      if (documentName === "paspor") {
+        setFileUrl(authContext.user.paspor_pic);
+      }
+    }
+  }, [authContext.user]);
 
   const onClickUploadFile = (e) => {
     try {
@@ -72,7 +93,7 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   };
   return (
     <div>
-      {fileDocumentProgress === 100 ? (
+      {fileDocumentProgress === 100 || fileUrl.length > 0 ? (
         <div
           style={{
             display: "flex",

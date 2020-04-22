@@ -67,6 +67,8 @@ const HomeAuth = (props) => {
     ponsel,
     alamat,
     kota_kodepos,
+    melde_pic,
+    paspor_pic,
   } = user;
 
   const onChange = (e) => {
@@ -101,6 +103,8 @@ const HomeAuth = (props) => {
         ponsel: authContext.user.ponsel,
         alamat: authContext.user.alamat,
         kota_kodepos: authContext.user.kota_kodepos,
+        melde_pic: authContext.user.melde_pic,
+        paspor_pic: authContext.user.paspor_pic,
       });
     } else {
     }
@@ -354,6 +358,7 @@ const HomeAuth = (props) => {
                           pathToFirebase='melde'
                           documentName='melde'
                           userId={user._id}
+                          documentUrl={melde_pic}
                         />
                       </ListGroup.Item>
                       <ListGroup.Item style={{ marginTop: "8px" }}>
@@ -362,6 +367,7 @@ const HomeAuth = (props) => {
                           pathToFirebase='paspor'
                           documentName='paspor'
                           userId={user._id}
+                          documentUrl={paspor_pic}
                         />
                       </ListGroup.Item>
                     </ListGroup>
