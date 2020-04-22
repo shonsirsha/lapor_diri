@@ -77,14 +77,13 @@ const FileUpload = ({ labelText, pathToFirebase, documentName }) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-between",
           }}
         >
           <b>
-            <p>{documentName}: </p>
+            <p style={{ marginRight: "4px" }}>{documentName}: </p>
           </b>
           <a href={fileUrl} target='_blank'>
-            {fileDocument.name}
+            Cek Dokumen
           </a>
         </div>
       ) : (
