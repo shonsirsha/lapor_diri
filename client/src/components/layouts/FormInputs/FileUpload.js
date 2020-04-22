@@ -117,7 +117,7 @@ const FileUpload = ({
                 class='custom-file-input'
                 id='file'
                 inputName='file'
-                accept='image/*, .pdf'
+                accept='.png, .jpeg, .jpg, .pdf'
                 onChange={onChangeUploadFile}
                 required
               />
@@ -125,6 +125,9 @@ const FileUpload = ({
               <label class='custom-file-label' for='file'>
                 {fileDocument === null ? labelText : fileDocument.name}
               </label>
+              <Form.Text className='text-muted'>
+                File maksimal berukuran 6MB dengan tipe: .jpg/.jpeg, .png, .pdf.
+              </Form.Text>
               {fileDocumentProgress > 0 ? (
                 <ProgressBar
                   variant='success'
