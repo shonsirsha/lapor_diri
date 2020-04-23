@@ -8,6 +8,9 @@ import Footer from "./components/layouts/Footer";
 import Home from "./components/pages/Home/Home";
 import Register from "./components/pages/Register";
 import Login from "./components/pages/Login";
+import Cek from "./components/pages/Cek";
+import HomeContainer from "./components/layouts/HomeContainer";
+
 import MyAlert from "./components/layouts/MyAlert";
 import MyToast from "./components/layouts/MyToast";
 
@@ -34,7 +37,8 @@ const App = () => {
             <Switch>
               <Route exact path='/register' component={Register} />
               <Route exact path='/' component={Home} />
-              <Route exact path='/login' component={Login} />
+              <Route exact path='/login' component={HomeContainer} />
+              <Route exact path='/cek-registrasi' component={HomeContainer} />
             </Switch>
             <Footer />
           </Fragment>
