@@ -23,11 +23,17 @@ import { storage } from "../../../firebase/index";
 
 const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   const [fileDocument, setfileDocument] = useState(null);
-  const [fileDocumentProgress, setfileDocumentProgress] = useState(0);
+  const [fileDocumentProgress, setFileDocumentProgress] = useState(0);
   const [fileUrl, setFileUrl] = useState("");
   const [fileNameDb, setFileNameDb] = useState("");
   const authContext = useContext(AuthContext);
-  const { resetToast, updateFail, uploadDocument, loadUser } = authContext;
+  const {
+    resetToast,
+    updateFail,
+    uploadDocument,
+    loadUser,
+    deleteDocument,
+  } = authContext;
   const urlPrefix = `https://firebasestorage.googleapis.com/v0/b/lapor-diri-webapp.appspot.com/o/${documentName}%2F`;
   const onChangeUploadFile = (e) => {
     let fileSize = e.target.files[0].size / 1024 / 1024;
@@ -42,6 +48,13 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   useEffect(() => {
     loadUser();
   }, []);
+
+  const resetField = () => {
+    setfileDocument(null);
+    setFileUrl("");
+    setFileDocumentProgress(0);
+    setFileNameDb("");
+  };
 
   useEffect(() => {
     if (authContext.user) {
@@ -66,9 +79,8 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
       .child(fileNameDb)
       .delete()
       .then(function () {
-        setFileUrl("");
-        setfileDocumentProgress(0);
         deleteDocument(userId, documentName);
+        resetField();
       })
       .catch(function (error) {
         alert(fileNameDb);
@@ -84,7 +96,7 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
         "state_changed",
         (snapshot) => {
           var percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setfileDocumentProgress(percent);
+          setFileDocumentProgress(percent);
         },
         (error) => {
           updateFail();
