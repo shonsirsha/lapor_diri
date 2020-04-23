@@ -2,7 +2,7 @@ const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const checkUserExists = require("./checkUserExists");
+const checkUserExists = require("./utils/checkUserExists");
 
 router.get(
   "/",
