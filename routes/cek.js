@@ -4,7 +4,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const checkUserExists = require("./utils/checkUserExists");
 
-router.get(
+router.post(
   "/",
   [
     check("nama_belakang", "Please include nama belakang").not().isEmpty(),

@@ -23,7 +23,10 @@ const Cek = () => {
     e.preventDefault();
     if (nama_belakang === "" || paspor === "") {
     } else {
-        cekRegistrasi({})
+      cekRegistrasi({
+        nama_belakang: nama_belakang,
+        paspor: paspor,
+      });
     }
   };
 

@@ -113,10 +113,6 @@ const AuthState = (props) => {
     }
   };
 
-  const resetToast = () => {
-    dispatch({ type: RESET_UPDATE });
-  };
-
   const changePassword = async (user, password) => {
     const config = {
       headers: {
@@ -210,6 +206,10 @@ const AuthState = (props) => {
 
   const updateFail = () => {
     dispatch({ type: UPDATE_FAIL });
+  };
+
+  const resetToast = () => {
+    dispatch({ type: RESET_UPDATE });
   };
 
   return (

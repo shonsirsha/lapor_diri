@@ -20,4 +20,4 @@ export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
 
 export const RESET_UPDATE = "RESET_UPDATE";
 
-export const CEK_REGISTRASI = "CEK_REGISTRASI";
+export const CEK_SUCCESS = "CEK_SUCCESS";
