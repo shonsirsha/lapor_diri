@@ -1,7 +1,7 @@
-import { CHECK_REGISTRATION } from "../types";
+import { CEK_REGISTRASI } from "../types";
 export default (state, action) => {
   switch (action.type) {
-    case CHECK_REGISTRATION:
+    case CEK_REGISTRASI:
       return state;
     default:
       return state;

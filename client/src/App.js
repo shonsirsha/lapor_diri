@@ -16,7 +16,7 @@ import MyToast from "./components/layouts/MyToast";
 
 import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
-import CekState from "./context/alert/CekState";
+import CekState from "./context/cek/CekState";
 
 import setAuthToken from "./utils/setAuthToken";
 import PrivateRoute from "./components/routing/PrivateRoute";
