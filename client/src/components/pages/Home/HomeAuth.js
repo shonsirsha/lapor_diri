@@ -106,7 +106,6 @@ const HomeAuth = (props) => {
         melde_pic: authContext.user.melde_pic,
         paspor_pic: authContext.user.paspor_pic,
       });
-    } else {
     }
   }, [authContext.user]);
   if (isAuthenticated && !loading) {

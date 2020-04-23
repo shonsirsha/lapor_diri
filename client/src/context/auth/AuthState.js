@@ -83,7 +83,6 @@ const AuthState = (props) => {
       });
       loadUser();
     } catch (err) {
-      console.log(err.response.data.msg);
       dispatch({
         type: LOGIN_FAIL,
         payload: err.response.data.msg,
@@ -162,14 +161,44 @@ const AuthState = (props) => {
         resetToast();
       }, 1200);
     } catch (err) {
+      alert(userId);
+      updateFail();
+      setTimeout(() => {
+        resetToast();
+      }, 1200);
+      console.log(userId);
+      console.error(err);
+    }
+  };
+
+  const deleteDocument = async (userId, docName) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    let docObj = { docName: docName };
+
+    try {
+      const res = await axios.put(
+        `/api/user/delete-document/${userId}`,
+        docObj,
+        config
+      );
+      updateSuccess();
+      setTimeout(() => {
+        resetToast();
+      }, 1200);
+    } catch (err) {
       updateFail();
       setTimeout(() => {
         resetToast();
       }, 1200);
       console.error(err);
-      console.log("asdasdad" + err + userId);
     }
   };
+
   //logout
   const logoutUser = () => {
     dispatch({ type: LOGOUT });
@@ -198,6 +227,7 @@ const AuthState = (props) => {
         loginUser,
         logoutUser,
         uploadDocument,
+        deleteDocument,
         updateFail,
         updateSuccess,
         resetToast,

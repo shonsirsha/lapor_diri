@@ -269,3 +269,40 @@ router.post("/upload-document/:id", auth, async (req, res) => {
   //   res.json({ fileName: file.name, filePath: `/img-melde/${newFileName}` });
   // });
 });
+
+//@route    PUT api/user/delete-document/:id
+//@desc     Edit user document field on db into empty string ""
+//@access   Private
+router.put("/delete-document/:id", auth, async (req, res) => {
+  const { docName } = req.body;
+
+  //build user object
+  const userField = {};
+
+  if (docName === "melde") {
+    userField.melde_pic = "";
+  }
+
+  if (docName === "paspor") {
+    userField.paspor_pic = "";
+  }
+
+  try {
+    let user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    user = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: userField,
+      },
+      { new: true }
+    );
+    res.json(user);
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send("Server error");
+  }
+});

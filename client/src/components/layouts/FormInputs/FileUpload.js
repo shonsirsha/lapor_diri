@@ -25,15 +25,27 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   const [fileDocument, setfileDocument] = useState(null);
   const [fileDocumentProgress, setfileDocumentProgress] = useState(0);
   const [fileUrl, setFileUrl] = useState("");
-  const [fileName, setFileName] = useState("");
+  const [fileNameDb, setFileNameDb] = useState("");
   const authContext = useContext(AuthContext);
-  const { resetToast, updateFail, uploadDocument, loadUser } = authContext;
+  const {
+    resetToast,
+    updateFail,
+    uploadDocument,
+    loadUser,
+    deleteDocument,
+  } = authContext;
   const urlPrefix = `https://firebasestorage.googleapis.com/v0/b/lapor-diri-webapp.appspot.com/o/${documentName}%2F`;
+  const resetFileInput = () => {
+    setfileDocument(null);
+    setfileDocumentProgress(0);
+    setFileUrl("");
+    setFileNameDb("");
+  };
   const onChangeUploadFile = (e) => {
     let fileSize = e.target.files[0].size / 1024 / 1024;
     if (fileSize <= 6) {
       setfileDocument(e.target.files[0]);
-      setFileName(`${userId}-${e.target.files[0].name}`);
+      setFileNameDb(`${userId}-${e.target.files[0].name}`);
     } else {
       updateFail();
     }
@@ -48,14 +60,14 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
       if (documentName === "melde") {
         if (authContext.user.melde_pic !== "") {
           setFileUrl(urlPrefix + authContext.user.melde_pic);
-          setFileName(authContext.user.melde_pic);
+          setFileNameDb(authContext.user.melde_pic);
         }
       }
 
       if (documentName === "paspor") {
         if (authContext.user.paspor_pic !== "") {
           setFileUrl(urlPrefix + authContext.user.paspor_pic);
-          setFileName(authContext.user.paspor_pic);
+          setFileNameDb(authContext.user.paspor_pic);
         }
       }
     }
@@ -63,20 +75,20 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   const onDelete = () => {
     storage
       .ref(`${pathToFirebase}`)
-      .child(fileName)
+      .child(fileNameDb)
       .delete()
       .then(function () {
-        alert("deleted");
+        resetFileInput();
+        deleteDocument(userId, documentName);
       })
       .catch(function (error) {
-        alert(fileName);
         console.error("delete failed " + JSON.stringify(error));
       });
   };
   const onClickUploadFile = (e) => {
     try {
       const uploadTask = storage
-        .ref(`${pathToFirebase}/${fileName}`)
+        .ref(`${pathToFirebase}/${fileNameDb}`)
         .put(fileDocument);
       uploadTask.on(
         "state_changed",
@@ -93,11 +105,11 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
         () => {
           storage
             .ref(`${pathToFirebase}`)
-            .child(fileName)
+            .child(fileNameDb)
             .getDownloadURL()
             .then((url) => {
               setFileUrl(url);
-              let docObj = { docName: documentName, docUrl: fileName };
+              let docObj = { docName: documentName, docUrl: fileNameDb };
               uploadDocument(userId, docObj);
             });
         }
