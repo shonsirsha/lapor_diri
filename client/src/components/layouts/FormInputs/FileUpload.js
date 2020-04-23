@@ -27,20 +27,8 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   const [fileUrl, setFileUrl] = useState("");
   const [fileNameDb, setFileNameDb] = useState("");
   const authContext = useContext(AuthContext);
-  const {
-    resetToast,
-    updateFail,
-    uploadDocument,
-    loadUser,
-    deleteDocument,
-  } = authContext;
+  const { resetToast, updateFail, uploadDocument, loadUser } = authContext;
   const urlPrefix = `https://firebasestorage.googleapis.com/v0/b/lapor-diri-webapp.appspot.com/o/${documentName}%2F`;
-  const resetFileInput = () => {
-    setfileDocument(null);
-    setfileDocumentProgress(0);
-    setFileUrl("");
-    setFileNameDb("");
-  };
   const onChangeUploadFile = (e) => {
     let fileSize = e.target.files[0].size / 1024 / 1024;
     if (fileSize <= 6) {
@@ -78,10 +66,12 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
       .child(fileNameDb)
       .delete()
       .then(function () {
-        resetFileInput();
+        setFileUrl("");
+        setfileDocumentProgress(0);
         deleteDocument(userId, documentName);
       })
       .catch(function (error) {
+        alert(fileNameDb);
         console.error("delete failed " + JSON.stringify(error));
       });
   };
