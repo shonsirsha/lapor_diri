@@ -15,7 +15,7 @@ router.get(
     let user = await checkUserExists("paspor", paspor);
     if (user) {
       if (user.nama_belakang === nama_belakang) {
-        res.json({ msg: "Registered", status: user.status });
+        res.status(200).json({ msg: "Registered", status: user.status });
       }
       res.status(404).json({ msg: "not found" });
     }
