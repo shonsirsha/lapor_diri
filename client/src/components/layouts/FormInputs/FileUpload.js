@@ -83,8 +83,10 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
         resetField();
       })
       .catch(function (error) {
-        alert(fileNameDb);
-        console.error("delete failed " + JSON.stringify(error));
+        updateFail();
+        setTimeout(() => {
+          resetToast();
+        }, 1200);
       });
   };
   const onClickUploadFile = (e) => {
@@ -152,7 +154,7 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
           </div>
           <a
             onClick={() => {
-              onDelete("asd");
+              onDelete();
             }}
           >
             <i class='fas fa-trash'></i>
