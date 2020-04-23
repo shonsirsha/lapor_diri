@@ -97,7 +97,6 @@ router.post(
   }
 );
 
-module.exports = router;
 
 //@route    PUT api/user/:id
 //@desc     Edit a user with id
@@ -306,3 +305,5 @@ router.put("/delete-document/:id", auth, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+module.exports = router;
