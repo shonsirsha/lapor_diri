@@ -17,6 +17,7 @@ import MyToast from "./components/layouts/MyToast";
 import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
 import CekState from "./context/cek/CekState";
+import ToastState from "./context/toast/ToastState";
 
 import setAuthToken from "./utils/setAuthToken";
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -31,20 +32,26 @@ const App = () => {
     <AuthState>
       <AlertState>
         <CekState>
-          <Router>
-            <Fragment>
-              <Navbar />
-              <MyAlert />
-              <MyToast />
-              <Switch>
-                <Route exact path='/register' component={Register} />
-                <Route exact path='/' component={Home} />
-                <Route exact path='/login' component={HomeContainer} />
-                <Route exact path='/cek-registrasi' component={HomeContainer} />
-              </Switch>
-              <Footer />
-            </Fragment>
-          </Router>
+          <ToastState>
+            <Router>
+              <Fragment>
+                <Navbar />
+                <MyAlert />
+                <MyToast />
+                <Switch>
+                  <Route exact path='/register' component={Register} />
+                  <Route exact path='/' component={Home} />
+                  <Route exact path='/login' component={HomeContainer} />
+                  <Route
+                    exact
+                    path='/cek-registrasi'
+                    component={HomeContainer}
+                  />
+                </Switch>
+                <Footer />
+              </Fragment>
+            </Router>
+          </ToastState>
         </CekState>
       </AlertState>
     </AuthState>

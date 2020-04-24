@@ -4,7 +4,7 @@ import { UPDATE_SUCCESS, UPDATE_FAIL, RESET_UPDATE } from "../types";
 import ToastContext from "./toastContext";
 import ToastReducer from "./toastReducer";
 
-const toastState = (props) => {
+const ToastState = (props) => {
   const initialState = {
     updated: "hidden",
   };
@@ -37,4 +37,4 @@ const toastState = (props) => {
   );
 };
 
-export default toastState;
+export default ToastState;

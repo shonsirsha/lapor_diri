@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import AuthContext from "../../context/auth/authContext";
+import ToastContext from "../../context/toast/toastContext";
 
 import {
   Modal,
@@ -15,9 +15,8 @@ import {
   FormGroup,
 } from "react-bootstrap";
 const MyToast = () => {
-  const authContext = useContext(AuthContext);
-
-  const { updated } = authContext;
+  const toastContext = useContext(ToastContext);
+  const { updated } = toastContext;
   const [showtoast, setShowtoast] = useState(false);
   const [status, setStatus] = useState(null);
 
