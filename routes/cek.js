@@ -14,7 +14,10 @@ router.post(
     const { nama_belakang, paspor } = req.body;
     let user = await checkUserExists("paspor", paspor);
     if (user) {
-      if (user.nama_belakang === nama_belakang) {
+      if (
+        user.nama_belakang.toUpperCase() === nama_belakang &&
+        user.paspor.toUpperCase() === paspor
+      ) {
         res.status(200).json({ msg: "Registered", status: user.status });
       }
     }

@@ -49,8 +49,8 @@ const Cek = () => {
     if (nama_belakang === "" || paspor === "") {
     } else {
       cekRegistrasi({
-        nama_belakang: nama_belakang,
-        paspor: paspor,
+        nama_belakang: nama_belakang.toUpperCase(),
+        paspor: paspor.toUpperCase(),
       });
     }
   };
@@ -65,6 +65,7 @@ const Cek = () => {
               <InputGroup.Text>Nama Belakang</InputGroup.Text>
             </InputGroup.Prepend>
             <FormInput
+              value={nama_belakang}
               inputName='nama_belakang'
               inputType='text'
               onChangeMethod={onChange}
@@ -78,6 +79,7 @@ const Cek = () => {
               <InputGroup.Text>Nomor Paspor</InputGroup.Text>
             </InputGroup.Prepend>
             <FormInput
+              value={paspor}
               inputName='paspor'
               inputType='text'
               onChangeMethod={onChange}
