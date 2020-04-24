@@ -8,13 +8,35 @@ const Cek = () => {
   const cekContext = useContext(CekContext);
   const toastContext = useContext(ToastContext);
 
-  const { cekRegistrasi } = cekContext;
-  const { toast } = toastContext;
+  const { cekRegistrasi, status, registered, resetStates } = cekContext;
+  const { showToast } = toastContext;
 
   const [user, setUser] = useState({
     nama_belakang: "",
     paspor: "",
   });
+
+  const showLocalToast = (msg, type, timeout) => {
+    showToast(msg, type, timeout);
+    resetStates();
+  };
+
+  useEffect(() => {
+    if (registered === false) {
+      showLocalToast("Anda belum terdaftar", "danger", 2500); // you're not registered
+    } else {
+      if (status === 1) {
+        showLocalToast("Anda sudah lapor diri", "success", 2500); // registered
+      } else if (status === 0) {
+        showLocalToast(
+          "Anda telah terdaftar namun data Anda belum lengkap",
+          "warning",
+          2500
+        );
+        // you're registered but your data arent complete yet
+      }
+    }
+  }, [status, registered]);
 
   const { nama_belakang, paspor } = user;
 

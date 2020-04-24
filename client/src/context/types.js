@@ -20,7 +20,8 @@ export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
 
 export const RESET_UPDATE = "RESET_UPDATE";
 
-export const CEK_SUCCESS = "CEK_SUCCESS";
-
 export const SHOW_TOAST = "SHOW_TOAST";
 export const HIDE_TOAST = "HIDE_TOAST";
+
+export const CEK_REGISTERED = "CEK_REGISTERED";
+export const CEK_UNREGISTERED = "CEK_UNREGISTERED";

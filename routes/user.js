@@ -97,7 +97,6 @@ router.post(
   }
 );
 
-
 //@route    PUT api/user/:id
 //@desc     Edit a user with id
 //@access   Private

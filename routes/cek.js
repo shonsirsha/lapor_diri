@@ -17,7 +17,6 @@ router.post(
       if (user.nama_belakang === nama_belakang) {
         res.status(200).json({ msg: "Registered", status: user.status });
       }
-      res.status(404).json({ msg: "not found" });
     }
 
     res.status(404).json({ msg: "not found" });

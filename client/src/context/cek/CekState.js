@@ -4,11 +4,11 @@ import CekContext from "./cekContext";
 import CekReducer from "./cekReducer";
 import axios from "axios";
 
-import { CEK_SUCCESS } from "../types";
+import { CEK_REGISTERED, CEK_UNREGISTERED, RESET_UPDATE } from "../types";
 const CekState = (props) => {
   const initialState = {
-    registered: false,
-    status: 0,
+    registered: null,
+    status: null,
   };
   const [state, dispatch] = useReducer(CekReducer, initialState);
   const cekRegistrasi = async (data) => {
@@ -19,17 +19,22 @@ const CekState = (props) => {
     };
     try {
       const res = await axios.post(`/api/cek`, data, config);
-      dispatch({ type: CEK_SUCCESS, payload: res.data });
+      dispatch({ type: CEK_REGISTERED, payload: res.data });
     } catch (err) {
-      console.error(err);
+      dispatch({ type: CEK_UNREGISTERED });
     }
+  };
+
+  const resetStates = () => {
+    dispatch({ type: RESET_UPDATE });
   };
   return (
     <CekContext.Provider
       value={{
-        nama_belakang: state.nama_belakang,
-        paspor: state.paspor,
+        registered: state.registered,
+        status: state.status,
         cekRegistrasi,
+        resetStates,
       }}
     >
       {props.children}
