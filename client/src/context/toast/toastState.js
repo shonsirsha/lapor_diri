@@ -1,24 +1,21 @@
 import React, { useReducer } from "react";
-import { UPDATE_SUCCESS, UPDATE_FAIL, RESET_UPDATE } from "../types";
+import { SHOW_TOAST, HIDE_TOAST } from "../types";
 
 import ToastContext from "./toastContext";
 import ToastReducer from "./toastReducer";
 
 const ToastState = (props) => {
-  const initialState = {
-    updated: "hidden",
+  const initialState = {};
+
+  const showToast = (msg, type, timeout = 1500) => {
+    dispatch({ type: SHOW_TOAST, payload: { msg: msg, type: type } });
+    setTimeout(() => {
+      hideToast();
+    }, timeout);
   };
 
-  const updateSuccess = () => {
-    dispatch({ type: UPDATE_SUCCESS });
-  };
-
-  const updateFail = () => {
-    dispatch({ type: UPDATE_FAIL });
-  };
-
-  const resetToast = () => {
-    dispatch({ type: RESET_UPDATE });
+  const hideToast = () => {
+    dispatch({ type: HIDE_TOAST });
   };
 
   const [state, dispatch] = useReducer(ToastReducer, initialState);
@@ -26,10 +23,9 @@ const ToastState = (props) => {
   return (
     <ToastContext.Provider
       value={{
-        updated: state.updated,
-        updateSuccess,
-        updateFail,
-        resetToast,
+        toast: state,
+        showToast,
+        hideToast,
       }}
     >
       {props.children}

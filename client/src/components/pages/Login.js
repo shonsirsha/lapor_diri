@@ -5,8 +5,10 @@ import FormInput from "../layouts/FormInputs/FormInput";
 import JumbotronSignup from "../layouts/JumbotronSignup";
 
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
-
+import { useHistory } from "react-router-dom";
 const Login = (props) => {
+  const history = useHistory();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -27,7 +29,7 @@ const Login = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push("/");
+      history.push("/");
     }
 
     if (error === "Invalid credentials") {

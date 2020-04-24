@@ -1,12 +1,14 @@
-import { UPDATE_SUCCESS, UPDATE_FAIL, RESET_UPDATE } from "../types";
+import { SHOW_TOAST, HIDE_TOAST } from "../types";
 export default (state, action) => {
   switch (action.type) {
-    case UPDATE_SUCCESS:
-      return { updated: "success" };
-    case UPDATE_FAIL:
-      return { updated: "fail" };
-    case RESET_UPDATE:
-      return { updated: "hidden" };
+    case SHOW_TOAST:
+      return {
+        msg: action.payload.msg,
+        type: action.payload.type,
+      };
+    case HIDE_TOAST:
+      state = {};
+      return state;
     default:
       return state;
   }

@@ -1,32 +1,19 @@
 import React, { useState, useContext, useEffect } from "react";
 import ToastContext from "../../context/toast/toastContext";
 
-import {
-  Modal,
-  Button,
-  Row,
-  Col,
-  Card,
-  Container,
-  Alert,
-  Accordion,
-  Form,
-  Toast,
-  FormGroup,
-} from "react-bootstrap";
+import { Alert, Toast } from "react-bootstrap";
 const MyToast = () => {
   const toastContext = useContext(ToastContext);
-  const { updated } = toastContext;
   const [showtoast, setShowtoast] = useState(false);
   const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    if (updated === "hidden") {
-      setShowtoast(false);
-    } else {
-      setShowtoast(true);
-      setStatus(updated);
-    }
+    // if (updated === "hidden") {
+    //   setShowtoast(false);
+    // } else {
+    //   setShowtoast(true);
+    //   setStatus(updated);
+    // }
   }, [updated]);
 
   const toggleShowtoast = () => {

@@ -4,6 +4,8 @@ import FormInput from "../../layouts/FormInputs/FormInput";
 import FormLabel from "../../layouts/FormInputs/FormLabel";
 import AlertContext from "../../../context/alert/alertContext";
 import AuthContext from "../../../context/auth/authContext";
+import ToastContext from "../../../context/toast/toastContext";
+
 import Spinner from "../../layouts/Spinner";
 import FileUpload from "../../layouts/FormInputs/FileUpload";
 
@@ -17,24 +19,26 @@ import {
   Alert,
   Accordion,
   Form,
-  Toast,
-  FormGroup,
-  ProgressBar,
   ListGroup,
 } from "react-bootstrap";
 
-const HomeAuth = (props) => {
+const HomeAuth = () => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
+  const toastContext = useContext(ToastContext);
 
   const {
     changePassword,
-    error,
     updateUser,
     loadUser,
     isAuthenticated,
     loading,
+    updateStatus,
+    resetUpdateStatus,
   } = authContext;
+
+  const { showToast } = toastContext;
+
   const { setAlert, clearAllAlerts } = alertContext;
 
   const [showModal, setShowModal] = useState(false);
@@ -76,7 +80,6 @@ const HomeAuth = (props) => {
   };
 
   const onSubmitChangePassword = (e) => {
-    e.preventDefault();
     changePassword(user, password);
   };
 
@@ -85,10 +88,21 @@ const HomeAuth = (props) => {
     updateUser(user);
   };
 
+  const showLocalToast = (msg, type, timeout) => {
+    showToast(msg, type, timeout);
+    resetUpdateStatus();
+  };
+
   useEffect(() => {
     clearAllAlerts();
     loadUser();
   }, []);
+
+  useEffect(() => {
+    if (updateStatus === 1) {
+      showLocalToast("kasil", "green");
+    }
+  }, [updateStatus]);
 
   useEffect(() => {
     if (authContext.user) {
@@ -108,6 +122,7 @@ const HomeAuth = (props) => {
       });
     }
   }, [authContext.user]);
+
   if (isAuthenticated && !loading) {
     return (
       <Container style={{ marginTop: "32px", position: "relative" }}>

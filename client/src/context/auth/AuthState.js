@@ -4,7 +4,6 @@ import AuthContext from "./authContext";
 import AuthReducer from "./authReducer";
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
-
 import {
   REGISTER_ERROR,
   REGISTER_SUCCESS,
@@ -25,6 +24,7 @@ const AuthState = (props) => {
     loading: true,
     user: null,
     error: null,
+    updateStatus: -1,
     updated: "hidden",
   };
   const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -101,15 +101,13 @@ const AuthState = (props) => {
 
     try {
       const res = await axios.put(`/api/user/${user._id}`, user, config);
-      updateSuccess();
-      setTimeout(() => {
-        resetToast();
-      }, 1200);
+      dispatch({ type: UPDATE_SUCCESS });
     } catch (err) {
-      updateFail();
-      setTimeout(() => {
-        resetToast();
-      }, 1200);
+      dispatch({ type: UPDATE_FAIL });
+      // updateFail();
+      // setTimeout(() => {
+      //   resetUpdateStatus();
+      // }, 1200);
     }
   };
 
@@ -128,13 +126,14 @@ const AuthState = (props) => {
       );
       updateSuccess();
       setTimeout(() => {
-        resetToast();
+        resetUpdateStatus();
       }, 1200);
     } catch (err) {
-      updateFail();
-      setTimeout(() => {
-        resetToast();
-      }, 1200);
+      // updateFail();
+      // setTimeout(() => {
+      //   resetUpdateStatus();
+      // }, 1200);
+      return err;
     }
   };
 
@@ -154,13 +153,13 @@ const AuthState = (props) => {
       loadUser();
       updateSuccess();
       setTimeout(() => {
-        resetToast();
+        resetUpdateStatus();
       }, 1200);
     } catch (err) {
       alert(userId);
       updateFail();
       setTimeout(() => {
-        resetToast();
+        resetUpdateStatus();
       }, 1200);
       console.log(userId);
       console.error(err);
@@ -184,12 +183,12 @@ const AuthState = (props) => {
       );
       updateSuccess();
       setTimeout(() => {
-        resetToast();
+        resetUpdateStatus();
       }, 1200);
     } catch (err) {
       updateFail();
       setTimeout(() => {
-        resetToast();
+        resetUpdateStatus();
       }, 1200);
       console.error(err);
     }
@@ -208,7 +207,7 @@ const AuthState = (props) => {
     dispatch({ type: UPDATE_FAIL });
   };
 
-  const resetToast = () => {
+  const resetUpdateStatus = () => {
     dispatch({ type: RESET_UPDATE });
   };
 
@@ -220,6 +219,7 @@ const AuthState = (props) => {
         user: state.user,
         error: state.error,
         updated: state.updated,
+        updateStatus: state.updateStatus,
         registerUser,
         updateUser,
         changePassword,
@@ -230,7 +230,7 @@ const AuthState = (props) => {
         deleteDocument,
         updateFail,
         updateSuccess,
-        resetToast,
+        resetUpdateStatus,
       }}
     >
       {props.children}

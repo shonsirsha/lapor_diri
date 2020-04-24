@@ -15,9 +15,9 @@ const AlertState = (props) => {
     const id = uuid();
     dispatch({ type: SET_ALERT, payload: { msg: msg, type: type, id: id } });
 
-    // setTimeout(() => {
-    //   dispatch({ type: REMOVE_ALERT, payload: id });
-    // }, timeout);
+    setTimeout(() => {
+      clearAllAlerts();
+    }, timeout);
   };
 
   const clearAllAlerts = () => {

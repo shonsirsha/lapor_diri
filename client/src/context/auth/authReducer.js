@@ -33,17 +33,17 @@ export default (state, action) => {
     case UPDATE_SUCCESS:
       return {
         ...state,
-        updated: "success",
+        updateStatus: 1,
       };
     case UPDATE_FAIL:
       return {
         ...state,
-        updated: "fail",
+        updateStatus: 0,
       };
     case RESET_UPDATE:
       return {
         ...state,
-        updated: "hidden",
+        updateStatus: -1,
       };
     case AUTH_ERROR:
     case REGISTER_ERROR:
