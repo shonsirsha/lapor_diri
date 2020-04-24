@@ -104,10 +104,6 @@ const AuthState = (props) => {
       dispatch({ type: UPDATE_SUCCESS });
     } catch (err) {
       dispatch({ type: UPDATE_FAIL });
-      // updateFail();
-      // setTimeout(() => {
-      //   resetUpdateStatus();
-      // }, 1200);
     }
   };
 
@@ -125,14 +121,8 @@ const AuthState = (props) => {
         config
       );
       updateSuccess();
-      setTimeout(() => {
-        resetUpdateStatus();
-      }, 1200);
     } catch (err) {
-      // updateFail();
-      // setTimeout(() => {
-      //   resetUpdateStatus();
-      // }, 1200);
+      updateFail();
       return err;
     }
   };
@@ -151,18 +141,9 @@ const AuthState = (props) => {
         config
       );
       loadUser();
-      updateSuccess();
-      setTimeout(() => {
-        resetUpdateStatus();
-      }, 1200);
     } catch (err) {
       alert(userId);
       updateFail();
-      setTimeout(() => {
-        resetUpdateStatus();
-      }, 1200);
-      console.log(userId);
-      console.error(err);
     }
   };
 
@@ -181,16 +162,8 @@ const AuthState = (props) => {
         docObj,
         config
       );
-      updateSuccess();
-      setTimeout(() => {
-        resetUpdateStatus();
-      }, 1200);
     } catch (err) {
       updateFail();
-      setTimeout(() => {
-        resetUpdateStatus();
-      }, 1200);
-      console.error(err);
     }
   };
 

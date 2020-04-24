@@ -1,24 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import AuthContext from "../../../context/auth/authContext";
+import ToastContext from "../../../context/toast/toastContext";
 
 import PropTypes from "prop-types";
 
-import {
-  Modal,
-  Button,
-  Row,
-  Col,
-  Card,
-  Container,
-  Alert,
-  Accordion,
-  Form,
-  Toast,
-  FormGroup,
-  ProgressBar,
-  ListGroup,
-} from "react-bootstrap";
+import { Button, Form, FormGroup, ProgressBar } from "react-bootstrap";
 import { storage } from "../../../firebase/index";
 
 const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
@@ -27,13 +14,18 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   const [fileUrl, setFileUrl] = useState("");
   const [fileNameDb, setFileNameDb] = useState("");
   const authContext = useContext(AuthContext);
+  const toastContext = useContext(ToastContext);
+
   const {
     resetToast,
     updateFail,
     uploadDocument,
     loadUser,
     deleteDocument,
+    updateStatus,
+    resetUpdateStatus,
   } = authContext;
+
   const urlPrefix = `https://firebasestorage.googleapis.com/v0/b/lapor-diri-webapp.appspot.com/o/${documentName}%2F`;
   const onChangeUploadFile = (e) => {
     let fileSize = e.target.files[0].size / 1024 / 1024;
@@ -43,6 +35,12 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
     } else {
       updateFail();
     }
+  };
+  const { showToast } = toastContext;
+
+  const showLocalToast = (msg, type, timeout) => {
+    showToast(msg, type, timeout);
+    resetUpdateStatus();
   };
 
   useEffect(() => {
@@ -81,12 +79,10 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
       .then(function () {
         deleteDocument(userId, documentName);
         resetField();
+        showLocalToast("Dokumen berhasil dihapus", "success", 1500);
       })
       .catch(function (error) {
         updateFail();
-        setTimeout(() => {
-          resetToast();
-        }, 1200);
       });
   };
   const onClickUploadFile = (e) => {
@@ -102,9 +98,6 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
         },
         (error) => {
           updateFail();
-          setTimeout(() => {
-            resetToast();
-          }, 1200);
         },
         () => {
           storage
@@ -115,14 +108,12 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
               setFileUrl(url);
               let docObj = { docName: documentName, docUrl: fileNameDb };
               uploadDocument(userId, docObj);
+              showLocalToast("Dokumen berhasil diunggah", "success", 1500);
             });
         }
       );
     } catch (e) {
       updateFail();
-      setTimeout(() => {
-        resetToast();
-      }, 1200);
     }
   };
   return (

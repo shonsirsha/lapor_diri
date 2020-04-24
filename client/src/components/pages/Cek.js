@@ -1,12 +1,15 @@
 import React, { useEffect, useState, useContext, Fragment } from "react";
 import CekContext from "../../context/cek/cekContext";
+import ToastContext from "../../context/toast/toastContext";
 
 import FormInput from "../layouts/FormInputs/FormInput";
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
 const Cek = () => {
   const cekContext = useContext(CekContext);
+  const toastContext = useContext(ToastContext);
 
   const { cekRegistrasi } = cekContext;
+  const { toast } = toastContext;
 
   const [user, setUser] = useState({
     nama_belakang: "",

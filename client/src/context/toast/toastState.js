@@ -5,7 +5,7 @@ import ToastContext from "./toastContext";
 import ToastReducer from "./toastReducer";
 
 const ToastState = (props) => {
-  const initialState = {};
+  const initialState = null;
 
   const showToast = (msg, type, timeout = 1500) => {
     dispatch({ type: SHOW_TOAST, payload: { msg: msg, type: type } });

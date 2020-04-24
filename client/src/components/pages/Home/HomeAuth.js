@@ -80,6 +80,7 @@ const HomeAuth = () => {
   };
 
   const onSubmitChangePassword = (e) => {
+    e.preventDefault();
     changePassword(user, password);
   };
 
@@ -100,7 +101,13 @@ const HomeAuth = () => {
 
   useEffect(() => {
     if (updateStatus === 1) {
-      showLocalToast("kasil", "green");
+      showLocalToast("Data tersimpan", "success");
+    } else if (updateStatus === 0) {
+      showLocalToast(
+        "Terjadi kesalahan dalam menyimpan. Mohon coba lagi.",
+        "danger",
+        2500
+      );
     }
   }, [updateStatus]);
 
