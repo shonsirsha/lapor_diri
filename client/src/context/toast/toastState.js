@@ -21,12 +21,15 @@ const toastState = (props) => {
     dispatch({ type: RESET_UPDATE });
   };
 
-  const [state, dispatch] = useReducer(AuthReducer, initialState);
+  const [state, dispatch] = useReducer(ToastReducer, initialState);
 
   return (
     <ToastContext.Provider
       value={{
         updated: state.updated,
+        updateSuccess,
+        updateFail,
+        resetToast,
       }}
     >
       {props.children}
