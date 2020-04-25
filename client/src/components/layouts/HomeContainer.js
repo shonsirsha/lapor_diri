@@ -4,7 +4,7 @@ import { Container, Card } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import Spinner from "./Spinner";
 import Login from "../pages/Login";
-import CekRegistrasi from "../pages/Cek";
+import CheckRegistration from "../pages/Cek";
 import ResetPassword from "../pages/ResetPassword";
 
 const HomeContainer = () => {
@@ -15,7 +15,7 @@ const HomeContainer = () => {
     if (route === "/login") {
       setRenderedComponent(<Login />);
     } else if (route === "/cek-registrasi") {
-      setRenderedComponent(<CekRegistrasi />);
+      setRenderedComponent(<CheckRegistration />);
     } else if (route === "/reset-kata-sandi") {
       setRenderedComponent(<ResetPassword />);
     }
