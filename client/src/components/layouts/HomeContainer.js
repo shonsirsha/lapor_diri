@@ -5,8 +5,22 @@ import { useLocation } from "react-router-dom";
 import Spinner from "./Spinner";
 import Login from "../pages/Login";
 import CekRegistrasi from "../pages/Cek";
+import ResetPassword from "../pages/ResetPassword";
+
 const HomeContainer = () => {
+  const [renderedComponent, setRenderedComponent] = useState(null);
   let route = useLocation().pathname;
+
+  useEffect(() => {
+    if (route === "/login") {
+      setRenderedComponent(<Login />);
+    } else if (route === "/cek-registrasi") {
+      setRenderedComponent(<CekRegistrasi />);
+    } else if (route === "/reset-kata-sandi") {
+      setRenderedComponent(<ResetPassword />);
+    }
+  }, [route]);
+
   return (
     <Fragment>
       <Container
@@ -19,9 +33,7 @@ const HomeContainer = () => {
         }}
       >
         <Card style={{ width: "80%" }}>
-          <Card.Body>
-            {route === "/login" ? <Login /> : <CekRegistrasi />}
-          </Card.Body>
+          <Card.Body>{renderedComponent}</Card.Body>
         </Card>
       </Container>
       <JumbotronSignup />
