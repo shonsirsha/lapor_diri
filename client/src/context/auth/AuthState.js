@@ -4,7 +4,7 @@ import AuthContext from "./authContext";
 import AuthReducer from "./authReducer";
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
-import asJson from "../../utils/jsonHeader";
+import asJson from "../../utils/asJson";
 import {
   REGISTER_ERROR,
   REGISTER_SUCCESS,
