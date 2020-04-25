@@ -28,7 +28,7 @@ const HomeGuestView = () => {
           <b>
             Bagi WNI yang telah lapor diri sebelum adanya aplikasi ini, harap
             mengaktualisasi datanya dengan{" "}
-            <Link style={{ textDecoration: "underline" }} to='/cekregistrasi'>
+            <Link style={{ textDecoration: "underline" }} to='/cek-registrasi'>
               Cek Registrasi
             </Link>
           </b>

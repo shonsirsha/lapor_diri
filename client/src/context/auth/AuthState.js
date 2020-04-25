@@ -4,6 +4,7 @@ import AuthContext from "./authContext";
 import AuthReducer from "./authReducer";
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
+import asJson from "../utils/jsonHeader";
 import {
   REGISTER_ERROR,
   REGISTER_SUCCESS,
@@ -32,10 +33,8 @@ const AuthState = (props) => {
   //load user
   const loadUser = async () => {
     setAuthToken(localStorage.token); //setting global headers for x-auth-token
-
     try {
       const res = await axios.get("/api/auth");
-
       dispatch({
         type: USER_LOADED,
         payload: res.data,
@@ -46,14 +45,8 @@ const AuthState = (props) => {
   };
 
   const registerUser = async (formData) => {
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
     try {
-      const res = await axios.post("/api/user", formData, config);
-
+      const res = await axios.post("/api/user", formData, asJson);
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,
@@ -68,15 +61,8 @@ const AuthState = (props) => {
 
   //login user
   const loginUser = async (formData) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
     try {
-      const res = await axios.post("/api/auth", formData, config);
-
+      const res = await axios.post("/api/auth", formData, asJson);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -93,14 +79,8 @@ const AuthState = (props) => {
   //update contact
 
   const updateUser = async (user) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
     try {
-      const res = await axios.put(`/api/user/${user._id}`, user, config);
+      const res = await axios.put(`/api/user/${user._id}`, user, asJson);
       dispatch({ type: UPDATE_SUCCESS });
     } catch (err) {
       dispatch({ type: UPDATE_FAIL });
@@ -108,17 +88,11 @@ const AuthState = (props) => {
   };
 
   const changePassword = async (user, password) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
     try {
       const res = await axios.put(
         `/api/user/change-password/${user._id}`,
         { password: password },
-        config
+        asJson
       );
       updateSuccess();
     } catch (err) {
@@ -128,17 +102,11 @@ const AuthState = (props) => {
   };
 
   const uploadDocument = async (userId, doc) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
     try {
       const res = await axios.post(
         `/api/user/upload-document/${userId}`,
         doc,
-        config
+        asJson
       );
       loadUser();
     } catch (err) {
@@ -148,19 +116,12 @@ const AuthState = (props) => {
   };
 
   const deleteDocument = async (userId, docName) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
     let docObj = { docName: docName };
-
     try {
       const res = await axios.put(
         `/api/user/delete-document/${userId}`,
         docObj,
-        config
+        asJson
       );
     } catch (err) {
       updateFail();
