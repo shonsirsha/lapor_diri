@@ -51,6 +51,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: false,
   },
+  refresh_tokens: {
+    type: [],
+    required: false,
+  },
   date: {
     type: Date,
     default: Date.now,

@@ -1,4 +1,5 @@
 {
   "mongoURI": "mongodb+srv://sean123:sean123@cluster0-da85z.mongodb.net/ladi?retryWrites=true&w=majority",
-  "jwtSecret": "secret"
+  "jwtSecret": "17bc037242d04b18b175a476c5e0f4df622909f736efa3045ac07f1c11e46208b5c127342d2903d4f124845bb571f6276cc0d79bdd7b47009b1fe388d82a19f3",
+  "refreshToken": "75f0ce6f2cabb100905ab08a01cd17c1129c2825a6f2c4aa1793985ba04a9d049b9effeb369719cf734e664770c41298e113a355ccd088864757e76df8a6955"
 }

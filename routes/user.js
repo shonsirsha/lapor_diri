@@ -7,6 +7,7 @@ const config = require("config");
 const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
 const checkUserExists = require("./utils/checkUserExists");
+const generateAccessToken = require("./utils/generateAccessToken");
 
 //@route    POST api/user
 //@desc     Register a user
@@ -51,15 +52,10 @@ router.post(
       if (user) {
         return res.status(409).json({ msg: "Email has been used" });
       }
-      let user2 = await checkUserExists("paspor", paspor);
-      if (user2) {
+      user = await checkUserExists("paspor", paspor);
+      if (user) {
         return res.status(409).json({ msg: "Passport number has been used" });
       }
-      // let user = await User.findOne({ email: email });
-
-      // if (user) {
-      //   return res.status(409).json({ msg: "User already exists" });
-      // }
 
       user = new User({
         nama_depan: nama_depan,
@@ -85,23 +81,15 @@ router.post(
         },
       };
 
-      jwt.sign(
-        payload,
-        config.get("jwtSecret"),
-        {
-          expiresIn: 360000,
-        },
-        (err, token) => {
-          if (err) {
-            throw err;
-          }
+      const token = generateAccessToken(payload);
+      const refreshToken = jwt.sign(payload, config.get("jwtSecret"));
+      user.refresh_tokens.push(refreshToken);
+      await user.save();
 
-          res.json({ token: token });
-        }
-      );
+      res.json({ token: token, refreshToken: refreshToken });
     } catch (e) {
       console.log(e.message);
-      res.status(500).send("servesr error " + e.message);
+      res.status(500).send("server error " + e.message);
     }
   }
 );
