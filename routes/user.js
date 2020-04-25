@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
+const checkUserExists = require("./utils/checkUserExists");
 
 //@route    POST api/user
 //@desc     Register a user
@@ -46,11 +47,19 @@ router.post(
       password,
     } = req.body;
     try {
-      let user = await User.findOne({ email: email });
-
+      let user = await checkUserExists("email", email);
       if (user) {
-        return res.status(409).json({ msg: "User already exists" });
+        return res.status(409).json({ msg: "Email has been used" });
       }
+      let user2 = await checkUserExists("paspor", paspor);
+      if (user2) {
+        return res.status(409).json({ msg: "Passport number has been used" });
+      }
+      // let user = await User.findOne({ email: email });
+
+      // if (user) {
+      //   return res.status(409).json({ msg: "User already exists" });
+      // }
 
       user = new User({
         nama_depan: nama_depan,
@@ -92,7 +101,7 @@ router.post(
       );
     } catch (e) {
       console.log(e.message);
-      res.status(500).send("server error" + e.message);
+      res.status(500).send("servesr error " + e.message);
     }
   }
 );

@@ -14,10 +14,6 @@ const AlertState = (props) => {
   const setAlert = (msg, type, timeout = 5000) => {
     const id = uuid();
     dispatch({ type: SET_ALERT, payload: { msg: msg, type: type, id: id } });
-
-    setTimeout(() => {
-      clearAllAlerts();
-    }, timeout);
   };
 
   const clearAllAlerts = () => {

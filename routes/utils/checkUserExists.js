@@ -1,6 +1,7 @@
 const User = require("../../models/User");
 
 const checkUserExists = async (field, data) => {
+  // check by variable field
   let user;
   if (field === "userId") {
     user = await User.findById(data);

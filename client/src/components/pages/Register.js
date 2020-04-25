@@ -27,9 +27,8 @@ const RegisterForm = (props) => {
       props.history.push("/");
     }
 
-    if (error === "User already exists") {
-      setAlert("Email tersebut telah digunakan", "danger");
-      scrollTop();
+    if (error) {
+      setAlert(error, "danger");
     }
   }, [error, isAuthenticated, props.history]);
 
@@ -63,6 +62,7 @@ const RegisterForm = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    scrollTop();
 
     registerUser({
       nama_depan,
@@ -75,6 +75,8 @@ const RegisterForm = (props) => {
       alamat,
       kota_kodepos,
     });
+
+    clearAllAlerts();
   };
 
   const scrollTop = () => {
