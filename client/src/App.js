@@ -7,9 +7,6 @@ import Footer from "./components/layouts/Footer";
 
 import Home from "./components/pages/Home/Home";
 import Register from "./components/pages/Register";
-import Login from "./components/pages/Login";
-import Cek from "./components/pages/Cek";
-import ResetPassword from "./components/pages/ResetPassword";
 import HomeContainer from "./components/layouts/HomeContainer";
 
 import MyAlert from "./components/layouts/MyAlert";

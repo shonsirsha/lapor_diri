@@ -4,7 +4,7 @@ import { Container, Card } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import Spinner from "./Spinner";
 import Login from "../pages/Login";
-import CheckRegistration from "../pages/Cek";
+import CheckRegistration from "../pages/CheckRegistration";
 import ResetPassword from "../pages/ResetPassword";
 
 const HomeContainer = () => {

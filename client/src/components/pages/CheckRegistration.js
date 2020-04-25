@@ -8,7 +8,7 @@ const CheckRegistration = () => {
   const checkContext = useContext(CheckContext);
   const toastContext = useContext(ToastContext);
 
-  const { cekRegistrasi, status, registered, resetStates } = checkContext;
+  const { checkRegistration, status, registered, resetStates } = checkContext;
   const { showToast } = toastContext;
 
   const [user, setUser] = useState({
@@ -48,7 +48,7 @@ const CheckRegistration = () => {
     e.preventDefault();
     if (nama_belakang === "" || paspor === "") {
     } else {
-      cekRegistrasi({
+      checkRegistration({
         nama_belakang: nama_belakang.toUpperCase(),
         paspor: paspor.toUpperCase(),
       });
