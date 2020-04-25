@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 
-import CekContext from "./checkContext";
-import CekReducer from "./cekReducer";
+import CekContext from "./checkRegistrationContext";
+import CekReducer from "./checkRegistrationReducer";
 import axios from "axios";
 
 import { CEK_REGISTERED, CEK_UNREGISTERED, RESET_UPDATE } from "../types";

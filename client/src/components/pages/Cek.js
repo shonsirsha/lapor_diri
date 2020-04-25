@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, Fragment } from "react";
-import CheckContext from "../../context/check-registration/checkContext";
+import CheckContext from "../../context/check-registration/checkRegistrationContext";
 import ToastContext from "../../context/toast/toastContext";
 
 import FormInput from "../layouts/FormInputs/FormInput";

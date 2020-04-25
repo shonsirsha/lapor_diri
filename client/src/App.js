@@ -17,7 +17,7 @@ import MyToast from "./components/layouts/MyToast";
 
 import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
-import CekState from "./context/check-registration/CekState";
+import CekState from "./context/check-registration/CheckRegistrationState";
 import ToastState from "./context/toast/ToastState";
 
 import setAuthToken from "./utils/setAuthToken";
