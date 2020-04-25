@@ -16,6 +16,7 @@ import {
   UPDATE_SUCCESS,
   UPDATE_FAIL,
   RESET_UPDATE,
+  JWT_EXPIRED,
 } from "../types";
 
 const AuthState = (props) => {
@@ -40,7 +41,11 @@ const AuthState = (props) => {
         payload: res.data,
       });
     } catch (err) {
-      dispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
+      if (err.response.data.msg == "jwt expired") {
+        dispatch({ type: JWT_EXPIRED});
+      }else{
+        dispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
+      }
     }
   };
 

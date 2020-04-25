@@ -22,9 +22,10 @@ export const RESET_UPDATE = "RESET_UPDATE";
 
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
-
 export const SHOW_TOAST = "SHOW_TOAST";
 export const HIDE_TOAST = "HIDE_TOAST";
 
 export const CHECK_REGISTERED = "CHECK_REGISTERED";
 export const CHECK_UNREGISTERED = "CHECK_UNREGISTERED";
+
+export const JWT_EXPIRED = "JWT_EXPIRED"

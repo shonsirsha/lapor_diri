@@ -9,6 +9,7 @@ import {
   UPDATE_SUCCESS,
   UPDATE_FAIL,
   RESET_UPDATE,
+  JWT_EXPIRED,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {
@@ -49,7 +50,7 @@ export default (state, action) => {
     case REGISTER_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token");
       return {
         ...state,
         token: null,
@@ -57,6 +58,10 @@ export default (state, action) => {
         loading: false,
         user: null,
         error: action.payload,
+      };
+    case JWT_EXPIRED:
+      return {
+        ...state,
       };
     default:
       return state;
