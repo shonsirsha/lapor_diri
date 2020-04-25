@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 
-import CekContext from "./cekContext";
+import CekContext from "./checkContext";
 import CekReducer from "./cekReducer";
 import axios from "axios";
 
