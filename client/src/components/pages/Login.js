@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext, Fragment } from "react";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
 import FormInput from "../layouts/FormInputs/FormInput";
-import JumbotronSignup from "../layouts/JumbotronSignup";
+import { Link } from "react-router-dom";
 
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -95,6 +95,10 @@ const Login = (props) => {
             Masuk
           </Button>
         </Form>
+        <p style={{ marginTop: "8px" }}>
+          Lupa kata sandi? Reset kata sandi Anda{" "}
+          <Link to='/reset-kata-sandi'>disini.</Link>
+        </p>
       </Fragment>
     );
   } else {

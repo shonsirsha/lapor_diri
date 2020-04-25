@@ -27,7 +27,6 @@ const Home = () => {
     clearAllAlerts();
     loadUser();
     //eslint-disable-next-line
-    console.log(isAuthenticated);
   }, []);
 
   return (
@@ -39,11 +38,16 @@ const Home = () => {
             Lapor diri secara mandiri dan gratis untuk WNI di wilayah Jerman
           </h2>
           {!isAuthenticated || loading ? (
-            <Link to='/register'>
-              <Button style={{ marginRight: "8px" }} variant='success'>
-                Mendaftar
-              </Button>{" "}
-            </Link>
+            <div>
+              <Link to='/register'>
+                <Button style={{ marginRight: "8px" }} variant='success'>
+                  Mendaftar
+                </Button>{" "}
+              </Link>
+              <Link to='/login'>
+                <Button variant='success'>Masuk</Button>{" "}
+              </Link>
+            </div>
           ) : (
             ""
           )}
