@@ -51,8 +51,12 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: false,
   },
-  refresh_tokens: {
-    type: [],
+  token: {
+    type: String,
+    required: false,
+  },
+  refresh_token: {
+    type: String,
     required: false,
   },
   date: {

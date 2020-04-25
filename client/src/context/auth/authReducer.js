@@ -50,7 +50,8 @@ export default (state, action) => {
     case REGISTER_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
-      // localStorage.removeItem("token");
+      localStorage.removeItem("token");
+
       return {
         ...state,
         token: null,
@@ -60,8 +61,15 @@ export default (state, action) => {
         error: action.payload,
       };
     case JWT_EXPIRED:
+      localStorage.removeItem("token");
+
+      localStorage.setItem("token", action.payload.token);
+
       return {
         ...state,
+        ...action.payload, //token
+        isAuthenticated: true,
+        loading: false,
       };
     default:
       return state;

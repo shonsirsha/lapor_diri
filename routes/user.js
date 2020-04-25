@@ -83,14 +83,15 @@ router.post(
       }; // payload taken from _id generated in the db
 
       const token = generateAccessToken(payload); // new access token
-      
-      const refreshToken = jwt.sign(payload, config.get("jwtSecret")); // new refresh token
 
-      user.refresh_tokens.push(refreshToken); // creating an array of refresh tokens and pushed a the new refresh token value into it
+      const refresh_token = jwt.sign(payload, config.get("jwtSecret")); // new refresh token
+
+      user.token = token; // save current access token to db
+      user.refresh_token = refresh_token; // creating an array of refresh tokens and pushed a the new refresh token value into it
 
       await user.save(); // saving the refresh token to an array field of that user in db
 
-      res.json({ token: token, refreshToken: refreshToken });
+      res.json({ token: token, refresh_token: refresh_token });
     } catch (e) {
       res.status(500).send("server error " + e.message);
     }

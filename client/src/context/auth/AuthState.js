@@ -22,6 +22,7 @@ import {
 const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem("token"),
+    refresh_token: null,
     isAuthenticated: null,
     loading: true,
     user: null,
@@ -41,9 +42,29 @@ const AuthState = (props) => {
         payload: res.data,
       });
     } catch (err) {
-      if (err.response.data.msg == "jwt expired") {
-        dispatch({ type: JWT_EXPIRED});
-      }else{
+      if (err.response.data.msg === "jwt expired") {
+        axios
+          .post(
+            "/api/auth/refresh_token",
+            {
+              old_token: state.token,
+            },
+            asJson
+          )
+          .then(function (response) {
+            dispatch({ type: JWT_EXPIRED, payload: response.data });
+
+            console.log(response);
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+          });
+        // dispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
+      } else {
         dispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
       }
     }
