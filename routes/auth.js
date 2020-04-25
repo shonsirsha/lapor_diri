@@ -12,7 +12,9 @@ const generateAccessToken = require("./utils/generateAccessToken");
 //@access   Private
 router.get("/", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user.id).select(
+      "-password -refresh_tokens"
+    );
     res.json(user);
   } catch (e) {
     console.error(e.message);

@@ -33,8 +33,8 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+      return res.status(400).json({ msg: errors.array() });
+    } // checking if any required field is incomplete (from user)
 
     const {
       nama_depan,
@@ -46,15 +46,16 @@ router.post(
       kota_kodepos,
       email,
       password,
-    } = req.body;
+    } = req.body; // destructuring request body
+
     try {
       let user = await checkUserExists("email", email);
       if (user) {
-        return res.status(409).json({ msg: "Email has been used" });
+        return res.status(409).json({ msg: "Email has been used" }); //checks if email alr exist in db
       }
       user = await checkUserExists("paspor", paspor);
       if (user) {
-        return res.status(409).json({ msg: "Passport number has been used" });
+        return res.status(409).json({ msg: "Passport number has been used" }); // checks if passport alr exist in db
       }
 
       user = new User({
@@ -69,26 +70,28 @@ router.post(
         password: password,
         melde_pic: "",
         paspor_pic: "",
-      });
+      }); // creating a new user based on User model
 
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
-      await user.save();
+      const salt = await bcrypt.genSalt(10); //generating salt for password hashing
+      user.password = await bcrypt.hash(password, salt); // hashing the password
+      await user.save(); // saves a new user to db
 
       const payload = {
         user: {
           id: user.id,
         },
-      };
+      }; // payload taken from _id generated in the db
 
-      const token = generateAccessToken(payload);
-      const refreshToken = jwt.sign(payload, config.get("jwtSecret"));
-      user.refresh_tokens.push(refreshToken);
-      await user.save();
+      const token = generateAccessToken(payload); // new access token
+      
+      const refreshToken = jwt.sign(payload, config.get("jwtSecret")); // new refresh token
+
+      user.refresh_tokens.push(refreshToken); // creating an array of refresh tokens and pushed a the new refresh token value into it
+
+      await user.save(); // saving the refresh token to an array field of that user in db
 
       res.json({ token: token, refreshToken: refreshToken });
     } catch (e) {
-      console.log(e.message);
       res.status(500).send("server error " + e.message);
     }
   }
