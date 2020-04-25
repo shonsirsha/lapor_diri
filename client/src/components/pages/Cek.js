@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useContext, Fragment } from "react";
-import CekContext from "../../context/cek/cekContext";
+import CheckContext from "../../context/check-registration/cekContext";
 import ToastContext from "../../context/toast/toastContext";
 
 import FormInput from "../layouts/FormInputs/FormInput";
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
-const Cek = () => {
-  const cekContext = useContext(CekContext);
+const CheckRegistration = () => {
+  const checkContext = useContext(CheckContext);
   const toastContext = useContext(ToastContext);
 
-  const { cekRegistrasi, status, registered, resetStates } = cekContext;
+  const { cekRegistrasi, status, registered, resetStates } = checkContext;
   const { showToast } = toastContext;
 
   const [user, setUser] = useState({
@@ -94,4 +94,4 @@ const Cek = () => {
   );
 };
 
-export default Cek;
+export default CheckRegistration;
