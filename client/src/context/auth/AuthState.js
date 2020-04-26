@@ -153,8 +153,21 @@ const AuthState = (props) => {
   };
 
   //logout
-  const logoutUser = () => {
-    dispatch({ type: LOGOUT });
+  const logoutUser = async () => {
+    try {
+      const res = await axios.post(
+        `/api/auth/logout/${state.userId}`,
+        { refresh_token: state.refresh_token },
+        asJson
+      );
+
+      dispatch({ type: LOGOUT });
+    } catch (err) {
+      if (err.response.data.msg === "jwt expired") {
+        refreshesToken();
+        logoutUser();
+      }
+    }
   };
 
   const updateSuccess = () => {
