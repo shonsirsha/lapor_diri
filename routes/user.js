@@ -8,6 +8,8 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
 const checkUserExists = require("./utils/checkUserExists");
 const generateAccessToken = require("./utils/generateAccessToken");
+const nodemailer = require("nodemailer");
+const dotenv = require("dotenv").config();
 
 //@route    POST api/user
 //@desc     Register a user
@@ -257,41 +259,32 @@ router.post("/upload-document/:id", auth, async (req, res) => {
   }
 });
 
-//@route    PUT api/user/delete-document/:id
-//@desc     Edit user document field (url for file) on db into empty string ""
+//@route    POST api/user/reset-password
+//@desc     Resets user password by Id
 //@access   Private
-router.put("/delete-document/:id", auth, async (req, res) => {
-  const { docName } = req.body;
+router.post("/reset-password/:id", auth, async (req, res) => {
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "",
+      pass: "",
+    },
+  });
 
-  //build user object
-  const userField = {};
+  let mailOptions = {
+    from: "",
+    to: "",
+    subject: "",
+    html: "",
+  };
 
-  if (docName === "melde") {
-    userField.melde_pic = "";
-  }
-
-  if (docName === "paspor") {
-    userField.paspor_pic = "";
-  }
-
-  try {
-    let user = await checkUserExists("_id", req.params.id);
-    if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      res.status(400).json({ msg: "error: " + err });
+    } else {
+      res.status(200).json({ msg: "success: " + info.response });
     }
-
-    user = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: userField,
-      },
-      { new: true }
-    );
-    res.json(user);
-  } catch (e) {
-    console.error(e.message);
-    res.status(500).send("Server error");
-  }
+  });
 });
 
 module.exports = router;
