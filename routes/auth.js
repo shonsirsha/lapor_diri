@@ -55,26 +55,32 @@ router.post(
       const token = generateAccessToken(payload);
       const refresh_token = jwt.sign(payload, config.get("jwtSecret"));
 
-      user.token = token; // save current access token to db
-      user.refresh_token = refresh_token; // creating an array of refresh tokens and pushed a the new refresh token value into it
+      user.refresh_token.push(refresh_token); // creating an array of refresh tokens and pushed a the new refresh token value into it
       await user.save();
 
-      res.json({ token: token, refresh_token: refresh_token });
+      res.json({
+        token: token,
+        refresh_token: refresh_token,
+        userId: user._id,
+      });
     } catch (err) {
       res.status(500).send("Server error");
     }
   }
 );
 
-router.post("/refresh_token", async (req, res) => {
-  const { old_token } = req.body;
+router.post("/refresh_token/:id", async (req, res) => {
+  const { refresh_token } = req.body;
 
   try {
-    if (old_token === null) res.status(401).json({ msg: "no token found" });
+    let user = await User.findById(req.params.id);
 
-    let user = await checkUserExists("token", old_token);
-
+    if (refresh_token === null) res.status(401).json({ msg: "no token found" });
     //refresh token isnt sent by user
+
+    if (!user.refresh_token.includes(refresh_token))
+      res.status(401).json({ msg: "no token found" });
+    //refresh token sent isnt in db
 
     const payload = {
       user: {
@@ -82,12 +88,12 @@ router.post("/refresh_token", async (req, res) => {
       },
     }; // payload taken from _id that's generated in the db
 
-    jwt.verify(user.refresh_token, config.get("jwtSecret"), (err) => {
+    jwt.verify(refresh_token, config.get("jwtSecret"), (err) => {
       if (err) res.status(401).json({ msg: "token isn't valid" }); //token is not valid
 
       const token = generateAccessToken(payload); // a new access token (refreshed)
-      user.token = token;
-      user.save();
+      // user.token.push(token);
+      // user.save();
       res.json({ token: token });
     });
   } catch (e) {

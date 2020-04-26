@@ -51,12 +51,12 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: false,
   },
-  token: {
-    type: String,
-    required: false,
-  },
+  // token: {
+  //   type: [],
+  //   required: false,
+  // },
   refresh_token: {
-    type: String,
+    type: [],
     required: false,
   },
   date: {

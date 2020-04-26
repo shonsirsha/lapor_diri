@@ -16,18 +16,19 @@ import {
   UPDATE_SUCCESS,
   UPDATE_FAIL,
   RESET_UPDATE,
-  JWT_EXPIRED,
+  TOKEN_REFRESH,
 } from "../types";
 
 const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem("token"),
-    refresh_token: null,
     isAuthenticated: null,
     loading: true,
     user: null,
     error: null,
     updateStatus: -1,
+    userId: localStorage.getItem("userId"),
+    refresh_token: localStorage.getItem("refresh_token"),
     updated: "hidden",
   };
   const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -44,13 +45,13 @@ const AuthState = (props) => {
     } catch (err) {
       if (err.response.data.msg === "jwt expired") {
         let res = await axios.post(
-          "/api/auth/refresh_token",
+          "/api/auth/refresh_token/" + state.userId,
           {
-            old_token: state.token,
+            refresh_token: state.refresh_token,
           },
           asJson
         );
-        dispatch({ type: JWT_EXPIRED, payload: res.data });
+        dispatch({ type: TOKEN_REFRESH, payload: res.data });
       } else {
         dispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
       }
@@ -90,7 +91,6 @@ const AuthState = (props) => {
   };
 
   //update contact
-
   const updateUser = async (user) => {
     try {
       const res = await axios.put(`/api/user/${user._id}`, user, asJson);

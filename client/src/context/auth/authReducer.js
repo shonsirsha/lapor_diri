@@ -9,13 +9,16 @@ import {
   UPDATE_SUCCESS,
   UPDATE_FAIL,
   RESET_UPDATE,
-  JWT_EXPIRED,
+  TOKEN_REFRESH,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
       localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("userId", action.payload.userId);
+      localStorage.setItem("refresh_token", action.payload.refresh_token);
+
       return {
         ...state,
         ...action.payload, //token
@@ -60,9 +63,8 @@ export default (state, action) => {
         user: null,
         error: action.payload,
       };
-    case JWT_EXPIRED:
+    case TOKEN_REFRESH:
       localStorage.removeItem("token");
-
       localStorage.setItem("token", action.payload.token);
 
       return {

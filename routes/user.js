@@ -86,12 +86,15 @@ router.post(
 
       const refresh_token = jwt.sign(payload, config.get("jwtSecret")); // new refresh token
 
-      user.token = token; // save current access token to db
-      user.refresh_token = refresh_token; // creating an array of refresh tokens and pushed a the new refresh token value into it
+      user.refresh_token.push(refresh_token); // creating an array of refresh tokens and pushed a the new refresh token value into it
 
       await user.save(); // saving the refresh token to an array field of that user in db
 
-      res.json({ token: token, refresh_token: refresh_token });
+      res.json({
+        token: token,
+        refresh_token: refresh_token,
+        userId: user._id,
+      });
     } catch (e) {
       res.status(500).send("server error " + e.message);
     }
@@ -251,22 +254,6 @@ router.post("/upload-document/:id", auth, async (req, res) => {
   } catch (e) {
     res.status(500).send("Server error");
   }
-  // if (req.files === null) {
-  //   return res.status(400).json({ msg: "No file was uploaded." }); // bad req
-  // }
-  // const file = req.files.file;
-  // const fileExt = path.extname(file.name);
-  // let newFileName =
-  //   file.name.substr(0, file.name.lastIndexOf(".")).replace(/ /g, "") +
-  //   Date.now() +
-  //   fileExt;
-  // file.mv(`${__dirname}/../client/public/img-melde/${newFileName}`, (err) => {
-  //   if (err) {
-  //     console.error(err);
-  //     return res.status(500).json({ msg: `Server error ${err}` }); //server err
-  //   }
-  //   res.json({ fileName: file.name, filePath: `/img-melde/${newFileName}` });
-  // });
 });
 
 //@route    PUT api/user/delete-document/:id
