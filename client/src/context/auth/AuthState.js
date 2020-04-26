@@ -44,14 +44,7 @@ const AuthState = (props) => {
       });
     } catch (err) {
       if (err.response.data.msg === "jwt expired") {
-        let res = await axios.post(
-          "/api/auth/refresh_token/" + state.userId,
-          {
-            refresh_token: state.refresh_token,
-          },
-          asJson
-        );
-        dispatch({ type: TOKEN_REFRESH, payload: res.data });
+        refreshesToken();
       } else {
         dispatch({ type: AUTH_ERROR, payload: err.response.data.msg });
       }
@@ -105,29 +98,6 @@ const AuthState = (props) => {
           dispatch({ type: UPDATE_FAIL, payload: err.response.data.msg });
         }
       });
-
-    // axios
-    //   .post(
-    //     "/api/auth/refresh_token/" + state.userId,
-    //     {
-    //       refresh_token: state.refresh_token,
-    //     },
-    //     asJson
-    //   )
-    //   .then((res) => {
-    //     refreshesToken(res.data);
-    //     axios
-    //       .put(`/api/user/${user._id}`, user, asJson)
-    //       .then(function (res) {
-    //         dispatch({ type: UPDATE_SUCCESS, payload: res.data.msg });
-    //       })
-    //       .catch(function (err) {
-    //         dispatch({ type: UPDATE_FAIL, payload: err });
-    //       });
-    //   })
-    //   .catch(function (error) {
-    //     dispatch({ type: UPDATE_FAIL, payload: err });
-    //   });
   };
 
   const changePassword = async (user, password) => {
@@ -202,7 +172,7 @@ const AuthState = (props) => {
         setAuthToken(localStorage.token); //setting global headers for x-auth-token
       })
       .catch((err) => {
-        console.log("jancok");
+        logoutUser(); // refresh token not found
       });
   };
 
