@@ -1,14 +1,5 @@
 import React, { Fragment, useContext, useEffect } from "react";
-import {
-  Jumbotron,
-  Button,
-  Row,
-  Col,
-  Card,
-  Container,
-  Alert,
-  Accordion,
-} from "react-bootstrap";
+import { Jumbotron, Button, Container } from "react-bootstrap";
 
 import AlertContext from "../../../context/alert/alertContext";
 import AuthContext from "../../../context/auth/authContext";
@@ -22,7 +13,7 @@ const Home = () => {
   const alertContext = useContext(AlertContext);
   const { clearAllAlerts } = alertContext;
 
-  const { loadUser, user, loading, isAuthenticated } = authContext;
+  const { loadUser, loading, isAuthenticated } = authContext;
   useEffect(() => {
     clearAllAlerts();
     loadUser();

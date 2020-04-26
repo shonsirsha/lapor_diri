@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
-import { Row, Col, Form, Button, Card, Container } from "react-bootstrap";
+import { Row, Col, Form, Button, Container } from "react-bootstrap";
 import FormInput from "../layouts/FormInputs/FormInput";
 import FormLabel from "../layouts/FormInputs/FormLabel";
 import AlertContext from "../../context/alert/alertContext";
@@ -21,6 +21,7 @@ const RegisterForm = (props) => {
   useEffect(() => {
     clearAllAlerts();
     loadUser();
+    //eslint-disable-next-line
   }, []);
   useEffect(() => {
     if (isAuthenticated) {
@@ -30,6 +31,7 @@ const RegisterForm = (props) => {
     if (error) {
       setAlert(error, "danger");
     }
+    //eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
@@ -141,7 +143,7 @@ const RegisterForm = (props) => {
                 <FormInput
                   inputName='password'
                   inputType='password'
-                  minLength='6'
+                  minLength={6}
                   onChangeMethod={onChange}
                 />
                 <Form.Text className='text-muted'>

@@ -17,12 +17,9 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   const toastContext = useContext(ToastContext);
 
   const {
-    resetToast,
-    updateFail,
     uploadDocument,
     loadUser,
     deleteDocument,
-    updateStatus,
     resetUpdateStatus,
   } = authContext;
 
@@ -33,7 +30,11 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
       setfileDocument(e.target.files[0]);
       setFileNameDb(`${userId}-${e.target.files[0].name}`);
     } else {
-      updateFail();
+      showLocalToast(
+        "Dokumen gagal diunggah. Ukuran maksimal dokumen adalah 6MB.",
+        "danger",
+        2500
+      );
     }
   };
   const { showToast } = toastContext;
@@ -45,6 +46,7 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
 
   useEffect(() => {
     loadUser();
+    //eslint-disable-next-line
   }, []);
 
   const resetField = () => {
@@ -70,9 +72,10 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
         }
       }
     }
+    //eslint-disable-next-line
   }, [authContext.user]);
   const onDelete = () => {
-    deleteDocument(userId, documentName);
+    deleteDocument(documentName);
     resetField();
     storage
       .ref(`${pathToFirebase}`)
@@ -82,7 +85,11 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
         showLocalToast("Dokumen berhasil dihapus", "success", 1500);
       })
       .catch(function (error) {
-        updateFail();
+        showLocalToast(
+          "Dokumen gagal dihapus, mohon coba lagi",
+          "danger",
+          1500
+        );
       });
   };
   const onClickUploadFile = (e) => {
@@ -96,8 +103,12 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
           var percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setFileDocumentProgress(percent);
         },
-        (error) => {
-          updateFail();
+        (err) => {
+          showLocalToast(
+            "Dokumen gagal diunggah, mohon coba lagi.",
+            "danger",
+            1500
+          );
         },
         () => {
           storage
@@ -107,13 +118,17 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
             .then((url) => {
               setFileUrl(url);
               let docObj = { docName: documentName, docUrl: fileNameDb };
-              uploadDocument(userId, docObj);
+              uploadDocument(docObj);
               showLocalToast("Dokumen berhasil diunggah", "success", 1500);
             });
         }
       );
     } catch (e) {
-      updateFail();
+      showLocalToast(
+        "Dokumen gagal diunggah, mohon coba lagi.",
+        "danger",
+        1500
+      );
     }
   };
   return (
@@ -137,35 +152,36 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
             </b>
             <a
               href={fileUrl + "?alt=media"}
+              rel='noopener noreferrer'
               style={{ marginRight: "8px" }}
               target='_blank'
             >
               Cek Dokumen
             </a>
           </div>
-          <a
+          <button
             onClick={() => {
               onDelete();
             }}
           >
-            <i class='fas fa-trash'></i>
-          </a>
+            <i className='fas fa-trash'></i>
+          </button>
         </div>
       ) : (
-        <div class='custom-file '>
+        <div className='custom-file '>
           <Form>
             <FormGroup>
               <input
                 type='file'
-                class='custom-file-input'
+                className='custom-file-input'
                 id='file'
-                inputName='file'
+                inputname='file'
                 accept='.png, .jpeg, .jpg, .pdf'
                 onChange={onChangeUploadFile}
                 required
               />
 
-              <label class='custom-file-label' for='file'>
+              <label className='custom-file-label' htmlFor='file'>
                 {fileDocument === null ? labelText : fileDocument.name}
               </label>
               <Form.Text className='text-muted'>

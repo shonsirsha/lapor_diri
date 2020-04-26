@@ -86,7 +86,7 @@ const AuthState = (props) => {
   //update user detail
   const updateUser = async (user) => {
     try {
-      const res = await axios.put(`/api/user/${user._id}`, user, asJson);
+      await axios.put(`/api/user/${user._id}`, user, asJson);
       updateSuccess();
     } catch (err) {
       if (err.response.data.msg === "jwt expired") {
@@ -100,7 +100,7 @@ const AuthState = (props) => {
 
   const changePassword = async (user, password) => {
     try {
-      const res = await axios.put(
+      await axios.put(
         `/api/user/change-password/${user._id}`,
         { password: password },
         asJson
@@ -116,10 +116,10 @@ const AuthState = (props) => {
     }
   };
 
-  const uploadDocument = async (userId, doc) => {
+  const uploadDocument = async (doc) => {
     try {
-      const res = await axios.post(
-        `/api/user/upload-document/${userId}`,
+       await axios.post(
+        `/api/user/upload-document/${state.userId}`,
         doc,
         asJson
       );
@@ -127,25 +127,25 @@ const AuthState = (props) => {
     } catch (err) {
       if (err.response.data.msg === "jwt expired") {
         refreshesToken();
-        uploadDocument(userId, doc);
+        uploadDocument(state.userId, doc);
       } else {
         updateFail();
       }
     }
   };
 
-  const deleteDocument = async (userId, docName) => {
+  const deleteDocument = async (docName) => {
     let docObj = { docName: docName };
     try {
-      const res = await axios.put(
-        `/api/user/delete-document/${userId}`,
+      await axios.put(
+        `/api/user/delete-document/${state.userId}`,
         docObj,
         asJson
       );
     } catch (err) {
       if (err.response.data.msg === "jwt expired") {
         refreshesToken();
-        uploadDocument(userId, docName);
+        deleteDocument(state.userId, docName);
       } else {
         updateFail();
       }
@@ -155,19 +155,19 @@ const AuthState = (props) => {
   //logout
   const logoutUser = async () => {
     try {
-      const res = await axios.post(
+       await axios.post(
         `/api/auth/logout/${state.userId}`,
         { refresh_token: state.refresh_token },
         asJson
       );
-
-      dispatch({ type: LOGOUT });
     } catch (err) {
       if (err.response.data.msg === "jwt expired") {
         refreshesToken();
         logoutUser();
       }
     }
+
+    dispatch({ type: LOGOUT });
   };
 
   const updateSuccess = () => {

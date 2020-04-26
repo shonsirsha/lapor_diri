@@ -36,6 +36,7 @@ const CheckRegistration = () => {
         // you're registered but your data arent complete yet
       }
     }
+    //eslint-disable-next-line
   }, [status, registered]);
 
   const { nama_belakang, paspor } = user;

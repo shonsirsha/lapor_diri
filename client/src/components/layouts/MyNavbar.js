@@ -6,7 +6,7 @@ import AuthContext from "../../context/auth/authContext";
 
 const MyNavbar = () => {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, user, logoutUser } = authContext;
+  const { isAuthenticated, logoutUser } = authContext;
 
   const onLogout = () => {
     logoutUser();
@@ -14,22 +14,24 @@ const MyNavbar = () => {
   const authLinks = (
     <Fragment>
       {/* <i className='fas fa-sign-out' />{" "} */}
-      <Nav.Link onClick={onLogout}>Keluar</Nav.Link>
+      <Link to='/' className='noStyleLink' onClick={onLogout}>
+        Keluar
+      </Link>
     </Fragment>
   );
 
   const guessLinks = (
     <Fragment>
-      <Nav.Link>
-        <Link className='noStyleLink' to='/register'>
-          Daftar
-        </Link>
-      </Nav.Link>
-      <Nav.Link>
-        <Link className='noStyleLink' to='/login'>
-          Masuk
-        </Link>
-      </Nav.Link>
+      <Link
+        className='noStyleLink'
+        to='/register'
+        style={{ marginRight: "8px" }}
+      >
+        Daftar
+      </Link>
+      <Link className='noStyleLink' to='/login'>
+        Masuk
+      </Link>
     </Fragment>
   );
 

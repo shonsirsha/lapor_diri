@@ -18,7 +18,6 @@ import CekState from "./context/check-registration/CheckRegistrationState";
 import ToastState from "./context/toast/ToastState";
 
 import setAuthToken from "./utils/setAuthToken";
-import PrivateRoute from "./components/routing/PrivateRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 if (localStorage.token) {
@@ -28,22 +27,35 @@ if (localStorage.token) {
 const App = () => {
   return (
     <AuthState>
-      <AlertState>
+      <AlertState key={"ASDAS"}>
         <CekState>
           <ToastState>
             <Router>
               <Fragment>
                 <Navbar />
-                <MyAlert />
+                <MyAlert key={1} />
                 <MyToast />
                 <Switch>
                   <Route exact path='/register' component={Register} />
                   <Route exact path='/' component={Home} />
-                  <Route
+                  <Fragment>
+                    {["/login", "/cek-registrasi", "/reset-kata-sandi"].map(
+                      (path) => (
+                        <Route
+                          exact
+                          path={path}
+                          key={path}
+                          component={HomeContainer}
+                        />
+                      )
+                    )}
+                  </Fragment>
+
+                  {/* <Route
                     exact
                     path={"/cek-registrasi" | "/login" | "/reset-kata-sandi"}
                     component={HomeContainer}
-                  />
+                  /> */}
                 </Switch>
                 <Footer />
               </Fragment>

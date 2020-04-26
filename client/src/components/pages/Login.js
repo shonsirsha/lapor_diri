@@ -25,6 +25,7 @@ const Login = (props) => {
   useEffect(() => {
     clearAllAlerts();
     loadUser();
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const Login = (props) => {
       setAlert("Akun tidak dapat ditemukan", "danger");
       scrollTop();
     }
+    //eslint-disable-next-line
   }, [error, isAuthenticated]);
 
   const onChange = (e) => {

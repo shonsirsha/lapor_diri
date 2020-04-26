@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 const FormInput = ({
@@ -14,7 +14,7 @@ const FormInput = ({
       type={inputType}
       name={inputName}
       onChange={onChangeMethod}
-      minlength={minLength}
+      minLength={minLength}
       value={value}
       required
     />

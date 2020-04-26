@@ -1,14 +1,5 @@
 import React, { Fragment } from "react";
-import {
-  Jumbotron,
-  Button,
-  Row,
-  Col,
-  Card,
-  Container,
-  Alert,
-  Accordion,
-} from "react-bootstrap";
+import { Button, Row, Col, Card, Alert, Accordion } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const HomeGuestView = () => {

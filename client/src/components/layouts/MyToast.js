@@ -6,7 +6,6 @@ const MyToast = () => {
   const toastContext = useContext(ToastContext);
 
   const [showtoast, setShowtoast] = useState(false);
-  const [status, setStatus] = useState(null);
   const [thisToast, setThisToast] = useState({
     msg: null,
     type: null,

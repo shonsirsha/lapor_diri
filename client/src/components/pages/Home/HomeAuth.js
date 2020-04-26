@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import FormInput from "../../layouts/FormInputs/FormInput";
 import FormLabel from "../../layouts/FormInputs/FormLabel";
@@ -39,11 +39,9 @@ const HomeAuth = () => {
 
   const { showToast } = toastContext;
 
-  const { setAlert, clearAllAlerts } = alertContext;
+  const { clearAllAlerts } = alertContext;
 
   const [showModal, setShowModal] = useState(false);
-  const [fileMelde, setFileMelde] = useState(null);
-  const [fileMeldeProgress, setFileMeldeProgress] = useState(0);
   const toggleShowModal = () => {
     setShowModal(!showModal);
   };
@@ -97,6 +95,7 @@ const HomeAuth = () => {
   useEffect(() => {
     clearAllAlerts();
     loadUser();
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -109,6 +108,7 @@ const HomeAuth = () => {
         2500
       );
     }
+    //eslint-disable-next-line
   }, [updateStatus]);
 
   useEffect(() => {
@@ -149,7 +149,7 @@ const HomeAuth = () => {
                   inputType='password'
                   onChangeMethod={onChange}
                   value={password}
-                  minLength='6'
+                  minLength={6}
                 />
                 <Form.Text className='text-muted'>
                   Kata sandi harus mengandung 6 karakter atau lebih.
@@ -171,12 +171,12 @@ const HomeAuth = () => {
           <Col>
             {status && !loading ? (
               <Alert key='1' variant='success'>
-                <p class='lead'>Pendaftaran Anda telah lengkap.</p>
+                <p className='lead'>Pendaftaran Anda telah lengkap.</p>
               </Alert>
             ) : (
               <Alert key='1' variant='warning'>
                 <b>PENTING</b>
-                <p class='lead'>
+                <p className='lead'>
                   Pendaftaran Anda{" "}
                   <b>
                     belum lengkap.

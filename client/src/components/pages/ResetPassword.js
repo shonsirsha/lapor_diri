@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, Fragment } from "react";
+import React, { useState, useContext, Fragment } from "react";
 import ToastContext from "../../context/toast/toastContext";
 
 import FormInput from "../layouts/FormInputs/FormInput";
@@ -28,7 +28,7 @@ const ResetPassword = () => {
     e.preventDefault();
     if (email === "" || paspor === "") {
     } else {
-     //reset password here
+      //reset password here
     }
   };
 

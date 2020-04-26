@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import JumbotronSignup from "./JumbotronSignup";
 import { Container, Card } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import Spinner from "./Spinner";
 import Login from "../pages/Login";
 import CheckRegistration from "../pages/CheckRegistration";
 import ResetPassword from "../pages/ResetPassword";
