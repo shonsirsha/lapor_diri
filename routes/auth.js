@@ -73,7 +73,7 @@ router.post("/refresh_token/:id", async (req, res) => {
   const { refresh_token } = req.body;
 
   try {
-    let user = await User.findById(req.params.id);
+    let user = await checkUserExists("_id", req.params.id);
 
     if (refresh_token === null) res.status(401).json({ msg: "no token found" });
     //refresh token isnt sent by user
@@ -92,19 +92,12 @@ router.post("/refresh_token/:id", async (req, res) => {
       if (err) res.status(401).json({ msg: "token isn't valid" }); //token is not valid
 
       const token = generateAccessToken(payload); // a new access token (refreshed)
-      // user.token.push(token);
-      // user.save();
+
       res.json({ token: token });
     });
   } catch (e) {
     res.status(500).send("Server error " + e);
   }
-});
-
-router.post("/x/:id", async (req, res) => {
-  const { fafa } = req.body;
-
-  res.json({ msg: fafa });
 });
 
 module.exports = router;

@@ -144,7 +144,8 @@ router.put("/:id", auth, async (req, res) => {
   }
 
   try {
-    let user = await User.findById(req.params.id);
+    let user = await checkUserExists("_id", req.params.id);
+
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
@@ -188,7 +189,7 @@ router.put(
     userField.password = await bcrypt.hash(password, salt);
 
     try {
-      let user = await User.findById(req.params.id);
+      let user = await checkUserExists("_id", req.params.id);
       if (!user) {
         return res.status(404).json({ msg: "User not found" });
       }
@@ -224,7 +225,7 @@ router.post("/upload-document/:id", auth, async (req, res) => {
   }
 
   try {
-    let user = await User.findById(req.params.id);
+    let user = await checkUserExists("_id", req.params.id);
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
@@ -274,7 +275,7 @@ router.put("/delete-document/:id", auth, async (req, res) => {
   }
 
   try {
-    let user = await User.findById(req.params.id);
+    let user = await checkUserExists("_id", req.params.id);
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
