@@ -55,7 +55,7 @@ router.post(
       const token = generateAccessToken(payload);
       const refresh_token = jwt.sign(payload, config.get("jwtSecret"));
 
-      user.refresh_token.push(refresh_token); // creating an array of refresh tokens and pushed a the new refresh token value into it
+      user.refresh_tokens.push(refresh_token); // creating an array of refresh tokens and pushed a the new refresh token value into it
       await user.save();
 
       res.json({
@@ -78,7 +78,7 @@ router.post("/refresh_token/:id", async (req, res) => {
     if (refresh_token === null) res.status(401).json({ msg: "no token found" });
     //refresh token isnt sent by user
 
-    if (!user.refresh_token.includes(refresh_token))
+    if (!user.refresh_tokens.includes(refresh_token))
       res.status(401).json({ msg: "no token found" });
     //refresh token sent isnt in db
 

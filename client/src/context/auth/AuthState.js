@@ -84,20 +84,31 @@ const AuthState = (props) => {
   };
 
   //update user detail
-  const updateUser = (user) => {
-    axios
-      .put(`/api/user/${user._id}`, user, asJson)
-      .then(function (res) {
-        dispatch({ type: UPDATE_SUCCESS, payload: res.data.msg });
-      })
-      .catch(function (err) {
-        if (err.response.data.msg === "jwt expired") {
-          refreshesToken();
-          updateUser(user);
-        } else {
-          dispatch({ type: UPDATE_FAIL, payload: err.response.data.msg });
-        }
-      });
+  const updateUser = async (user) => {
+    try {
+      const res = await axios.put(`/api/user/${user._id}`, user, asJson);
+      dispatch({ type: UPDATE_SUCCESS, payload: res.data.msg });
+    } catch (err) {
+      if (err.response.data.msg === "jwt expired") {
+        refreshesToken();
+        updateUser(user);
+      } else {
+        dispatch({ type: UPDATE_FAIL, payload: err.response.data.msg });
+      }
+    }
+    // axios
+    //   .put(`/api/user/${user._id}`, user, asJson)
+    //   .then(function (res) {
+    //     dispatch({ type: UPDATE_SUCCESS, payload: res.data.msg });
+    //   })
+    //   .catch(function (err) {
+    //     if (err.response.data.msg === "jwt expired") {
+    //       refreshesToken();
+    //       updateUser(user);
+    //     } else {
+    //       dispatch({ type: UPDATE_FAIL, payload: err.response.data.msg });
+    //     }
+    //   });
   };
 
   const changePassword = async (user, password) => {

@@ -51,11 +51,8 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: false,
   },
-  // token: {
-  //   type: [],
-  //   required: false,
-  // },
-  refresh_token: {
+
+  refresh_tokens: {
     type: [],
     required: false,
   },
