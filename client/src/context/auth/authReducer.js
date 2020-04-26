@@ -40,6 +40,7 @@ export default (state, action) => {
         updateStatus: 1,
       };
     case UPDATE_FAIL:
+      console.log("YUMMMYYY" + action.payload);
       return {
         ...state,
         updateStatus: 0,
@@ -64,7 +65,7 @@ export default (state, action) => {
         error: action.payload,
       };
     case TOKEN_REFRESH:
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token");
       localStorage.setItem("token", action.payload.token);
 
       return {

@@ -90,13 +90,25 @@ const AuthState = (props) => {
     }
   };
 
-  //update contact
+  //update user
   const updateUser = async (user) => {
     try {
       const res = await axios.put(`/api/user/${user._id}`, user, asJson);
       dispatch({ type: UPDATE_SUCCESS });
     } catch (err) {
-      dispatch({ type: UPDATE_FAIL });
+      if (err.response.data.msg === "jwt expired") {
+        let res = await axios.post(
+          "/api/auth/refresh_token/" + state.userId,
+          {
+            refresh_token: state.refresh_token,
+          },
+          asJson
+        );
+        dispatch({ type: TOKEN_REFRESH, payload: res.data });
+        loadUser();
+      } else {
+        dispatch({ type: UPDATE_FAIL, payload: err });
+      }
     }
   };
 
