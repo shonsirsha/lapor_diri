@@ -69,6 +69,29 @@ router.post(
   }
 );
 
+//@route    POST api/auth/logout
+//@desc     Log outs user & delete corresponding refresh token on db
+//@access   Public
+router.post("/logout/:id", auth, async (req, res) => {
+  const { refresh_token } = req.body;
+  try {
+    let user = await checkUserExists("_id", req.params.id);
+    if (!user.refresh_tokens.includes(refresh_token)) {
+      res.status(401).json({ msg: "No refresh token found" });
+    }
+
+    user.refresh_tokens = user.refresh_tokens.filter((token) => {
+      if (token !== refresh_token) {
+        return user.refresh_tokens;
+      }
+    });
+    user.save();
+    res.status(200).json({ msg: "Logged out" });
+  } catch (e) {
+    res.status(500).send("Server error " + e);
+  }
+});
+
 router.post("/refresh_token/:id", async (req, res) => {
   const { refresh_token } = req.body;
 
