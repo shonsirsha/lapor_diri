@@ -87,28 +87,15 @@ const AuthState = (props) => {
   const updateUser = async (user) => {
     try {
       const res = await axios.put(`/api/user/${user._id}`, user, asJson);
-      dispatch({ type: UPDATE_SUCCESS, payload: res.data.msg });
+      updateSuccess();
     } catch (err) {
       if (err.response.data.msg === "jwt expired") {
         refreshesToken();
         updateUser(user);
       } else {
-        dispatch({ type: UPDATE_FAIL, payload: err.response.data.msg });
+        updateFail();
       }
     }
-    // axios
-    //   .put(`/api/user/${user._id}`, user, asJson)
-    //   .then(function (res) {
-    //     dispatch({ type: UPDATE_SUCCESS, payload: res.data.msg });
-    //   })
-    //   .catch(function (err) {
-    //     if (err.response.data.msg === "jwt expired") {
-    //       refreshesToken();
-    //       updateUser(user);
-    //     } else {
-    //       dispatch({ type: UPDATE_FAIL, payload: err.response.data.msg });
-    //     }
-    //   });
   };
 
   const changePassword = async (user, password) => {
@@ -120,8 +107,12 @@ const AuthState = (props) => {
       );
       updateSuccess();
     } catch (err) {
-      updateFail();
-      return err;
+      if (err.response.data.msg === "jwt expired") {
+        refreshesToken();
+        changePassword(user, password);
+      } else {
+        updateFail();
+      }
     }
   };
 
@@ -134,8 +125,12 @@ const AuthState = (props) => {
       );
       loadUser();
     } catch (err) {
-      alert(userId);
-      updateFail();
+      if (err.response.data.msg === "jwt expired") {
+        refreshesToken();
+        uploadDocument(userId, doc);
+      } else {
+        updateFail();
+      }
     }
   };
 
@@ -148,7 +143,12 @@ const AuthState = (props) => {
         asJson
       );
     } catch (err) {
-      updateFail();
+      if (err.response.data.msg === "jwt expired") {
+        refreshesToken();
+        uploadDocument(userId, docName);
+      } else {
+        updateFail();
+      }
     }
   };
 

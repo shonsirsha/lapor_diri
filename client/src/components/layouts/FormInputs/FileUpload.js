@@ -72,13 +72,13 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
     }
   }, [authContext.user]);
   const onDelete = () => {
+    deleteDocument(userId, documentName);
+    resetField();
     storage
       .ref(`${pathToFirebase}`)
       .child(fileNameDb)
       .delete()
       .then(function () {
-        deleteDocument(userId, documentName);
-        resetField();
         showLocalToast("Dokumen berhasil dihapus", "success", 1500);
       })
       .catch(function (error) {
