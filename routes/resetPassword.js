@@ -11,8 +11,8 @@ require("dotenv").config();
 //@route    POST api/user/send-reset-password
 //@desc     Sends an email to reset user's password
 //@access  Public
-router.post("/send", async (req, res) => {
-  // let user = checkUserExists("_id", req.params.id);
+router.post("/send/:id", async (req, res) => {
+  //   let user = checkUserExists("_id", req.params.id);
 
   let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -22,12 +22,18 @@ router.post("/send", async (req, res) => {
     },
   });
 
+  let frontendHost = "http://localhost:3000";
+
   let mailOptions = {
     from: process.env.NODEMAILER_EMAIL,
     to: "seangeekpro@gmail.com",
     subject: "Reset Kata Sandi - Layanan Mandiri | Lapor Diri ",
     html:
-      "Halo! <br> Untuk me-reset kata sandi Anda, mohon kunjungi link berikut: <br> <a href='#'>reset kata sandi</a>. <br> <br>Link ini akan kedaluwarsa setelah 5 menit.<br><br>Hormat kami,<br><b>Team Lapor Diri</b>",
+      "Halo! <br> Untuk me-reset kata sandi Anda, mohon kunjungi link berikut: <br> <a href='" +
+      frontendHost +
+      "/reset-kata-sandi/" +
+      req.params.id +
+      "'>reset kata sandi</a>. <br> <br>Link ini akan kedaluwarsa setelah 5 menit.<br><br>Hormat kami,<br><b>Team Lapor Diri</b>",
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
@@ -38,3 +44,5 @@ router.post("/send", async (req, res) => {
     }
   });
 });
+
+module.exports = router;
