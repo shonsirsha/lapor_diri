@@ -100,10 +100,10 @@ const HomeAuth = () => {
 
   useEffect(() => {
     if (updateStatus === 1) {
-      showLocalToast("Data tersimpan", "success");
+      showLocalToast("Data tersimpan", "success"); // data has been saved successfully
     } else if (updateStatus === 0) {
       showLocalToast(
-        "Terjadi kesalahan dalam menyimpan. Mohon coba lagi.",
+        "Terjadi kesalahan dalam menyimpan. Mohon coba lagi.", // there was an error saving the data
         "danger",
         2500
       );

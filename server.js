@@ -14,6 +14,8 @@ app.use(express.json({ extended: false }));
 app.use("/api/user", require("./routes/user"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/cek", require("./routes/cek"));
+app.use("/api/reset-password", require("./routes/resetPassword"));
+
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
