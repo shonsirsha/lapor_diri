@@ -9,7 +9,7 @@ const auth = require("../middleware/auth");
 const checkUserExists = require("./utils/checkUserExists");
 const generateAccessToken = require("./utils/generateAccessToken");
 const nodemailer = require("nodemailer");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 //@route    POST api/user
 //@desc     Register a user
@@ -259,23 +259,26 @@ router.post("/upload-document/:id", auth, async (req, res) => {
   }
 });
 
-//@route    POST api/user/reset-password
+//@route    POST api/user/send-reset-password
 //@desc     Resets user password by Id
 //@access   Private
-router.post("/reset-password/:id", auth, async (req, res) => {
+router.post("/send-reset-password", async (req, res) => {
+  // let user = checkUserExists("_id", req.params.id);
+
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "",
-      pass: "",
+      user: process.env.NODEMAILER_EMAIL,
+      pass: process.env.NODEMAILER_PASSWORD,
     },
   });
 
   let mailOptions = {
-    from: "",
-    to: "",
-    subject: "",
-    html: "",
+    from: process.env.NODEMAILER_EMAIL,
+    to: "seangeekpro@gmail.com",
+    subject: "Reset Kata Sandi - Layanan Mandiri | Lapor Diri ",
+    html:
+      "Halo! <br> Untuk me-reset kata sandi Anda, mohon kunjungi link berikut: <br> <a href='#'>reset kata sandi</a>. <br> <br>Link ini akan kedaluwarsa setelah 5 menit.<br><br>Hormat kami,<br><b>Team Lapor Diri</b>",
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
