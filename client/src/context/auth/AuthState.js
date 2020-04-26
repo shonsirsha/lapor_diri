@@ -90,26 +90,44 @@ const AuthState = (props) => {
     }
   };
 
-  //update user
-  const updateUser = async (user) => {
-    try {
-      const res = await axios.put(`/api/user/${user._id}`, user, asJson);
-      dispatch({ type: UPDATE_SUCCESS });
-    } catch (err) {
-      if (err.response.data.msg === "jwt expired") {
-        let res = await axios.post(
-          "/api/auth/refresh_token/" + state.userId,
-          {
-            refresh_token: state.refresh_token,
-          },
-          asJson
-        );
-        dispatch({ type: TOKEN_REFRESH, payload: res.data });
-        loadUser();
-      } else {
-        dispatch({ type: UPDATE_FAIL, payload: err });
-      }
-    }
+  //update user detail
+  const updateUser = (user) => {
+    axios
+      .put(`/api/user/${user._id}`, user, asJson)
+      .then(function (res) {
+        dispatch({ type: UPDATE_SUCCESS, payload: res.data.msg });
+      })
+      .catch(function (err) {
+        if (err.response.data.msg === "jwt expired") {
+          refreshesToken();
+          updateUser(user);
+        } else {
+          dispatch({ type: UPDATE_FAIL, payload: err.response.data.msg });
+        }
+      });
+
+    // axios
+    //   .post(
+    //     "/api/auth/refresh_token/" + state.userId,
+    //     {
+    //       refresh_token: state.refresh_token,
+    //     },
+    //     asJson
+    //   )
+    //   .then((res) => {
+    //     refreshesToken(res.data);
+    //     axios
+    //       .put(`/api/user/${user._id}`, user, asJson)
+    //       .then(function (res) {
+    //         dispatch({ type: UPDATE_SUCCESS, payload: res.data.msg });
+    //       })
+    //       .catch(function (err) {
+    //         dispatch({ type: UPDATE_FAIL, payload: err });
+    //       });
+    //   })
+    //   .catch(function (error) {
+    //     dispatch({ type: UPDATE_FAIL, payload: err });
+    //   });
   };
 
   const changePassword = async (user, password) => {
@@ -168,6 +186,24 @@ const AuthState = (props) => {
 
   const resetUpdateStatus = () => {
     dispatch({ type: RESET_UPDATE });
+  };
+
+  const refreshesToken = async () => {
+    axios
+      .post(
+        "/api/auth/refresh_token/" + state.userId,
+        {
+          refresh_token: state.refresh_token,
+        },
+        asJson
+      )
+      .then((res) => {
+        dispatch({ type: TOKEN_REFRESH, payload: res.data });
+        setAuthToken(localStorage.token); //setting global headers for x-auth-token
+      })
+      .catch((err) => {
+        console.log("jancok");
+      });
   };
 
   return (

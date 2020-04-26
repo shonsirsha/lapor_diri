@@ -35,6 +35,8 @@ export default (state, action) => {
         error: null,
       };
     case UPDATE_SUCCESS:
+      console.log("not actaul suc:" + action.payload);
+
       return {
         ...state,
         updateStatus: 1,

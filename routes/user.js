@@ -257,7 +257,7 @@ router.post("/upload-document/:id", auth, async (req, res) => {
 });
 
 //@route    PUT api/user/delete-document/:id
-//@desc     Edit user document field on db into empty string ""
+//@desc     Edit user document field (url for file) on db into empty string ""
 //@access   Private
 router.put("/delete-document/:id", auth, async (req, res) => {
   const { docName } = req.body;
