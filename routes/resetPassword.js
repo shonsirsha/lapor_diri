@@ -24,15 +24,13 @@ router.post("/send", async (req, res) => {
       },
     });
 
-    let frontendHost = "http://localhost:3000";
-
     let mailOptions = {
       from: process.env.NODEMAILER_EMAIL,
       to: "seangeekpro@gmail.com",
       subject: "Reset Kata Sandi - Layanan Mandiri | Lapor Diri ",
       html:
         "Halo! <br> Untuk me-reset kata sandi Anda, mohon kunjungi link berikut: <br> <a href='" +
-        frontendHost +
+        process.env.FRONTEND_HOST +
         "/reset-kata-sandi/" +
         user._id +
         "'>reset kata sandi</a>. <br> <br>Link ini akan kedaluwarsa setelah 5 menit.<br><br>Hormat kami,<br><b>Team Lapor Diri</b>",
