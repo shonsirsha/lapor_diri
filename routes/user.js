@@ -8,7 +8,6 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
 const checkUserExists = require("./utils/checkUserExists");
 const generateAccessToken = require("./utils/generateAccessToken");
-const changePassword = require("./utils/changePassword");
 
 require("dotenv").config();
 
@@ -188,10 +187,9 @@ router.put(
       let user = await checkUserExists("_id", req.params.id);
       if (user) {
         const { password } = req.body;
-        changePassword(user,password)
-        // const salt = await bcrypt.genSalt(10);
-        // user.password = await bcrypt.hash(password, salt);
-        // user.save();
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(password, salt);
+        await user.save();
         res.status(200).json(user);
       } else {
         return res.status(404).json({ msg: "User not found" });
@@ -247,6 +245,43 @@ router.post("/upload-document/:id", auth, async (req, res) => {
 
     res.status(200).json(user);
   } catch (e) {
+    res.status(500).send("Server error");
+  }
+});
+
+//@route    PUT api/user/delete-document/:id
+//@desc     Edit user document field on db into empty string ""
+//@access   Private
+router.put("/delete-document/:id", auth, async (req, res) => {
+  const { docName } = req.body;
+
+  //build user object
+  const userField = {};
+
+  if (docName === "melde") {
+    userField.melde_pic = "";
+  }
+
+  if (docName === "paspor") {
+    userField.paspor_pic = "";
+  }
+
+  try {
+    let user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    user = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: userField,
+      },
+      { new: true }
+    );
+    res.json(user);
+  } catch (e) {
+    console.error(e.message);
     res.status(500).send("Server error");
   }
 });

@@ -1,6 +1,7 @@
 const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 const checkUserExists = require("./utils/checkUserExists");
 const nodemailer = require("nodemailer");
@@ -61,7 +62,6 @@ router.post("/send", async (req, res) => {
 router.get("/check/:id", async (req, res) => {
   let userId = encryptor.decrypt(req.params.id);
   let user = await checkUserExists("_id", userId);
-
   if (user) {
     // id is legit
     let time = user.password_reset_expr - Date.now();
@@ -77,20 +77,25 @@ router.get("/check/:id", async (req, res) => {
   }
 });
 
-//@route    POST api/reset-password/
+//@route    PUT api/reset-password/
 //@desc     resets user password
 //@access  Public
-router.post("/", async (req, res) => {
+router.put("/", async (req, res) => {
   const { password, uidEncrypted } = req.body;
   let userId = encryptor.decrypt(uidEncrypted);
 
-  let user = await checkUserExists("_id", userId);
-
-  if (user) {
-    user.password = password;
-    user.save();
-  } else {
-    res.status(404).json({ msg: "user not found" });
+  try {
+    let user = await checkUserExists("_id", userId);
+    if (user) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+      await user.save();
+      res.status(200).json(user);
+    } else {
+      return res.status(404).json({ msg: "User not found" });
+    }
+  } catch (e) {
+    res.status(500).send("Server error " + e);
   }
 });
 module.exports = router;
