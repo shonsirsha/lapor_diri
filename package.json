@@ -28,6 +28,7 @@
     "mockgoose": "^8.0.4",
     "mongoose": "^5.9.2",
     "nodemailer": "^6.4.6",
+    "simple-encryptor": "^3.0.0",
     "sinon": "^9.0.1",
     "supertest": "^4.0.2"
   },

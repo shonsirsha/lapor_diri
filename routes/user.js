@@ -86,7 +86,7 @@ router.post(
 
       const token = generateAccessToken(payload); // new access token
 
-      const refresh_token = jwt.sign(payload, config.get("jwtSecret")); // new refresh token
+      const refresh_token = jwt.sign(payload, config.get("refreshToken")); // new refresh token
 
       user.refresh_tokens.push(refresh_token); // creating an array of refresh tokens and pushed a the new refresh token value into it
 

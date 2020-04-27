@@ -53,7 +53,7 @@ router.post(
       };
 
       const token = generateAccessToken(payload);
-      const refresh_token = jwt.sign(payload, config.get("jwtSecret"));
+      const refresh_token = jwt.sign(payload, config.get("refreshToken"));
 
       user.refresh_tokens.push(refresh_token); // creating an array of refresh tokens and pushed a the new refresh token value into it
       await user.save();
@@ -111,7 +111,7 @@ router.post("/refresh_token/:id", async (req, res) => {
       },
     }; // payload taken from _id that's generated in the db
 
-    jwt.verify(refresh_token, config.get("jwtSecret"), (err) => {
+    jwt.verify(refresh_token, config.get("refreshToken"), (err) => {
       if (err) res.status(401).json({ msg: "token isn't valid" }); //token is not valid
 
       const token = generateAccessToken(payload); // a new access token (refreshed)
