@@ -8,7 +8,8 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
 const checkUserExists = require("./utils/checkUserExists");
 const generateAccessToken = require("./utils/generateAccessToken");
-const nodemailer = require("nodemailer");
+const changePassword = require("./utils/changePassword");
+
 require("dotenv").config();
 
 //@route    POST api/user
@@ -187,10 +188,10 @@ router.put(
       let user = await checkUserExists("_id", req.params.id);
       if (user) {
         const { password } = req.body;
-
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password, salt);
-        user.save();
+        changePassword(user,password)
+        // const salt = await bcrypt.genSalt(10);
+        // user.password = await bcrypt.hash(password, salt);
+        // user.save();
         res.status(200).json(user);
       } else {
         return res.status(404).json({ msg: "User not found" });
