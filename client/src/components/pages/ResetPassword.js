@@ -9,8 +9,8 @@ const ResetPassword = () => {
   const { showToast } = toastContext;
 
   const [user, setUser] = useState({
-    email: "",
-    paspor: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const showLocalToast = (msg, type, timeout) => {
@@ -18,7 +18,7 @@ const ResetPassword = () => {
     //    resetStates();
   };
 
-  const { email, paspor } = user;
+  const { password, confirmPassword } = user;
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -26,9 +26,14 @@ const ResetPassword = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (email === "" || paspor === "") {
+    if (password === "" || confirmPassword === "") {
+      //show fail
     } else {
-      //reset password here
+      if (password === confirmPassword) {
+        //change password here
+      } else {
+        //show fail
+      }
     }
   };
 
@@ -36,29 +41,29 @@ const ResetPassword = () => {
     <Fragment>
       <Card.Title style={{ textAlign: "center" }}>Reset Kata Sandi</Card.Title>
       <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
-        <Form.Group controlId='email'>
+        <Form.Group controlId='password'>
           <InputGroup>
             <InputGroup.Prepend>
-              <InputGroup.Text>Email</InputGroup.Text>
+              <InputGroup.Text>Kata Sandi</InputGroup.Text>
             </InputGroup.Prepend>
             <FormInput
-              value={email}
-              inputName='email'
-              inputType='email'
+              value={password}
+              inputName='password'
+              inputType='password'
               onChangeMethod={onChange}
             />
           </InputGroup>
         </Form.Group>
 
-        <Form.Group controlId='paspor'>
+        <Form.Group controlId='confirmPassword'>
           <InputGroup>
             <InputGroup.Prepend>
-              <InputGroup.Text>Nomor Paspor</InputGroup.Text>
+              <InputGroup.Text>Ulangi Kata Sandi</InputGroup.Text>
             </InputGroup.Prepend>
             <FormInput
-              value={paspor}
-              inputName='paspor'
-              inputType='text'
+              value={confirmPassword}
+              inputName='confirmPassword'
+              inputType='password'
               onChangeMethod={onChange}
             />
           </InputGroup>
