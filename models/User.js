@@ -56,6 +56,11 @@ const UserSchema = mongoose.Schema({
     type: [],
     required: false,
   },
+  password_reset_expr: {
+    type: Number,
+    default: -1,
+    required: false,
+  },
   date: {
     type: Date,
     default: Date.now,
