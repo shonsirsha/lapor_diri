@@ -2,7 +2,6 @@ const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const auth = require("../middleware/auth");
 const checkUserExists = require("./utils/checkUserExists");
 const nodemailer = require("nodemailer");
 const encryptor = require("simple-encryptor")(process.env.ENCRYPT_SECRET_KEY);
@@ -51,6 +50,28 @@ router.post("/send", async (req, res) => {
         });
       }
     });
+  } else {
+    res.status(404).json({ msg: "user not found" });
+  }
+});
+
+//@route    GET api/reset-password/check
+//@desc     Checks if id legit & check if it has requested a password reset in the last 5 minutes
+//@access  Public
+router.get("/check/:id", async (req, res) => {
+  let userId = encryptor.decrypt(req.params.id);
+  let user = await checkUserExists("_id", userId);
+
+  if (user) {
+    // id is legit
+    let time = user.password_reset_expr - Date.now();
+    if (time <= 300000 && time >= 0) {
+      // less than 300k ms (5 minutes) and not minus - then request is valid
+      res.status(200).json({ msg: "valid" });
+    } else {
+      // link has expired
+      res.status(401).json({ msg: "password link expired" });
+    }
   } else {
     res.status(404).json({ msg: "user not found" });
   }
