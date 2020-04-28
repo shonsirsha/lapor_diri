@@ -11,6 +11,7 @@ const HomeContainer = () => {
   let route = useLocation().pathname;
 
   useEffect(() => {
+    route = route.replace(/\/+$/, "");
     if (route === "/login") {
       setRenderedComponent(<Login />);
     } else if (route === "/cek-registrasi") {
