@@ -15,7 +15,7 @@ const CheckRegistrationState = (props) => {
   const [state, dispatch] = useReducer(CheckRegistrationReducer, initialState);
   const checkRegistration = async (data) => {
     try {
-      const res = await axios.post(`/api/cek`, data, asJson);
+      const res = await axios.post(`/api/check-register`, data, asJson);
       dispatch({ type: CHECK_REGISTERED, payload: res.data });
     } catch (err) {
       dispatch({ type: CHECK_UNREGISTERED });

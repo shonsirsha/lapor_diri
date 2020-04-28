@@ -13,7 +13,7 @@ app.use(express.json({ extended: false }));
 // Define Routes
 app.use("/api/user", require("./routes/user"));
 app.use("/api/auth", require("./routes/auth"));
-app.use("/api/cek", require("./routes/cek"));
+app.use("/api/check-register", require("./routes/checkRegister"));
 app.use("/api/reset-password", require("./routes/resetPassword"));
 
 // Serve static assets in production

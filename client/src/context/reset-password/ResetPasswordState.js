@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 
-import ResetPasswordContext from "./resetPassword";
+import ResetPasswordContext from "./resetPasswordContext";
 import ResetPasswordReducer from "./resetPasswordReducer";
 import asJson from "../../utils/asJson";
 
@@ -13,10 +13,24 @@ const ResetPasswordState = (props) => {
   };
   const [state, dispatch] = useReducer(ResetPasswordReducer, initialState);
 
+  const checkUid = async (encryptedUid) => {
+    try {
+      const res = await axios.post(
+        `/api/reset-password/check/${encryptedUid}`,
+        data,
+        asJson
+      );
+      dispatch({ type: CHECK_REGISTERED, payload: res.data });
+    } catch (err) {
+      dispatch({ type: CHECK_UNREGISTERED });
+    }
+  };
+
   return (
     <ResetPasswordContext.Provider
       value={{
         uidValid: state.uidValid,
+        checkUid,
       }}
     >
       {props.children}
