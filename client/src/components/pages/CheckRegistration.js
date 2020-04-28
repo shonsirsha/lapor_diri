@@ -1,15 +1,22 @@
 import React, { useEffect, useState, useContext, Fragment } from "react";
 import CheckContext from "../../context/check-registration/checkRegistrationContext";
 import ToastContext from "../../context/toast/toastContext";
+import AuthContext from "../../context/auth/authContext";
 
 import FormInput from "../layouts/FormInputs/FormInput";
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+
 const CheckRegistration = () => {
+  const history = useHistory();
+
   const checkContext = useContext(CheckContext);
   const toastContext = useContext(ToastContext);
+  const authContext = useContext(AuthContext);
 
   const { checkRegistration, status, registered, resetStates } = checkContext;
   const { showToast } = toastContext;
+  const { loadUser, isAuthenticated, loading } = authContext;
 
   const [user, setUser] = useState({
     nama_belakang: "",
@@ -20,6 +27,17 @@ const CheckRegistration = () => {
     showToast(msg, type, timeout);
     resetStates();
   };
+
+  useEffect(() => {
+    loadUser();
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/");
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (registered === false) {
@@ -55,44 +73,47 @@ const CheckRegistration = () => {
       });
     }
   };
+  if (!isAuthenticated && !loading) {
+    return (
+      <Fragment>
+        <Card.Title style={{ textAlign: "center" }}>Cek Registrasi</Card.Title>
+        <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
+          <Form.Group controlId='nama_belakang'>
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text>Nama Belakang</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormInput
+                value={nama_belakang}
+                inputName='nama_belakang'
+                inputType='text'
+                onChangeMethod={onChange}
+              />
+            </InputGroup>
+          </Form.Group>
 
-  return (
-    <Fragment>
-      <Card.Title style={{ textAlign: "center" }}>Cek Registrasi</Card.Title>
-      <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
-        <Form.Group controlId='nama_belakang'>
-          <InputGroup>
-            <InputGroup.Prepend>
-              <InputGroup.Text>Nama Belakang</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormInput
-              value={nama_belakang}
-              inputName='nama_belakang'
-              inputType='text'
-              onChangeMethod={onChange}
-            />
-          </InputGroup>
-        </Form.Group>
-
-        <Form.Group controlId='paspor'>
-          <InputGroup>
-            <InputGroup.Prepend>
-              <InputGroup.Text>Nomor Paspor</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormInput
-              value={paspor}
-              inputName='paspor'
-              inputType='text'
-              onChangeMethod={onChange}
-            />
-          </InputGroup>
-        </Form.Group>
-        <Button type='submit' variant='success'>
-          Cek
-        </Button>
-      </Form>
-    </Fragment>
-  );
+          <Form.Group controlId='paspor'>
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text>Nomor Paspor</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormInput
+                value={paspor}
+                inputName='paspor'
+                inputType='text'
+                onChangeMethod={onChange}
+              />
+            </InputGroup>
+          </Form.Group>
+          <Button type='submit' variant='success'>
+            Cek
+          </Button>
+        </Form>
+      </Fragment>
+    );
+  } else {
+    return <div></div>;
+  }
 };
 
 export default CheckRegistration;

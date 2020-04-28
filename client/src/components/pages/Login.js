@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-const Login = (props) => {
+const Login = () => {
   const history = useHistory();
 
   const [user, setUser] = useState({

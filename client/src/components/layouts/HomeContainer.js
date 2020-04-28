@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import Login from "../pages/Login";
 import CheckRegistration from "../pages/CheckRegistration";
 import ResetPassword from "../pages/ResetPassword";
-
+import Spinner from "./Spinner";
 const HomeContainer = () => {
   const [renderedComponent, setRenderedComponent] = useState(null);
   let route = useLocation().pathname;
@@ -32,7 +32,9 @@ const HomeContainer = () => {
         }}
       >
         <Card style={{ width: "80%" }}>
-          <Card.Body>{renderedComponent}</Card.Body>
+          <Card.Body>
+            {renderedComponent ? renderedComponent : <Spinner />}
+          </Card.Body>
         </Card>
       </Container>
       <JumbotronSignup />
