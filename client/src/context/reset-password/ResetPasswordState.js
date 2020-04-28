@@ -6,23 +6,19 @@ import asJson from "../../utils/asJson";
 
 import axios from "axios";
 
-import { CHECK_UID_RESET_PASSWORD } from "../types";
+import { RESET_PASSOWRD_VALID_UID, RESET_PASSOWRD_INVALID_UID } from "../types";
 const ResetPasswordState = (props) => {
   const initialState = {
-    uidValid: false,
+    uidValid: null,
   };
   const [state, dispatch] = useReducer(ResetPasswordReducer, initialState);
 
   const checkUid = async (encryptedUid) => {
     try {
-      const res = await axios.post(
-        `/api/reset-password/check/${encryptedUid}`,
-        data,
-        asJson
-      );
-      dispatch({ type: CHECK_REGISTERED, payload: res.data });
+      await axios.get(`/api/reset-password/check/${encryptedUid}`);
+      dispatch({ type: RESET_PASSOWRD_VALID_UID });
     } catch (err) {
-      dispatch({ type: CHECK_UNREGISTERED });
+      dispatch({ type: RESET_PASSOWRD_INVALID_UID });
     }
   };
 

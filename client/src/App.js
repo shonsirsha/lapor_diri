@@ -14,8 +14,9 @@ import MyToast from "./components/layouts/MyToast";
 
 import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
-import CekState from "./context/check-registration/CheckRegistrationState";
+import CheckRegistrationState from "./context/check-registration/CheckRegistrationState";
 import ToastState from "./context/toast/ToastState";
+import ResetPasswordState from "./context/reset-password/ResetPasswordState";
 
 import setAuthToken from "./utils/setAuthToken";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -28,40 +29,42 @@ const App = () => {
   return (
     <AuthState>
       <AlertState>
-        <CekState>
-          <ToastState>
-            <Router>
-              <Fragment>
-                <Navbar />
-                <MyAlert />
-                <MyToast />
-                <Switch>
-                  <Route exact path='/register' component={Register} />
-                  <Route exact path='/' component={Home} />
-                  <Fragment>
-                    {["/login", "/cek-registrasi", "/reset-kata-sandi"].map(
-                      (path) => (
-                        <Route
-                          exact
-                          path={path}
-                          key={path}
-                          component={HomeContainer}
-                        />
-                      )
-                    )}
-                  </Fragment>
+        <CheckRegistrationState>
+          <ResetPasswordState>
+            <ToastState>
+              <Router>
+                <Fragment>
+                  <Navbar />
+                  <MyAlert />
+                  <MyToast />
+                  <Switch>
+                    <Route exact path='/register' component={Register} />
+                    <Route exact path='/' component={Home} />
+                    <Fragment>
+                      {["/login", "/cek-registrasi", "/reset-kata-sandi"].map(
+                        (path) => (
+                          <Route
+                            exact
+                            path={path}
+                            key={path}
+                            component={HomeContainer}
+                          />
+                        )
+                      )}
+                    </Fragment>
 
-                  {/* <Route
+                    {/* <Route
                     exact
                     path={"/cek-registrasi" | "/login" | "/reset-kata-sandi"}
                     component={HomeContainer}
                   /> */}
-                </Switch>
-                <Footer />
-              </Fragment>
-            </Router>
-          </ToastState>
-        </CekState>
+                  </Switch>
+                  <Footer />
+                </Fragment>
+              </Router>
+            </ToastState>
+          </ResetPasswordState>
+        </CheckRegistrationState>
       </AlertState>
     </AuthState>
   );

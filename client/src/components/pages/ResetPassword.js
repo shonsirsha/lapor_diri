@@ -16,6 +16,7 @@ const ResetPassword = () => {
 
   const { loadUser, isAuthenticated, loading } = authContext;
   const { showToast } = toastContext;
+  const { checkUid } = resetPasswordContext;
 
   const [passwords, setPasswords] = useState({
     password: "",
@@ -37,6 +38,8 @@ const ResetPassword = () => {
     if (isAuthenticated) {
       history.push("/");
     }
+
+    checkUid(uid);
     //eslint-disable-next-line
   }, [isAuthenticated]);
 
