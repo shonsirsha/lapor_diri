@@ -37,6 +37,7 @@ const CheckRegistration = () => {
     if (isAuthenticated) {
       history.push("/");
     }
+    //eslint-disable-next-line
   }, [isAuthenticated]);
 
   useEffect(() => {

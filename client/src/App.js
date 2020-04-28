@@ -27,13 +27,13 @@ if (localStorage.token) {
 const App = () => {
   return (
     <AuthState>
-      <AlertState key={"ASDAS"}>
+      <AlertState>
         <CekState>
           <ToastState>
             <Router>
               <Fragment>
                 <Navbar />
-                <MyAlert key={1} />
+                <MyAlert />
                 <MyToast />
                 <Switch>
                   <Route exact path='/register' component={Register} />

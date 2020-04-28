@@ -19,11 +19,12 @@ const RegisterForm = (props) => {
   const { setAlert, clearAllAlerts } = alertContext;
 
   useEffect(() => {
-    clearAllAlerts();
     loadUser();
     //eslint-disable-next-line
   }, []);
   useEffect(() => {
+    clearAllAlerts();
+
     if (isAuthenticated) {
       props.history.push("/");
     }
