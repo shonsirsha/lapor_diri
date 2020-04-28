@@ -39,7 +39,6 @@ const ResetPassword = () => {
       history.push("/");
     }
 
-    checkUid(uid);
     //eslint-disable-next-line
   }, [isAuthenticated]);
 
