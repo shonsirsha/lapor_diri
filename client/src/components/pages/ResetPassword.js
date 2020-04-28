@@ -20,6 +20,8 @@ const ResetPassword = () => {
     confirmPassword: "",
   });
 
+  const authResult = new URLSearchParams(window.location.search);
+  const code = authResult.get("code");
   useEffect(() => {
     loadUser();
     //eslint-disable-next-line

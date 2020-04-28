@@ -34,7 +34,7 @@ router.post("/send", async (req, res) => {
       html:
         "Halo! <br> Untuk me-reset kata sandi Anda, mohon kunjungi link berikut: <br> <a href='" +
         process.env.FRONTEND_HOST +
-        "/reset-kata-sandi/user=" +
+        "/reset-kata-sandi?user=" +
         uidEncrypted +
         "'>reset kata sandi</a>. <br> <br>Link ini akan kedaluwarsa setelah 5 menit.<br><br>Hormat kami,<br><b>Team Lapor Diri</b>",
     };
