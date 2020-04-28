@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, Fragment } from "react";
 import AuthContext from "../../context/auth/authContext";
 import ToastContext from "../../context/toast/toastContext";
+import ResetPasswordContext from "../../context/reset-password/resetPasswordContext";
 
 import FormInput from "../layouts/FormInputs/FormInput";
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
@@ -11,11 +12,12 @@ const ResetPassword = () => {
 
   const authContext = useContext(AuthContext);
   const toastContext = useContext(ToastContext);
+  const resetPasswordContext = useContext(ResetPasswordContext);
 
   const { loadUser, isAuthenticated, loading } = authContext;
   const { showToast } = toastContext;
 
-  const [user, setUser] = useState({
+  const [passwords, setPasswords] = useState({
     password: "",
     confirmPassword: "",
   });
@@ -43,10 +45,10 @@ const ResetPassword = () => {
     //    resetStates();
   };
 
-  const { password, confirmPassword } = user;
+  const { password, confirmPassword } = passwords;
 
   const onChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setPasswords({ ...passwords, [e.target.name]: e.target.value });
   };
 
   const onSubmit = (e) => {

@@ -118,7 +118,7 @@ const AuthState = (props) => {
 
   const uploadDocument = async (doc) => {
     try {
-       await axios.post(
+      await axios.post(
         `/api/user/upload-document/${state.userId}`,
         doc,
         asJson
@@ -155,7 +155,7 @@ const AuthState = (props) => {
   //logout
   const logoutUser = async () => {
     try {
-       await axios.post(
+      await axios.post(
         `/api/auth/logout/${state.userId}`,
         { refresh_token: state.refresh_token },
         asJson
