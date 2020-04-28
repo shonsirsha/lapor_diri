@@ -16,7 +16,7 @@ const ResetPassword = () => {
 
   const { loadUser, isAuthenticated, loading } = authContext;
   const { showToast } = toastContext;
-  const { checkUid } = resetPasswordContext;
+  const { checkUid, uidValid } = resetPasswordContext;
 
   const [passwords, setPasswords] = useState({
     password: "",
@@ -38,9 +38,15 @@ const ResetPassword = () => {
     if (isAuthenticated) {
       history.push("/");
     }
+    checkUid(uid);
 
     //eslint-disable-next-line
   }, [isAuthenticated]);
+  useEffect(() => {
+    if (uidValid === false) {
+      history.push("/");
+    }
+  }, [uidValid]);
 
   const showLocalToast = (msg, type, timeout) => {
     showToast(msg, type, timeout);
@@ -65,7 +71,7 @@ const ResetPassword = () => {
       }
     }
   };
-  if (!isAuthenticated && !loading) {
+  if (!isAuthenticated && !loading && uidValid === true) {
     return (
       <Fragment>
         <Card.Title style={{ textAlign: "center" }}>

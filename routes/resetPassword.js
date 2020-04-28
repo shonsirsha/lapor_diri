@@ -67,10 +67,10 @@ router.get("/check/:id", async (req, res) => {
     let time = user.password_reset_expr - Date.now();
     if (time <= 300000 && time >= 0) {
       // less than 300k ms (5 minutes) and not minus - then request is valid
-      res.status(200).json({ msg: "valid" });
+      res.status(200).json({ msg: "valid", decrypted: userId });
     } else {
       // link has expired
-      res.status(401).json({ msg: "password link expired" });
+      res.status(401).json({ msg: "password link expired", decrypted: userId });
     }
   } else {
     res.status(404).json({ msg: "user not found" });
