@@ -21,9 +21,13 @@ const ResetPassword = () => {
   });
 
   const authResult = new URLSearchParams(window.location.search);
-  const code = authResult.get("code");
+  const uid = authResult.get("user");
+  if (uid === null) {
+    history.push("/");
+  }
   useEffect(() => {
     loadUser();
+
     //eslint-disable-next-line
   }, []);
 
