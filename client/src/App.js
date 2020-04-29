@@ -40,24 +40,17 @@ const App = () => {
                   <Switch>
                     <Route exact path='/register' component={Register} />
                     <Route exact path='/' component={Home} />
-                    <Fragment>
-                      {["/login", "/cek-registrasi", "/reset-kata-sandi"].map(
-                        (path) => (
-                          <Route
-                            exact
-                            path={path}
-                            key={path}
-                            component={HomeContainer}
-                          />
-                        )
-                      )}
-                    </Fragment>
-
-                    {/* <Route
-                    exact
-                    path={"/cek-registrasi" | "/login" | "/reset-kata-sandi"}
-                    component={HomeContainer}
-                  /> */}
+                    {["/login", "/cek-registrasi", "/reset-kata-sandi"].map(
+                      (path, index) => (
+                        <Route
+                          exact
+                          path={path}
+                          key={index}
+                          component={HomeContainer}
+                        />
+                      )
+                    )}
+                    <Route component={Home} />
                   </Switch>
                   <Footer />
                 </Fragment>

@@ -6,8 +6,12 @@ import ResetPasswordContext from "../../context/reset-password/resetPasswordCont
 import FormInput from "../layouts/FormInputs/FormInput";
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import RequestResetPassword from "./ResetPassword/Request";
+import ActualResetPassword from "./ResetPassword/Reset";
 
 const ResetPassword = () => {
+  const [renderedComponent, setRenderedComponent] = useState(null);
+
   const history = useHistory();
 
   const authContext = useContext(AuthContext);
@@ -25,9 +29,6 @@ const ResetPassword = () => {
 
   const authResult = new URLSearchParams(window.location.search);
   const uid = authResult.get("user");
-  if (uid === null) {
-    history.push("/");
-  }
   useEffect(() => {
     loadUser();
 
@@ -35,18 +36,23 @@ const ResetPassword = () => {
   }, []);
 
   useEffect(() => {
+    if (uid !== null) {
+      setRenderedComponent(<ActualResetPassword />);
+    } else {
+      alert(uid);
+
+      setRenderedComponent(<RequestResetPassword />);
+    }
+  }, [uid]);
+
+  useEffect(() => {
     if (isAuthenticated) {
       history.push("/");
     }
-    checkUid(uid);
+    //checkUid(uid);
 
     //eslint-disable-next-line
   }, [isAuthenticated]);
-  useEffect(() => {
-    if (uidValid === false) {
-      history.push("/");
-    }
-  }, [uidValid]);
 
   const showLocalToast = (msg, type, timeout) => {
     showToast(msg, type, timeout);
@@ -71,46 +77,47 @@ const ResetPassword = () => {
       }
     }
   };
-  if (!isAuthenticated && !loading && uidValid === true) {
-    return (
-      <Fragment>
-        <Card.Title style={{ textAlign: "center" }}>
-          Reset Kata Sandi
-        </Card.Title>
-        <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
-          <Form.Group controlId='password'>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>Kata Sandi</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormInput
-                value={password}
-                inputName='password'
-                inputType='password'
-                onChangeMethod={onChange}
-              />
-            </InputGroup>
-          </Form.Group>
+  if (!isAuthenticated && !loading) {
+    return renderedComponent;
+    //   return (
+    //     <Fragment>
+    //       <Card.Title style={{ textAlign: "center" }}>
+    //         Reset Kata Sandi
+    //       </Card.Title>
+    //       <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
+    //         <Form.Group controlId='password'>
+    //           <InputGroup>
+    //             <InputGroup.Prepend>
+    //               <InputGroup.Text>Kata Sandi</InputGroup.Text>
+    //             </InputGroup.Prepend>
+    //             <FormInput
+    //               value={password}
+    //               inputName='password'
+    //               inputType='password'
+    //               onChangeMethod={onChange}
+    //             />
+    //           </InputGroup>
+    //         </Form.Group>
 
-          <Form.Group controlId='confirmPassword'>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>Ulangi Kata Sandi</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormInput
-                value={confirmPassword}
-                inputName='confirmPassword'
-                inputType='password'
-                onChangeMethod={onChange}
-              />
-            </InputGroup>
-          </Form.Group>
-          <Button type='submit' variant='success'>
-            Reset
-          </Button>
-        </Form>
-      </Fragment>
-    );
+    //         <Form.Group controlId='confirmPassword'>
+    //           <InputGroup>
+    //             <InputGroup.Prepend>
+    //               <InputGroup.Text>Ulangi Kata Sandi</InputGroup.Text>
+    //             </InputGroup.Prepend>
+    //             <FormInput
+    //               value={confirmPassword}
+    //               inputName='confirmPassword'
+    //               inputType='password'
+    //               onChangeMethod={onChange}
+    //             />
+    //           </InputGroup>
+    //         </Form.Group>
+    //         <Button type='submit' variant='success'>
+    //           Reset
+    //         </Button>
+    //       </Form>
+    //     </Fragment>
+    //   );
   } else {
     return <div></div>;
   }
