@@ -57,7 +57,7 @@ router.post("/send", async (req, res) => {
 });
 
 //@route    GET api/reset-password/check
-//@desc     Checks if id legit & check if it has requested a password reset in the last 5 minutes
+//@desc     Checks if id legit & check if user has requested a password reset in the last 5 minutes / user has actually reset the password
 //@access  Public
 router.get("/check/:id", async (req, res) => {
   let userId = encryptor.decrypt(req.params.id);
@@ -89,6 +89,10 @@ router.put("/", async (req, res) => {
     if (user) {
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
+
+      user.password_reset_expr = -1;
+      // -1 is default/initial value of password reset request on db (not requesting any)
+
       await user.save();
       res.status(200).json(user);
     } else {
