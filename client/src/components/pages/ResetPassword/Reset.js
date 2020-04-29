@@ -57,15 +57,14 @@ const Request = ({ uidEncrypted }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (password === "" || confirmPassword === "") {
-    } else {
+    if (password !== "" || confirmPassword !== "") {
       if (password === confirmPassword) {
-        //change password here
-        alert(password);
         resetPassword({ password: password, uidEncrypted: uidEncrypted });
+        setTimeout(() => {
+          history.push("/login");
+        }, 2000);
       } else {
-        showToast("Kata sandi tidak sama", "danger");
-        //show fail
+        showToast("Kata sandi tidak sama. Mohon ulangi lagi.", "danger", 2500);
       }
     }
   };
