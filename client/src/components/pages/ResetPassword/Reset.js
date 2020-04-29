@@ -5,17 +5,93 @@ import ResetPasswordContext from "../../../context/reset-password/resetPasswordC
 
 import FormInput from "../../layouts/FormInputs/FormInput";
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
-const Reset = ({ encryptedUid }) => {
+const Request = ({ encryptedUid }) => {
+  const history = useHistory();
+
   const authContext = useContext(AuthContext);
   const toastContext = useContext(ToastContext);
   const resetPasswordContext = useContext(ResetPasswordContext);
 
-  const { loadUser, isAuthenticated, loading } = authContext;
   const { showToast } = toastContext;
   const { checkUid, uidValid } = resetPasswordContext;
 
-  return <div>reset</div>;
+  const [passwords, setPasswords] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+  const { password, confirmPassword } = passwords;
+
+  useEffect(() => {
+    checkUid(encryptedUid);
+  }, []);
+
+  useEffect(() => {
+    if (uidValid === false) {
+      history.push("/reset-kata-sandi");
+    }
+  }, [uidValid]);
+
+  const onChange = (e) => {
+    setPasswords({ ...passwords, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (password === "" || confirmPassword === "") {
+      //show fail
+    } else {
+      if (password === confirmPassword) {
+        //change password here
+      } else {
+        //show fail
+      }
+    }
+  };
+  if (uidValid === true) {
+    return (
+      <Fragment>
+        <Card.Title style={{ textAlign: "center" }}>
+          Reset Kata Sandi
+        </Card.Title>
+        <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
+          <Form.Group controlId='password'>
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text>Kata Sandi</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormInput
+                value={password}
+                inputName='password'
+                inputType='password'
+                onChangeMethod={onChange}
+              />
+            </InputGroup>
+          </Form.Group>
+
+          <Form.Group controlId='confirmPassword'>
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text>Ulangi Kata Sandi</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormInput
+                value={confirmPassword}
+                inputName='confirmPassword'
+                inputType='password'
+                onChangeMethod={onChange}
+              />
+            </InputGroup>
+          </Form.Group>
+          <Button type='submit' variant='success'>
+            Reset
+          </Button>
+        </Form>
+      </Fragment>
+    );
+  } else {
+    return null;
+  }
 };
 
-export default Reset;
+export default Request;
