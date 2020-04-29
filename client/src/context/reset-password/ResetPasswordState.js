@@ -6,7 +6,12 @@ import asJson from "../../utils/asJson";
 
 import axios from "axios";
 
-import { RESET_PASSWORD_VALID_UID, RESET_PASSWORD_INVALID_UID,  } from "../types";
+import {
+  RESET_PASSWORD_VALID_UID,
+  RESET_PASSWORD_INVALID_UID,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
+} from "../types";
 const ResetPasswordState = (props) => {
   const initialState = {
     uidValid: null,
@@ -26,9 +31,10 @@ const ResetPasswordState = (props) => {
   const resetPassword = async (data) => {
     try {
       await axios.put(`/api/reset-password`, data, asJson);
-      dispatch({ type: RESET_PASSWORD_VALID_UID });
+      console.log(JSON.stringify(data));
+      dispatch({ type: RESET_PASSWORD_SUCCESS });
     } catch (err) {
-      dispatch({ type: RESET_PASSWORD_INVALID_UID });
+      dispatch({ type: RESET_PASSWORD_FAIL });
     }
   };
 
@@ -36,6 +42,7 @@ const ResetPasswordState = (props) => {
     <ResetPasswordContext.Provider
       value={{
         uidValid: state.uidValid,
+        passwordResetSuccess: state.passwordResetSuccess,
         checkUid,
         resetPassword,
       }}

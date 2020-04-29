@@ -6,14 +6,19 @@ import FormInput from "../../layouts/FormInputs/FormInput";
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
-const Request = ({ encryptedUid }) => {
+const Request = ({ uidEncrypted }) => {
   const history = useHistory();
 
   const toastContext = useContext(ToastContext);
   const resetPasswordContext = useContext(ResetPasswordContext);
 
   const { showToast } = toastContext;
-  const { checkUid, uidValid, resetPassword } = resetPasswordContext;
+  const {
+    checkUid,
+    uidValid,
+    resetPassword,
+    passwordResetSuccess,
+  } = resetPasswordContext;
 
   const [passwords, setPasswords] = useState({
     password: "",
@@ -22,8 +27,23 @@ const Request = ({ encryptedUid }) => {
   const { password, confirmPassword } = passwords;
 
   useEffect(() => {
-    checkUid(encryptedUid);
+    checkUid(uidEncrypted);
+    //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (passwordResetSuccess !== null) {
+      if (passwordResetSuccess === true) {
+        showToast("Kata sandi berhasil diubah", "success");
+      } else {
+        showToast(
+          "Terjadi kesalahan dalam penggantian kata sandi. Mohon ulangi kembali.",
+          "danger",
+          3000
+        );
+      }
+    }
+  }, passwordResetSuccess);
 
   useEffect(() => {
     if (uidValid === false) {
@@ -41,13 +61,15 @@ const Request = ({ encryptedUid }) => {
     } else {
       if (password === confirmPassword) {
         //change password here
+        alert(password);
+        resetPassword({ password: password, uidEncrypted: uidEncrypted });
       } else {
         showToast("Kata sandi tidak sama", "danger");
         //show fail
       }
     }
   };
-  if (uidValid === true) {
+  if (uidValid === true && passwordResetSuccess !== true) {
     return (
       <Fragment>
         <Card.Title style={{ textAlign: "center" }}>
@@ -64,6 +86,8 @@ const Request = ({ encryptedUid }) => {
                 inputName="password"
                 inputType="password"
                 onChangeMethod={onChange}
+                minLength={6}
+                autocomplete="off"
               />
             </InputGroup>
           </Form.Group>
@@ -78,6 +102,8 @@ const Request = ({ encryptedUid }) => {
                 inputName="confirmPassword"
                 inputType="password"
                 onChangeMethod={onChange}
+                minLength={6}
+                autocomplete="off"
               />
             </InputGroup>
           </Form.Group>

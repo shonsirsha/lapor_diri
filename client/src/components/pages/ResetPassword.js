@@ -23,7 +23,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (uid !== null) {
-      setRenderedComponent(<ActualResetPassword encryptedUid={uid} />);
+      setRenderedComponent(<ActualResetPassword uidEncrypted={uid} />);
     } else {
       setRenderedComponent(<RequestResetPassword />);
     }
