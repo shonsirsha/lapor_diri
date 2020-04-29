@@ -54,34 +54,34 @@ const Request = ({ encryptedUid }) => {
           Reset Kata Sandi
         </Card.Title>
         <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
-          <Form.Group controlId='password'>
+          <Form.Group controlId="password">
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text>Kata Sandi Baru</InputGroup.Text>
               </InputGroup.Prepend>
               <FormInput
                 value={password}
-                inputName='password'
-                inputType='password'
+                inputName="password"
+                inputType="password"
                 onChangeMethod={onChange}
               />
             </InputGroup>
           </Form.Group>
 
-          <Form.Group controlId='confirmPassword'>
+          <Form.Group controlId="confirmPassword">
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text>Ulangi Kata Sandi</InputGroup.Text>
               </InputGroup.Prepend>
               <FormInput
                 value={confirmPassword}
-                inputName='confirmPassword'
-                inputType='password'
+                inputName="confirmPassword"
+                inputType="password"
                 onChangeMethod={onChange}
               />
             </InputGroup>
           </Form.Group>
-          <Button type='submit' variant='success'>
+          <Button type="submit" variant="success">
             Reset
           </Button>
         </Form>

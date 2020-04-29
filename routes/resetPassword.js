@@ -26,6 +26,7 @@ router.post("/send", async (req, res) => {
     });
 
     let uidEncrypted = encryptor.encrypt(user._id);
+    uidEncrypted = uidEncrypted.toString().replace(/\//g, "ipusXpd");
 
     let mailOptions = {
       from: process.env.NODEMAILER_EMAIL,
@@ -60,22 +61,23 @@ router.post("/send", async (req, res) => {
 //@desc     Checks if id legit & check if user has requested a password reset in the last 5 minutes / user has actually reset the password
 //@access  Public
 router.get("/check/:id", async (req, res) => {
-  let userId = encryptor.decrypt(req.params.id);
+  let encryptedUid = req.params.id.toString().replace(/\ipusXpd/g, "/");
+  let userId = encryptor.decrypt(encryptedUid);
   let user = await checkUserExists("_id", userId);
   if (user) {
     // id is legit
     let time = user.password_reset_expr - Date.now();
     //password_reset_expr default value is -1
+    res.status(200).json({ msg: "valid", decrypted: userId });
 
-    if (time <= 300000 && time >= 0) {
-      // less than or eq to 300k ms (5 minutes) and not minus - then request is valid
-      res.status(200).json({ msg: "valid", decrypted: userId });
-    } else {
-      // link has expired
-      res.status(401).json({ msg: "password link expired", decrypted: userId });
-    }
+    // if (time <= 300000 && time >= 0) {
+    //   // less than or eq to 300k ms (5 minutes) and not minus - then request is valid
+    // } else {
+    //   // link has expired
+    //   res.status(401).json({ msg: "password link expired", decrypted: userId });
+    // }
   } else {
-    res.status(404).json({ msg: "user not found" });
+    res.status(404).json({ msg: "user not found", encryptedUid });
   }
 });
 
