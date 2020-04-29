@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext, Fragment } from "react";
-import AuthContext from "../../../context/auth/authContext";
 import ToastContext from "../../../context/toast/toastContext";
 import ResetPasswordContext from "../../../context/reset-password/resetPasswordContext";
 
@@ -10,12 +9,11 @@ import { useHistory } from "react-router-dom";
 const Request = ({ encryptedUid }) => {
   const history = useHistory();
 
-  const authContext = useContext(AuthContext);
   const toastContext = useContext(ToastContext);
   const resetPasswordContext = useContext(ResetPasswordContext);
 
   const { showToast } = toastContext;
-  const { checkUid, uidValid } = resetPasswordContext;
+  const { checkUid, uidValid, resetPassword } = resetPasswordContext;
 
   const [passwords, setPasswords] = useState({
     password: "",
@@ -40,11 +38,11 @@ const Request = ({ encryptedUid }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (password === "" || confirmPassword === "") {
-      //show fail
     } else {
       if (password === confirmPassword) {
         //change password here
       } else {
+        showToast("Kata sandi tidak sama", "danger");
         //show fail
       }
     }
@@ -59,7 +57,7 @@ const Request = ({ encryptedUid }) => {
           <Form.Group controlId='password'>
             <InputGroup>
               <InputGroup.Prepend>
-                <InputGroup.Text>Kata Sandi</InputGroup.Text>
+                <InputGroup.Text>Kata Sandi Baru</InputGroup.Text>
               </InputGroup.Prepend>
               <FormInput
                 value={password}

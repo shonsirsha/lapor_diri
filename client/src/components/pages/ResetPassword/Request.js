@@ -15,7 +15,7 @@ const Reset = () => {
   const { showToast } = toastContext;
   const { checkUid, uidValid } = resetPasswordContext;
 
-  return <div>reset</div>;
+  return <div>REQUEST</div>;
 };
 
 export default Reset;

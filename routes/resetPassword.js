@@ -65,8 +65,10 @@ router.get("/check/:id", async (req, res) => {
   if (user) {
     // id is legit
     let time = user.password_reset_expr - Date.now();
+    //password_reset_expr default value is -1
+
     if (time <= 300000 && time >= 0) {
-      // less than 300k ms (5 minutes) and not minus - then request is valid
+      // less than or eq to 300k ms (5 minutes) and not minus - then request is valid
       res.status(200).json({ msg: "valid", decrypted: userId });
     } else {
       // link has expired
@@ -91,7 +93,7 @@ router.put("/", async (req, res) => {
       user.password = await bcrypt.hash(password, salt);
 
       user.password_reset_expr = -1;
-      // -1 is default/initial value of password reset request on db (not requesting any)
+      // resets to its default value
 
       await user.save();
       res.status(200).json(user);
