@@ -56,6 +56,11 @@ const UserSchema = mongoose.Schema({
     type: [],
     required: false,
   },
+  password_reset_encrypted_uid: {
+    type: String,
+    required: false,
+    default: "",
+  },
   password_reset_expr: {
     type: Number,
     default: -1,

@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 const encryptor = require("simple-encryptor")(config.get("nodemailerEmail"));
 require("dotenv").config();
 
-//@route    POST api/reset-password/send
+//@route    POST api/reset-password/send-email
 //@desc     Sends an email to reset user's password
 //@access  Public
 router.post("/send-email", async (req, res) => {
