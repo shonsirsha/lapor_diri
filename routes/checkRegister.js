@@ -12,17 +12,21 @@ router.post(
   ],
   async (req, res) => {
     const { nama_belakang, paspor } = req.body;
-    let user = await checkUserExists("paspor", paspor);
-    if (user) {
-      if (
-        user.nama_belakang.toUpperCase() === nama_belakang &&
-        user.paspor.toUpperCase() === paspor
-      ) {
-        res.status(200).json({ msg: "Registered", status: user.status });
+    try {
+      let user = await checkUserExists("paspor", paspor);
+      if (user) {
+        if (
+          user.nama_belakang.toUpperCase() === nama_belakang &&
+          user.paspor.toUpperCase() === paspor
+        ) {
+          res.status(200).json({ msg: "Registered", status: user.status });
+        }
       }
-    }
 
-    res.status(404).json({ msg: "not found" });
+      res.status(404).json({ msg: "not found" });
+    } catch (e) {
+      res.status(500).send("server error");
+    }
   }
 );
 
