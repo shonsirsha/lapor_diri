@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext, Fragment } from "react";
-import AuthContext from "../../../context/auth/authContext";
 import ToastContext from "../../../context/toast/toastContext";
 import ResetPasswordContext from "../../../context/reset-password/resetPasswordContext";
 
@@ -8,7 +7,6 @@ import { Form, Button, Card, InputGroup } from "react-bootstrap";
 import Spinner from "../../layouts/Spinner";
 
 const Reset = () => {
-  const authContext = useContext(AuthContext);
   const toastContext = useContext(ToastContext);
   const resetPasswordContext = useContext(ResetPasswordContext);
 
@@ -17,8 +15,6 @@ const Reset = () => {
     sendRequestEmail,
     passwordResetSuccess,
     resetUpdateStatus,
-    setLoading,
-    clearLoading,
     error,
     loading,
   } = resetPasswordContext;
@@ -50,6 +46,7 @@ const Reset = () => {
         resetUpdateStatus();
       }
     }
+    //eslint-disable-next-line
   }, [passwordResetSuccess]);
 
   return (

@@ -159,7 +159,7 @@ router.put("/:id", auth, async (req, res) => {
       },
       { new: true }
     );
-    res.json(user);
+    res.status(200).json(user);
   } catch (e) {
     console.error(e.message);
     res.status(500).send("Server error");

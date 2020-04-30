@@ -13,7 +13,6 @@ import {
   RESET_PASSWORD_EMAIL_SENT,
   RESET_PASSWORD_EMAIL_NOT_SENT,
   SET_LOADING,
-  CLEAR_LOADING,
   RESET_UPDATE,
 } from "../types";
 const ResetPasswordState = (props) => {

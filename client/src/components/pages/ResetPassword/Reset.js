@@ -43,13 +43,13 @@ const Request = ({ uidEncrypted }) => {
         );
       }
     }
-  }, passwordResetSuccess);
+  }, [passwordResetSuccess, showToast]);
 
   useEffect(() => {
     if (uidValid === false) {
       history.push("/reset-kata-sandi");
     }
-  }, [uidValid]);
+  }, [uidValid, history]);
 
   const onChange = (e) => {
     setPasswords({ ...passwords, [e.target.name]: e.target.value });

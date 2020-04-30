@@ -9,9 +9,9 @@ import Spinner from "./Spinner";
 const HomeContainer = () => {
   const [renderedComponent, setRenderedComponent] = useState(null);
   let route = useLocation().pathname;
+  route = route.replace(/\/+$/, "");
 
   useEffect(() => {
-    route = route.replace(/\/+$/, "");
     if (route === "/login") {
       setRenderedComponent(<Login />);
     } else if (route === "/cek-registrasi") {
