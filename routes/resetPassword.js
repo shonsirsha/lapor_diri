@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const config = require("config");
 const checkUserExists = require("./utils/checkUserExists");
 const nodemailer = require("nodemailer");
-const encryptor = require("simple-encryptor")(process.env.ENCRYPT_SECRET_KEY);
+const encryptor = require("simple-encryptor")(config.get("nodemailerEmail"));
 require("dotenv").config();
 
 //@route    POST api/reset-password/send
@@ -19,8 +20,8 @@ router.post("/send-email", async (req, res) => {
       let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: process.env.NODEMAILER_EMAIL,
-          pass: process.env.NODEMAILER_PASSWORD,
+          user: config.get("nodemailerEmail"),
+          pass: config.get("nodemailerPassword"),
         },
       });
 
@@ -30,12 +31,12 @@ router.post("/send-email", async (req, res) => {
         .replace(/\//g, "ipusXpd");
 
       let mailOptions = {
-        from: process.env.NODEMAILER_EMAIL,
-        to: "seangeekpro@gmail.com",
+        from: config.get("nodemailerEmail"),
+        to: email,
         subject: "Reset Kata Sandi - Layanan Mandiri | Lapor Diri ",
         html:
           "Halo! <br> Untuk me-reset kata sandi Anda, mohon kunjungi link berikut: <br> <a href='" +
-          process.env.FRONTEND_HOST +
+          config.get("frontendHost") +
           "/reset-kata-sandi?user=" +
           uidEncryptedWithoutSlashes +
           "'>reset kata sandi</a>. <br> <br>Link ini akan kedaluwarsa setelah 5 menit.<br><br>Hormat kami,<br><b>Team Lapor Diri</b>",

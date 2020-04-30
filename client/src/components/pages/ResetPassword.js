@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext, Fragment } from "react";
 import AuthContext from "../../context/auth/authContext";
+import ResetPasswordContext from "../../context/reset-password/resetPasswordContext";
 
 import { useHistory } from "react-router-dom";
 import RequestResetPassword from "./ResetPassword/Request";
@@ -11,13 +12,17 @@ const ResetPassword = () => {
   const history = useHistory();
 
   const authContext = useContext(AuthContext);
+  const resetPasswordContext = useContext(ResetPasswordContext);
+
   const { loadUser, isAuthenticated, loading } = authContext;
+  const { resetUpdateStatus } = resetPasswordContext;
 
   const authResult = new URLSearchParams(window.location.search);
   const uid = authResult.get("user");
 
   useEffect(() => {
     loadUser();
+    resetUpdateStatus();
     //eslint-disable-next-line
   }, []);
 
