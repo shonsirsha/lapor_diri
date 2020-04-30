@@ -5,6 +5,7 @@ import ResetPasswordContext from "../../../context/reset-password/resetPasswordC
 
 import FormInput from "../../layouts/FormInputs/FormInput";
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
+import Spinner from "../../layouts/Spinner";
 
 const Reset = () => {
   const authContext = useContext(AuthContext);
@@ -12,7 +13,15 @@ const Reset = () => {
   const resetPasswordContext = useContext(ResetPasswordContext);
 
   const { showToast } = toastContext;
-  const { sendRequestEmail, passwordResetSuccess } = resetPasswordContext;
+  const {
+    sendRequestEmail,
+    passwordResetSuccess,
+    resetUpdateStatus,
+    setLoading,
+    clearLoading,
+    error,
+    loading,
+  } = resetPasswordContext;
 
   const [email, setEmail] = useState(null);
   const onChange = (e) => {
@@ -28,14 +37,17 @@ const Reset = () => {
 
   useEffect(() => {
     if (passwordResetSuccess !== null) {
-      if (passwordResetSuccess === true) {
-        showToast(
-          "Link untuk me-reset kata sandi telah dikirim ke Email Anda",
-          "success",
-          2500
-        );
-      } else {
-        showToast("Email tidak dapat ditemukan", "danger", 3000);
+      if (passwordResetSuccess === false) {
+        if (error === "user not found") {
+          showToast("Email tidak dapat ditemukan", "danger", 2500);
+        } else {
+          showToast(
+            "Telah terjadi kesalahan. Mohon coba kembali.",
+            "danger",
+            2500
+          );
+        }
+        resetUpdateStatus();
       }
     }
   }, [passwordResetSuccess]);
@@ -43,26 +55,39 @@ const Reset = () => {
   return (
     <Fragment>
       <Card.Title style={{ textAlign: "center" }}>Temukan Akun Anda</Card.Title>
-      <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
-        <Form.Group controlId="email">
-          <InputGroup>
-            <InputGroup.Prepend>
-              <InputGroup.Text>Alamat E-mail</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormInput
-              value={email}
-              inputName="email"
-              inputType="email"
-              onChangeMethod={onChange}
-              autocomplete="off"
-            />
-          </InputGroup>
-        </Form.Group>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div>
+          {passwordResetSuccess ? (
+            <p style={{ textAlign: "center" }}>
+              Link untuk me-reset kata sandi telah terkirim. Mohon cek kembali
+              kotak masuk Email Anda.
+            </p>
+          ) : (
+            <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
+              <Form.Group controlId="email">
+                <InputGroup>
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>Alamat E-mail</InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <FormInput
+                    value={email}
+                    inputName="email"
+                    inputType="email"
+                    onChangeMethod={onChange}
+                    autocomplete="off"
+                  />
+                </InputGroup>
+              </Form.Group>
 
-        <Button type="submit" variant="success">
-          Kirim
-        </Button>
-      </Form>
+              <Button type="submit" variant="success">
+                Kirim
+              </Button>
+            </Form>
+          )}
+        </div>
+      )}
     </Fragment>
   );
 };

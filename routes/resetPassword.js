@@ -114,7 +114,7 @@ router.put("/", async (req, res) => {
       await user.save();
       res.status(200).json(user);
     } else {
-      return res.status(404).json({ msg: "User not found" });
+      return res.status(404).json({ msg: "user not found" });
     }
   } catch (e) {
     res.status(500).json({ msg: "Server error" });

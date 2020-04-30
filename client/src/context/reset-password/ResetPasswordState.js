@@ -12,21 +12,29 @@ import {
   RESET_PASSWORD_FAIL,
   RESET_PASSWORD_EMAIL_SENT,
   RESET_PASSWORD_EMAIL_NOT_SENT,
+  SET_LOADING,
+  CLEAR_LOADING,
+  RESET_UPDATE,
 } from "../types";
 const ResetPasswordState = (props) => {
   const initialState = {
     uidValid: null,
     passwordResetSuccess: null,
     error: null,
+    loading: false,
   };
   const [state, dispatch] = useReducer(ResetPasswordReducer, initialState);
 
   const sendRequestEmail = async (email) => {
+    setLoading();
     try {
       await axios.post(`/api/reset-password/send-email`, email, asJson);
       dispatch({ type: RESET_PASSWORD_EMAIL_SENT });
     } catch (err) {
-      dispatch({ type: RESET_PASSWORD_EMAIL_NOT_SENT, payload: res.data });
+      dispatch({
+        type: RESET_PASSWORD_EMAIL_NOT_SENT,
+        payload: err.response.data.msg,
+      });
     }
   };
 
@@ -35,7 +43,9 @@ const ResetPasswordState = (props) => {
       await axios.post(`/api/reset-password/check/${encryptedUid}`);
       dispatch({ type: RESET_PASSWORD_VALID_UID });
     } catch (err) {
-      dispatch({ type: RESET_PASSWORD_INVALID_UID, payload: res.data });
+      dispatch({
+        type: RESET_PASSWORD_INVALID_UID,
+      });
     }
   };
 
@@ -45,8 +55,16 @@ const ResetPasswordState = (props) => {
       console.log(JSON.stringify(data));
       dispatch({ type: RESET_PASSWORD_SUCCESS });
     } catch (err) {
-      dispatch({ type: RESET_PASSWORD_FAIL });
+      dispatch({ type: RESET_PASSWORD_FAIL, payload: err.response.data.msg });
     }
+  };
+
+  const resetUpdateStatus = () => {
+    dispatch({ type: RESET_UPDATE });
+  };
+
+  const setLoading = () => {
+    dispatch({ type: SET_LOADING });
   };
 
   return (
@@ -55,9 +73,12 @@ const ResetPasswordState = (props) => {
         uidValid: state.uidValid,
         passwordResetSuccess: state.passwordResetSuccess,
         error: state.error,
+        loading: state.loading,
         sendRequestEmail,
         checkUid,
         resetPassword,
+        resetUpdateStatus,
+        setLoading,
       }}
     >
       {props.children}
