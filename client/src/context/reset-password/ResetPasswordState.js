@@ -3,7 +3,6 @@ import React, { useReducer } from "react";
 import ResetPasswordContext from "./resetPasswordContext";
 import ResetPasswordReducer from "./resetPasswordReducer";
 import asJson from "../../utils/asJson";
-
 import axios from "axios";
 
 import {
@@ -11,20 +10,32 @@ import {
   RESET_PASSWORD_INVALID_UID,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_EMAIL_SENT,
+  RESET_PASSWORD_EMAIL_NOT_SENT,
 } from "../types";
 const ResetPasswordState = (props) => {
   const initialState = {
     uidValid: null,
     passwordResetSuccess: null,
+    error: null,
   };
   const [state, dispatch] = useReducer(ResetPasswordReducer, initialState);
 
+  const sendRequestEmail = async (email) => {
+    try {
+      await axios.post(`/api/reset-password/send-email`, email, asJson);
+      dispatch({ type: RESET_PASSWORD_EMAIL_SENT });
+    } catch (err) {
+      dispatch({ type: RESET_PASSWORD_EMAIL_NOT_SENT, payload: res.data });
+    }
+  };
+
   const checkUid = async (encryptedUid) => {
     try {
-      await axios.get(`/api/reset-password/check/${encryptedUid}`);
+      await axios.post(`/api/reset-password/check/${encryptedUid}`);
       dispatch({ type: RESET_PASSWORD_VALID_UID });
     } catch (err) {
-      dispatch({ type: RESET_PASSWORD_INVALID_UID });
+      dispatch({ type: RESET_PASSWORD_INVALID_UID, payload: res.data });
     }
   };
 
@@ -43,6 +54,8 @@ const ResetPasswordState = (props) => {
       value={{
         uidValid: state.uidValid,
         passwordResetSuccess: state.passwordResetSuccess,
+        error: state.error,
+        sendRequestEmail,
         checkUid,
         resetPassword,
       }}

@@ -100,10 +100,10 @@ const RegisterForm = (props) => {
           <Row>
             <Col sm={12} lg={6}>
               <Form.Group>
-                <FormLabel htmlFor='nama_depan' text='Nama Depan' />
+                <FormLabel htmlFor="nama_depan" text="Nama Depan" />
                 <FormInput
-                  inputName='nama_depan'
-                  inputType='text'
+                  inputName="nama_depan"
+                  inputType="text"
                   onChangeMethod={onChange}
                 />
               </Form.Group>
@@ -111,10 +111,10 @@ const RegisterForm = (props) => {
 
             <Col sm={12} lg={6}>
               <Form.Group>
-                <FormLabel htmlFor='nama_belakang' text='Nama Belakang' />
+                <FormLabel htmlFor="nama_belakang" text="Nama Belakang" />
                 <FormInput
-                  inputName='nama_belakang'
-                  inputType='text'
+                  inputName="nama_belakang"
+                  inputType="text"
                   onChangeMethod={onChange}
                 />
               </Form.Group>
@@ -124,14 +124,14 @@ const RegisterForm = (props) => {
           <Row>
             <Col sm={12} lg={6}>
               <Form.Group>
-                <FormLabel htmlFor='email' text='Email' />
+                <FormLabel htmlFor="email" text="Email" />
 
                 <FormInput
-                  inputName='email'
-                  inputType='email'
+                  inputName="email"
+                  inputType="email"
                   onChangeMethod={onChange}
                 />
-                <Form.Text className='text-muted'>
+                <Form.Text className="text-muted">
                   Kami tidak akan pernah membagikan email Anda dengan orang
                   lain.
                 </Form.Text>
@@ -139,15 +139,15 @@ const RegisterForm = (props) => {
             </Col>
             <Col sm={12} lg={6}>
               <Form.Group>
-                <FormLabel htmlFor='password' text='Kata Sandi' />
+                <FormLabel htmlFor="password" text="Kata Sandi" />
 
                 <FormInput
-                  inputName='password'
-                  inputType='password'
+                  inputName="password"
+                  inputType="password"
                   minLength={6}
                   onChangeMethod={onChange}
                 />
-                <Form.Text className='text-muted'>
+                <Form.Text className="text-muted">
                   Kata sandi harus mengandung 6 karakter atau lebih.
                 </Form.Text>
               </Form.Group>
@@ -157,11 +157,11 @@ const RegisterForm = (props) => {
           <Row>
             <Col sm={12} lg={6}>
               <Form.Group>
-                <FormLabel htmlFor='paspor' text='Nomor Paspor (tanpa spasi)' />
+                <FormLabel htmlFor="paspor" text="Nomor Paspor (tanpa spasi)" />
 
                 <FormInput
-                  inputName='paspor'
-                  inputType='text'
+                  inputName="paspor"
+                  inputType="text"
                   onChangeMethod={onChange}
                 />
               </Form.Group>
@@ -170,13 +170,13 @@ const RegisterForm = (props) => {
             <Col sm={12} lg={6}>
               <Form.Group>
                 <FormLabel
-                  htmlFor='kantor_pengeluaran'
-                  text='Kantor Pengeluaran Paspor'
+                  htmlFor="kantor_pengeluaran"
+                  text="Kantor Pengeluaran Paspor"
                 />
 
                 <FormInput
-                  inputName='kantor_pengeluaran'
-                  inputType='text'
+                  inputName="kantor_pengeluaran"
+                  inputType="text"
                   onChangeMethod={onChange}
                 />
               </Form.Group>
@@ -184,36 +184,36 @@ const RegisterForm = (props) => {
           </Row>
 
           <Form.Group>
-            <Form.Label htmlFor='ponsel'>Nomor Ponsel</Form.Label>
+            <Form.Label htmlFor="ponsel">Nomor Ponsel</Form.Label>
 
             <FormInput
-              inputName='ponsel'
-              inputType='text'
+              inputName="ponsel"
+              inputType="text"
               onChangeMethod={onChange}
             />
           </Form.Group>
 
           <Form.Group>
-            <Form.Label htmlFor='alamat'>Alamat di Jerman</Form.Label>
+            <Form.Label htmlFor="alamat">Alamat di Jerman</Form.Label>
 
             <FormInput
-              inputName='alamat'
-              inputType='text'
+              inputName="alamat"
+              inputType="text"
               onChangeMethod={onChange}
             />
           </Form.Group>
 
           <Form.Group>
-            <Form.Label htmlFor='kota_kodepos'>Kota & Kodepos</Form.Label>
+            <Form.Label htmlFor="kota_kodepos">Kota & Kodepos</Form.Label>
 
             <FormInput
-              inputName='kota_kodepos'
-              inputType='text'
+              inputName="kota_kodepos"
+              inputType="text"
               onChangeMethod={onChange}
             />
           </Form.Group>
 
-          <Button variant='success' type='submit'>
+          <Button variant="success" type="submit">
             Daftar
           </Button>
           {/* <Button
