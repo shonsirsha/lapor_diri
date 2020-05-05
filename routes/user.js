@@ -70,6 +70,7 @@ router.post(
         kota_kodepos: kota_kodepos,
         email: email,
         password: password,
+        pasfoto_pic: "",
         melde_pic: "",
         paspor_pic: "",
       }); // creating a new user based on User model
@@ -217,7 +218,11 @@ router.post("/upload-document/:id", auth, async (req, res) => {
     }
 
     user[docName] = docUrl;
-    if (user.melde_pic !== "" && user.paspor_pic !== "") {
+    if (
+      user.melde_pic !== "" &&
+      user.paspor_pic !== "" &&
+      user.pasfoto_pic !== ""
+    ) {
       user.status = 1;
     } else {
       user.status = 0;

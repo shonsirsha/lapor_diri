@@ -56,6 +56,9 @@ const HomeAuth = () => {
     ponsel: "",
     alamat: "",
     kota_kodepos: "",
+    pasfoto_pic: "",
+    melde_pic: "",
+    paspor_pic: "",
   });
 
   const {
@@ -69,6 +72,7 @@ const HomeAuth = () => {
     ponsel,
     alamat,
     kota_kodepos,
+    pasfoto_pic,
     melde_pic,
     paspor_pic,
   } = user;
@@ -124,6 +128,7 @@ const HomeAuth = () => {
         ponsel: authContext.user.ponsel,
         alamat: authContext.user.alamat,
         kota_kodepos: authContext.user.kota_kodepos,
+        pasfoto_pic: authContext.user.pasfoto_pic,
         melde_pic: authContext.user.melde_pic,
         paspor_pic: authContext.user.paspor_pic,
       });
@@ -373,7 +378,15 @@ const HomeAuth = () => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <ListGroup variant="flush">
-                      
+                      <ListGroup.Item style={{ marginTop: "8px" }}>
+                        <FileUpload
+                          labelText="Pas Foto"
+                          documentName="pasfoto_pic"
+                          userId={user._id}
+                          documentUrl={pasfoto_pic}
+                        />
+                      </ListGroup.Item>
+
                       <ListGroup.Item style={{ marginTop: "8px" }}>
                         <FileUpload
                           labelText="Meldebescheinigung"
