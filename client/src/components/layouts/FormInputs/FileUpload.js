@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { Button, Form, FormGroup, ProgressBar } from "react-bootstrap";
 import { storage } from "../../../firebase/index";
 
-const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
+const FileUpload = ({ labelText, documentName, userId }) => {
   const [fileDocument, setfileDocument] = useState(null);
   const [fileDocumentProgress, setFileDocumentProgress] = useState(0);
   const [fileUrl, setFileUrl] = useState("");
@@ -58,18 +58,9 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
 
   useEffect(() => {
     if (authContext.user) {
-      if (documentName === "melde") {
-        if (authContext.user.melde_pic !== "") {
-          setFileUrl(urlPrefix + authContext.user.melde_pic);
-          setFileNameDb(authContext.user.melde_pic);
-        }
-      }
-
-      if (documentName === "paspor") {
-        if (authContext.user.paspor_pic !== "") {
-          setFileUrl(urlPrefix + authContext.user.paspor_pic);
-          setFileNameDb(authContext.user.paspor_pic);
-        }
+      if (authContext.user[documentName] !== "") {
+        setFileUrl(urlPrefix + authContext.user[documentName]);
+        setFileNameDb(authContext.user[documentName]);
       }
     }
     //eslint-disable-next-line
@@ -78,7 +69,7 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
     deleteDocument(documentName);
     resetField();
     storage
-      .ref(`${pathToFirebase}`)
+      .ref(`${documentName}`)
       .child(fileNameDb)
       .delete()
       .then(function () {
@@ -95,7 +86,7 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
   const onClickUploadFile = (e) => {
     try {
       const uploadTask = storage
-        .ref(`${pathToFirebase}/${fileNameDb}`)
+        .ref(`${documentName}/${fileNameDb}`)
         .put(fileDocument);
       uploadTask.on(
         "state_changed",
@@ -112,7 +103,7 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
         },
         () => {
           storage
-            .ref(`${pathToFirebase}`)
+            .ref(`${documentName}`)
             .child(fileNameDb)
             .getDownloadURL()
             .then((url) => {
@@ -152,9 +143,9 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
             </b>
             <a
               href={fileUrl + "?alt=media"}
-              rel='noopener noreferrer'
+              rel="noopener noreferrer"
               style={{ marginRight: "8px" }}
-              target='_blank'
+              target="_blank"
             >
               Cek Dokumen
             </a>
@@ -164,33 +155,33 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
               onDelete();
             }}
           >
-            <i className='fas fa-trash'></i>
+            <i className="fas fa-trash"></i>
           </button>
         </div>
       ) : (
-        <div className='custom-file '>
+        <div className="custom-file ">
           <Form>
             <FormGroup>
               <input
-                type='file'
-                className='custom-file-input'
-                id='file'
-                inputname='file'
-                accept='.png, .jpeg, .jpg, .pdf'
+                type="file"
+                className="custom-file-input"
+                id="file"
+                inputname="file"
+                accept=".png, .jpeg, .jpg, .pdf"
                 onChange={onChangeUploadFile}
                 required
               />
 
-              <label className='custom-file-label' htmlFor='file'>
+              <label className="custom-file-label" htmlFor="file">
                 {fileDocument === null ? labelText : fileDocument.name}
               </label>
-              <Form.Text className='text-muted'>
+              <Form.Text className="text-muted">
                 File maksimal berukuran 6MB dengan tipe: .jpg/.jpeg, .png, atau
                 .pdf.
               </Form.Text>
               {fileDocumentProgress > 0 ? (
                 <ProgressBar
-                  variant='success'
+                  variant="success"
                   style={{ marginTop: "8px" }}
                   now={fileDocumentProgress}
                 />
@@ -199,7 +190,7 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
               )}
             </FormGroup>
             <Button
-              variant='success'
+              variant="success"
               onClick={onClickUploadFile}
               style={{ marginTop: "8px", marginBottom: "32px" }}
             >
@@ -214,7 +205,6 @@ const FileUpload = ({ labelText, pathToFirebase, documentName, userId }) => {
 
 FileUpload.propTypes = {
   labelText: PropTypes.string.isRequired,
-  pathToFirebase: PropTypes.string.isRequired,
   documentName: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
 };

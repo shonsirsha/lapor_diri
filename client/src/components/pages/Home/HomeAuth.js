@@ -373,11 +373,11 @@ const HomeAuth = () => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <ListGroup variant="flush">
-                      <ListGroup.Item>
+                      
+                      <ListGroup.Item style={{ marginTop: "8px" }}>
                         <FileUpload
                           labelText="Meldebescheinigung"
-                          pathToFirebase="melde"
-                          documentName="melde"
+                          documentName="melde_pic"
                           userId={user._id}
                           documentUrl={melde_pic}
                         />
@@ -385,8 +385,7 @@ const HomeAuth = () => {
                       <ListGroup.Item style={{ marginTop: "8px" }}>
                         <FileUpload
                           labelText="Paspor"
-                          pathToFirebase="paspor"
-                          documentName="paspor"
+                          documentName="paspor_pic"
                           userId={user._id}
                           documentUrl={paspor_pic}
                         />

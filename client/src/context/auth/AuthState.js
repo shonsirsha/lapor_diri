@@ -150,6 +150,7 @@ const AuthState = (props) => {
         updateFail();
       }
     }
+    loadUser();
   };
 
   //logout

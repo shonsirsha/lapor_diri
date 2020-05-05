@@ -206,14 +206,8 @@ router.put(
 
 router.post("/upload-document/:id", auth, async (req, res) => {
   const { docUrl, docName } = req.body;
-  const userField = {};
-  let status = 0;
-  if (docName === "paspor") {
-    userField.paspor_pic = docUrl;
-  }
-
-  if (docName === "melde") {
-    userField.melde_pic = docUrl;
+  if (!docUrl || !docName) {
+    res.status(404).json({ msg: "Document not found" });
   }
 
   try {
@@ -222,26 +216,13 @@ router.post("/upload-document/:id", auth, async (req, res) => {
       return res.status(404).json({ msg: "User not found" });
     }
 
-    user = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: userField,
-      },
-      { new: true }
-    );
-
+    user[docName] = docUrl;
     if (user.melde_pic !== "" && user.paspor_pic !== "") {
-      status = 1;
+      user.status = 1;
     } else {
-      status = 0;
+      user.status = 0;
     }
-    user = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        status: status,
-      },
-      { new: true }
-    );
+    user.save();
 
     res.status(200).json(user);
   } catch (e) {
@@ -254,16 +235,8 @@ router.post("/upload-document/:id", auth, async (req, res) => {
 //@access   Private
 router.put("/delete-document/:id", auth, async (req, res) => {
   const { docName } = req.body;
-
-  //build user object
-  const userField = {};
-
-  if (docName === "melde") {
-    userField.melde_pic = "";
-  }
-
-  if (docName === "paspor") {
-    userField.paspor_pic = "";
+  if (!docName) {
+    res.status(404).json({ msg: "document not found" });
   }
 
   try {
@@ -272,13 +245,10 @@ router.put("/delete-document/:id", auth, async (req, res) => {
       return res.status(404).json({ msg: "User not found" });
     }
 
-    user = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: userField,
-      },
-      { new: true }
-    );
+    user[docName] = "";
+    user.status = 0;
+    user.save();
+
     res.json(user);
   } catch (e) {
     console.error(e.message);
