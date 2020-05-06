@@ -43,15 +43,3 @@ it("Form Label Renders with correct htmlfor and text content", () => {
   expect(getByTestId("formLabel")).toHaveAttribute("for", "nama_depan");
   expect(getByTestId("formLabel")).toHaveTextContent("Nama Depan");
 });
-
-// test("btn clicked", async () => {
-//   const browser = await puppeteer.launch({
-//     headless: false,
-//     slowMo: 150,
-//     args: ["--window-size=1920,1080"],
-//   });
-
-//   const page = await browser.newPage();
-//   await page.goto("http://localhost:3000/");
-//   await page.click("#testbtn");
-// });
