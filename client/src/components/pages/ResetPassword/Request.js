@@ -51,18 +51,18 @@ const Reset = () => {
 
   return (
     <Fragment>
-      <Card.Title style={{ textAlign: "center" }}>Temukan Akun Anda</Card.Title>
+      <Card.Title className="text-center">Temukan Akun Anda</Card.Title>
       {loading ? (
         <Spinner />
       ) : (
         <div>
           {passwordResetSuccess ? (
-            <p style={{ textAlign: "center" }}>
+            <p className="text-center">
               Link untuk me-reset kata sandi telah terkirim. Mohon cek kembali
               kotak masuk Email Anda.
             </p>
           ) : (
-            <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
+            <Form className="mb-32" onSubmit={onSubmit}>
               <Form.Group controlId="email">
                 <InputGroup>
                   <InputGroup.Prepend>
