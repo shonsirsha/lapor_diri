@@ -95,3 +95,21 @@ img {
 .mb-64 {
   margin-bottom: 64px;
 }
+.mt-8 {
+  margin-top: 8px;
+}
+.mt-16 {
+  margin-top: 16px;
+}
+.mt-32 {
+  margin-top: 32px;
+}
+.mt-64 {
+  margin-top: 64px;
+}
+.mr-8 {
+  margin-right: 8px;
+}
+ml-8 {
+  margin-left: 8px;
+}

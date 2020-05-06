@@ -37,7 +37,7 @@ const MyNavbar = () => {
 
   return (
     <Fragment>
-      <Navbar bg="light" variant="light" className="mb-32">
+      <Navbar bg="light" variant="light">
         <Navbar.Brand href="/">
           <img
             alt=""

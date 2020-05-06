@@ -91,7 +91,7 @@ const RegisterForm = (props) => {
 
   if (!isAuthenticated && !loading) {
     return (
-      <Container>
+      <Container className="mt-32">
         <h1 className="mb-32">Formulir Layanan Mandiri</h1>
         <Form className="mb-32" onSubmit={onSubmit}>
           <Row>

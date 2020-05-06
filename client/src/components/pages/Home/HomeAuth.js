@@ -137,16 +137,13 @@ const HomeAuth = () => {
 
   if (isAuthenticated && !loading) {
     return (
-      <Container style={{ marginTop: "32px", position: "relative" }}>
+      <Container className="mt-32">
         <Modal show={showModal} onHide={toggleShowModal}>
           <Modal.Header closeButton>
             <Modal.Title>Ubah Kata Sandi</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form
-              style={{ marginBottom: "32px" }}
-              onSubmit={onSubmitChangePassword}
-            >
+            <Form className="mb-32" onSubmit={onSubmitChangePassword}>
               <Form.Group>
                 <FormLabel htmlFor="password" text="Kata Sandi Baru" />
                 <FormInput
@@ -172,7 +169,7 @@ const HomeAuth = () => {
           </Modal.Footer>
         </Modal>
 
-        <Row style={{ marginBottom: "16px" }}>
+        <Row className="mb-16">
           <Col>
             {status && !loading ? (
               <Alert key="1" variant="success">
@@ -199,7 +196,7 @@ const HomeAuth = () => {
           <Col>
             <h2>Data Anda saat ini</h2>
             <Button
-              style={{ marginTop: "4px", marginBottom: "8px" }}
+              className="mb-8 mt-8"
               variant="outline-success"
               onClick={toggleShowModal}
             >
@@ -208,16 +205,16 @@ const HomeAuth = () => {
             <hr />
           </Col>
         </Row>
-        <Row>
-          <Col style={{ marginBottom: "64px" }}>
-            <Accordion style={{ marginBottom: "16px" }} defaultActiveKey="0">
+        <Row className="mb-32">
+          <Col>
+            <Accordion className="mb-16" defaultActiveKey="0">
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="0">
                   Data Diri
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                    <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
+                    <Form className="mb-32" onSubmit={onSubmit}>
                       <Form.Group>
                         <FormLabel htmlFor="nama_depan" text="Nama Depan" />
                         <FormInput
@@ -264,11 +261,7 @@ const HomeAuth = () => {
                         />
                       </Form.Group>
 
-                      <Button
-                        type="submit"
-                        style={{ marginTop: "8px" }}
-                        variant="success"
-                      >
+                      <Button type="submit" className="mt-8" variant="success">
                         Simpan & perbarui
                       </Button>
                     </Form>
@@ -277,14 +270,14 @@ const HomeAuth = () => {
               </Card>
             </Accordion>
 
-            <Accordion style={{ marginBottom: "16px" }} defaultActiveKey="0">
+            <Accordion className="mb-16" defaultActiveKey="0">
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="0">
                   Alamat di Jerman
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                    <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
+                    <Form className="mb-32" onSubmit={onSubmit}>
                       <Form.Group>
                         <FormLabel htmlFor="alamat" text="Nama Jalan" />
                         <FormInput
@@ -308,11 +301,7 @@ const HomeAuth = () => {
                         />
                       </Form.Group>
 
-                      <Button
-                        type="submit"
-                        style={{ marginTop: "8px" }}
-                        variant="success"
-                      >
+                      <Button type="submit" className="mt-8" variant="success">
                         Simpan & perbarui
                       </Button>
                     </Form>
@@ -328,7 +317,7 @@ const HomeAuth = () => {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                    <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
+                    <Form className="mb-32" onSubmit={onSubmit}>
                       <Form.Group>
                         <FormLabel htmlFor="email" text="Email" />
                         <FormInput
@@ -349,11 +338,7 @@ const HomeAuth = () => {
                         />
                       </Form.Group>
 
-                      <Button
-                        type="submit"
-                        style={{ marginTop: "8px" }}
-                        variant="success"
-                      >
+                      <Button type="submit" className="mt-8" variant="success">
                         Simpan & perbarui
                       </Button>
                     </Form>
@@ -365,10 +350,10 @@ const HomeAuth = () => {
         </Row>
         <Row id="unggah">
           <Col>
-            <h2 style={{ marginBottom: "16px" }}>Unggah dokumen</h2>
+            <h2 className="mb-16">Unggah dokumen</h2>
           </Col>
         </Row>
-        <Row style={{ marginBottom: "32px" }}>
+        <Row className="mb-32">
           <Col>
             <Accordion defaultActiveKey="0">
               <Card>
@@ -378,7 +363,7 @@ const HomeAuth = () => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <ListGroup variant="flush">
-                      <ListGroup.Item style={{ marginTop: "8px" }}>
+                      <ListGroup.Item className="mt-8">
                         <FileUpload
                           labelText="Pas Foto"
                           documentName="pasfoto_pic"
@@ -387,7 +372,7 @@ const HomeAuth = () => {
                         />
                       </ListGroup.Item>
 
-                      <ListGroup.Item style={{ marginTop: "8px" }}>
+                      <ListGroup.Item className="mt-8">
                         <FileUpload
                           labelText="Meldebescheinigung"
                           documentName="melde_pic"
@@ -395,7 +380,7 @@ const HomeAuth = () => {
                           documentUrl={melde_pic}
                         />
                       </ListGroup.Item>
-                      <ListGroup.Item style={{ marginTop: "8px" }}>
+                      <ListGroup.Item className="mt-8">
                         <FileUpload
                           labelText="Paspor"
                           documentName="paspor_pic"

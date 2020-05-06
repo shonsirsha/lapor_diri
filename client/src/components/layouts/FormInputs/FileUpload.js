@@ -7,7 +7,16 @@ import PropTypes from "prop-types";
 
 import { Button, Form, FormGroup, ProgressBar } from "react-bootstrap";
 import { storage } from "../../../firebase/index";
-
+import styled from "styled-components";
+const UploadImageDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const InformationDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 const FileUpload = ({ labelText, documentName, userId }) => {
   const [fileDocument, setfileDocument] = useState(null);
   const [fileDocumentProgress, setFileDocumentProgress] = useState(0);
@@ -125,31 +134,20 @@ const FileUpload = ({ labelText, documentName, userId }) => {
   return (
     <div>
       {fileDocumentProgress === 100 || fileUrl.length > 0 ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
+        <UploadImageDiv>
+          <InformationDiv>
             <b>
-              <p style={{ marginRight: "4px" }}>{labelText}: </p>
+              <p className="mr-8">{labelText}: </p>
             </b>
             <a
               href={fileUrl + "?alt=media"}
               rel="noopener noreferrer"
-              style={{ marginRight: "8px" }}
+              className="mr-8"
               target="_blank"
             >
               Cek Dokumen
             </a>
-          </div>
+          </InformationDiv>
           <button
             onClick={() => {
               onDelete();
@@ -157,7 +155,7 @@ const FileUpload = ({ labelText, documentName, userId }) => {
           >
             <i className="fas fa-trash"></i>
           </button>
-        </div>
+        </UploadImageDiv>
       ) : (
         <div className="custom-file ">
           <Form>
@@ -182,7 +180,7 @@ const FileUpload = ({ labelText, documentName, userId }) => {
               {fileDocumentProgress > 0 ? (
                 <ProgressBar
                   variant="success"
-                  style={{ marginTop: "8px" }}
+                  className="mt-8"
                   now={fileDocumentProgress}
                 />
               ) : (
@@ -192,7 +190,7 @@ const FileUpload = ({ labelText, documentName, userId }) => {
             <Button
               variant="success"
               onClick={onClickUploadFile}
-              style={{ marginTop: "8px", marginBottom: "32px" }}
+              className="mt-8 mb-32"
             >
               Simpan & perbarui
             </Button>

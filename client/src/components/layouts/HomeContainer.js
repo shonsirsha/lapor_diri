@@ -6,6 +6,14 @@ import Login from "../pages/Login";
 import CheckRegistration from "../pages/CheckRegistration";
 import ResetPassword from "../pages/ResetPassword";
 import Spinner from "./Spinner";
+import styled from "styled-components";
+const StyledContainer = styled(Container)`
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const HomeContainer = () => {
   const [renderedComponent, setRenderedComponent] = useState(null);
   let route = useLocation().pathname;
@@ -23,21 +31,13 @@ const HomeContainer = () => {
 
   return (
     <Fragment>
-      <Container
-        style={{
-          marginTop: "64px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <StyledContainer>
         <Card style={{ width: "80%" }}>
           <Card.Body>
             {renderedComponent ? renderedComponent : <Spinner />}
           </Card.Body>
         </Card>
-      </Container>
+      </StyledContainer>
       <JumbotronSignup />
     </Fragment>
   );
