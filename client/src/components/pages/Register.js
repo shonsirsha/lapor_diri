@@ -91,12 +91,9 @@ const RegisterForm = (props) => {
 
   if (!isAuthenticated && !loading) {
     return (
-      <Container style={{ marginTop: "32px" }}>
-        <h1>Formulir Layanan Mandiri</h1>
-        <Form
-          style={{ marginBottom: "32px", marginTop: "32px" }}
-          onSubmit={onSubmit}
-        >
+      <Container>
+        <h1 className="mb-32">Formulir Layanan Mandiri</h1>
+        <Form className="mb-32" onSubmit={onSubmit}>
           <Row>
             <Col sm={12} lg={6}>
               <Form.Group>
@@ -216,15 +213,6 @@ const RegisterForm = (props) => {
           <Button variant="success" type="submit">
             Daftar
           </Button>
-          {/* <Button
-          id='testbtn'
-          onClick={() => {
-            alert("asdsa");
-          }}
-          variant='primary'
-        >
-          Test
-        </Button> */}
         </Form>
       </Container>
     );
