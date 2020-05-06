@@ -17,7 +17,7 @@ describe("check registration status page", () => {
 
   it("Should return user has not registered yet (RED)", () => {
     cy.visit("http://localhost:3000/cek-registrasi");
-    cy.get('input[name="nama_belakang"]').should("exist").type("nouser");
+    cy.get('input[name="nama_belakang"]').should("exist").type("i dont exist");
     cy.get('input[name="paspor"]').should("exist").type("00000000");
     cy.get("form").submit();
     cy.contains("Anda belum terdaftar");
