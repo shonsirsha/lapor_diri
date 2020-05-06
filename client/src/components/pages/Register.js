@@ -30,7 +30,15 @@ const RegisterForm = (props) => {
     }
 
     if (error) {
-      setAlert(error, "danger");
+      let newError;
+      if (error === "Email has been used") {
+        newError = "Email telah digunakan";
+      } else if (error === "Passport number has been used") {
+        newError = "Nomor paspor telah digunakan";
+      }
+      if (newError) {
+        setAlert(newError, "danger");
+      }
     }
     //eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
