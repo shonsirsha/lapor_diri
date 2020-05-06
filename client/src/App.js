@@ -18,6 +18,9 @@ import CheckRegistrationState from "./context/check-registration/CheckRegistrati
 import ToastState from "./context/toast/ToastState";
 import ResetPasswordState from "./context/reset-password/ResetPasswordState";
 
+import Impressum from "./components/pages/Impressum";
+import Datenschutz from "./components/pages/Datenschutz";
+
 import setAuthToken from "./utils/setAuthToken";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -38,8 +41,8 @@ const App = () => {
                   <MyAlert />
                   <MyToast />
                   <Switch>
-                    <Route exact path='/register' component={Register} />
-                    <Route exact path='/' component={Home} />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/" component={Home} />
                     {["/login", "/cek-registrasi", "/reset-kata-sandi"].map(
                       (path, index) => (
                         <Route
@@ -50,6 +53,9 @@ const App = () => {
                         />
                       )
                     )}
+                    <Route exact path="/impressum" component={Impressum} />
+                    <Route exact path="/datenschutz" component={Datenschutz} />
+
                     <Route component={Home} />
                   </Switch>
                   <Footer />
