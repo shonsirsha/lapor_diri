@@ -93,7 +93,7 @@ const Login = () => {
               />
             </InputGroup>
           </Form.Group>
-          <Button type="submit" variant="outline-success">
+          <Button type="submit" data-cy-login-btn variant="outline-success">
             Masuk
           </Button>
         </Form>
