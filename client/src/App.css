@@ -83,3 +83,15 @@ img {
 .fa-trash:hover {
   color: rgb(57, 56, 56);
 }
+.mb-8 {
+  margin-bottom: 8px;
+}
+.mb-16 {
+  margin-bottom: 16px;
+}
+.mb-32 {
+  margin-bottom: 32px;
+}
+.mb-64 {
+  margin-bottom: 64px;
+}

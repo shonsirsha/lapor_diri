@@ -1,29 +1,30 @@
 import React, { Fragment } from "react";
 import { Button, Row, Col, Card, Alert, Accordion } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
+const StyledAlert = styled(Alert)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 64px;
+`;
+
+const SpecialLink = styled(Link)`
+  text-decoration: underline;
+`;
 const HomeGuestView = () => {
   const notice = (
     <Row>
       <Col>
-        <Alert
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-          key='1'
-          variant='warning'
-        >
+        <StyledAlert key="1" variant="warning">
           <h3>PEMBERITAHUAN</h3>
           <b>
             Bagi WNI yang telah lapor diri sebelum adanya aplikasi ini, harap
             mengaktualisasi datanya dengan{" "}
-            <Link style={{ textDecoration: "underline" }} to='/cek-registrasi'>
-              Cek Registrasi
-            </Link>
+            <SpecialLink to="/cek-registrasi">Cek Registrasi</SpecialLink>
           </b>
-        </Alert>
+        </StyledAlert>
       </Col>
     </Row>
   );
@@ -32,17 +33,17 @@ const HomeGuestView = () => {
     <Fragment>
       {notice}
       <Row>
-        <Col style={{ marginBottom: "64px" }}>
-          <Accordion defaultActiveKey='0'>
+        <Col className="mb-64">
+          <Accordion defaultActiveKey="0">
             <Card>
               <Card.Header>
-                <Accordion.Toggle as={Button} variant='link' eventKey='0'>
+                <Accordion.Toggle as={Button} variant="link" eventKey="0">
                   Mengapa Lapor Diri?
                 </Accordion.Toggle>
               </Card.Header>
-              <Accordion.Collapse eventKey='0'>
+              <Accordion.Collapse eventKey="0">
                 <Card.Body>
-                  <p className='lead'>
+                  <p className="lead">
                     Hal hal mengenai lapor diri telah di atur dalam
                     undang-undang:
                   </p>
@@ -62,13 +63,13 @@ const HomeGuestView = () => {
             </Card>
             <Card>
               <Card.Header>
-                <Accordion.Toggle as={Button} variant='link' eventKey='1'>
+                <Accordion.Toggle as={Button} variant="link" eventKey="1">
                   Manfaat Lapor Diri
                 </Accordion.Toggle>
               </Card.Header>
-              <Accordion.Collapse eventKey='1'>
+              <Accordion.Collapse eventKey="1">
                 <Card.Body>
-                  <p className='lead'>
+                  <p className="lead">
                     Dengan melaporkan diri pengatasan masalah akan menjadi lebih
                     mudah :
                   </p>
@@ -96,7 +97,7 @@ const HomeGuestView = () => {
           </Accordion>
         </Col>
         <Col>
-          <p className='lead'>Terkadang ada musibah yang menimpa seperti : </p>
+          <p className="lead">Terkadang ada musibah yang menimpa seperti : </p>
           <ul>
             <li>Kecurian</li>
             <li>Kecelakaan</li>
