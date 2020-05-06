@@ -66,40 +66,40 @@ const Login = () => {
   if (!isAuthenticated && !loading) {
     return (
       <Fragment>
-        <Card.Title style={{ textAlign: "center" }}>Masuk</Card.Title>
-        <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
-          <Form.Group controlId='email'>
+        <Card.Title className="text-center">Masuk</Card.Title>
+        <Form className="mb-32" onSubmit={onSubmit}>
+          <Form.Group controlId="email">
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text>Email</InputGroup.Text>
               </InputGroup.Prepend>
               <FormInput
                 onChangeMethod={onChange}
-                inputName='email'
-                inputType='email'
+                inputName="email"
+                inputType="email"
               />
             </InputGroup>
           </Form.Group>
 
-          <Form.Group controlId='password'>
+          <Form.Group controlId="password">
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text>Kata Sandi</InputGroup.Text>
               </InputGroup.Prepend>
               <FormInput
                 onChangeMethod={onChange}
-                inputName='password'
-                inputType='password'
+                inputName="password"
+                inputType="password"
               />
             </InputGroup>
           </Form.Group>
-          <Button type='submit' variant='outline-success'>
+          <Button type="submit" variant="outline-success">
             Masuk
           </Button>
         </Form>
-        <p style={{ marginTop: "8px" }}>
+        <p>
           Lupa kata sandi? Reset kata sandi Anda{" "}
-          <Link to='/reset-kata-sandi'>disini.</Link>
+          <Link to="/reset-kata-sandi">disini.</Link>
         </p>
       </Fragment>
     );
