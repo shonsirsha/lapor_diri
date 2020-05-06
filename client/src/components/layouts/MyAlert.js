@@ -7,7 +7,7 @@ const MyAlert = () => {
     ? alertContext.alerts.map((alert) => (
         <Fragment key={alert.id}>
           {alert.msg !== "unauthorised" ? (
-            <div class="mt-32" className="container">
+            <div className="container mt-32">
               <Alert key={alert.id} variant={alert.type}>
                 <b>{alert.msg}</b>
               </Alert>
