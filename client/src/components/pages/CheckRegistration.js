@@ -77,36 +77,36 @@ const CheckRegistration = () => {
   if (!isAuthenticated && !loading) {
     return (
       <Fragment>
-        <Card.Title style={{ textAlign: "center" }}>Cek Registrasi</Card.Title>
-        <Form style={{ marginBottom: "32px" }} onSubmit={onSubmit}>
-          <Form.Group controlId='nama_belakang'>
+        <Card.Title className="text-center">Cek Registrasi</Card.Title>
+        <Form onSubmit={onSubmit}>
+          <Form.Group controlId="nama_belakang">
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text>Nama Belakang</InputGroup.Text>
               </InputGroup.Prepend>
               <FormInput
                 value={nama_belakang}
-                inputName='nama_belakang'
-                inputType='text'
+                inputName="nama_belakang"
+                inputType="text"
                 onChangeMethod={onChange}
               />
             </InputGroup>
           </Form.Group>
 
-          <Form.Group controlId='paspor'>
+          <Form.Group controlId="paspor">
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text>Nomor Paspor</InputGroup.Text>
               </InputGroup.Prepend>
               <FormInput
                 value={paspor}
-                inputName='paspor'
-                inputType='text'
+                inputName="paspor"
+                inputType="text"
                 onChangeMethod={onChange}
               />
             </InputGroup>
           </Form.Group>
-          <Button type='submit' variant='success'>
+          <Button type="submit" variant="success">
             Cek
           </Button>
         </Form>
