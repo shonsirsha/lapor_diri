@@ -12,4 +12,9 @@ describe("login", () => {
     cy.get("[data-cy-login-btn]").should("exist").click();
     cy.contains("Akun tidak dapat ditemukan");
   });
+  it("Clicks on reset password link and brings it to the correct page.", () => {
+    cy.visit("http://localhost:3000/login");
+    cy.get("[ data-cy-reset-password-link]").should("exist").click();
+    cy.contains("Temukan Akun Anda");
+  });
 });

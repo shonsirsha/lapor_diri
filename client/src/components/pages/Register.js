@@ -92,7 +92,9 @@ const RegisterForm = (props) => {
   if (!isAuthenticated && !loading) {
     return (
       <Container className="mt-32">
-        <h1 className="mb-32">Formulir Layanan Mandiri</h1>
+        <h1 data-cy-title className="mb-32">
+          Formulir Layanan Mandiri
+        </h1>
         <Form className="mb-32" onSubmit={onSubmit}>
           <Row>
             <Col sm={12} lg={6}>

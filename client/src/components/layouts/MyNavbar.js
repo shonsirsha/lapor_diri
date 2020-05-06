@@ -23,13 +23,14 @@ const MyNavbar = () => {
   const guessLinks = (
     <Fragment>
       <Link
+        data-cy-register-link
         className="noStyleLink"
         to="/register"
         style={{ marginRight: "8px" }}
       >
         Daftar
       </Link>
-      <Link className="noStyleLink" to="/login">
+      <Link data-cy-login-link className="noStyleLink" to="/login">
         Masuk
       </Link>
     </Fragment>

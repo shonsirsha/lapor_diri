@@ -99,7 +99,9 @@ const Login = () => {
         </Form>
         <p>
           Lupa kata sandi? Reset kata sandi Anda{" "}
-          <Link to="/reset-kata-sandi">disini.</Link>
+          <Link to="/reset-kata-sandi" data-cy-reset-password-link>
+            disini.
+          </Link>
         </p>
       </Fragment>
     );
