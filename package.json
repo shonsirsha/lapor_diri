@@ -2,7 +2,7 @@
   "name": "lapor_diri",
   "version": "1.0.0",
   "engines": {
-    "node": "12.16.x"
+    "node": "12.14.x"
   },
   "description": "",
   "main": "server.js",
