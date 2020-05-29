@@ -16,11 +16,12 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/check-register", require("./routes/checkRegister"));
 app.use("/api/reset-password", require("./routes/resetPassword"));
 
-// Serve static assets in production
+// Serve static assets (react) in production
 if (process.env.NODE_ENV === "production") {
-  // Set static folder
+  // Load static folder - the static assets that react built for us
   app.use(express.static("client/build"));
 
+  //if we hit the homepage, it's going to load this file
   app.get("*", (req, res) =>
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
   );

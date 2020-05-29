@@ -51,7 +51,6 @@ const ResetPasswordState = (props) => {
   const resetPassword = async (data) => {
     try {
       await axios.put(`/api/reset-password`, data, asJson);
-      console.log(JSON.stringify(data));
       dispatch({ type: RESET_PASSWORD_SUCCESS });
     } catch (err) {
       dispatch({ type: RESET_PASSWORD_FAIL, payload: err.response.data.msg });
