@@ -275,28 +275,24 @@ const HomeAuth = () => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <Form className="mb-32" onSubmit={onSubmit}>
-                      <Form.Group>
-                        <FormLabel htmlFor="alamat" text="Nama Jalan" />
-                        <FormInput
-                          inputName="alamat"
-                          inputType="text"
-                          onChangeMethod={onChange}
-                          value={alamat}
-                        />
-                      </Form.Group>
-
-                      <Form.Group>
-                        <FormLabel
-                          htmlFor="kota_kodepos"
-                          text="Kodepos & Kota"
-                        />
-                        <FormInput
-                          inputName="kota_kodepos"
-                          inputType="text"
-                          onChangeMethod={onChange}
-                          value={kota_kodepos}
-                        />
-                      </Form.Group>
+                      {[
+                        { "Nama Jalan": { alamat } },
+                        { "Kodepos & Kota": { kota_kodepos } },
+                      ].map((obj) =>
+                        Object.keys(obj).map((key) =>
+                          Object.keys(obj[key]).map((key2, i) => (
+                            <Form.Group key={i}>
+                              <FormLabel htmlFor={key2} text={key} />
+                              <FormInput
+                                inputName={key2}
+                                inputType="text"
+                                onChangeMethod={onChange}
+                                value={obj[key][key2]}
+                              />
+                            </Form.Group>
+                          ))
+                        )
+                      )}
 
                       <Button type="submit" className="mt-8" variant="success">
                         Simpan & perbarui
