@@ -72,9 +72,6 @@ const HomeAuth = () => {
     ponsel,
     alamat,
     kota_kodepos,
-    pasfoto_pic,
-    melde_pic,
-    paspor_pic,
   } = user;
 
   const onChange = (e) => {
@@ -318,25 +315,22 @@ const HomeAuth = () => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <Form className="mb-32" onSubmit={onSubmit}>
-                      <Form.Group>
-                        <FormLabel htmlFor="email" text="Email" />
-                        <FormInput
-                          inputName="email"
-                          inputType="text"
-                          onChangeMethod={onChange}
-                          value={email}
-                        />
-                      </Form.Group>
-
-                      <Form.Group>
-                        <FormLabel htmlFor="ponsel" text="Nomor Ponsel" />
-                        <FormInput
-                          inputName="ponsel"
-                          inputType="text"
-                          onChangeMethod={onChange}
-                          value={ponsel}
-                        />
-                      </Form.Group>
+                      {[{ Email: { email } }, { Ponsel: { ponsel } }].map(
+                        (obj) =>
+                          Object.keys(obj).map((key) =>
+                            Object.keys(obj[key]).map((key2, i) => (
+                              <Form.Group key={i}>
+                                <FormLabel htmlFor={key2} text={key} />
+                                <FormInput
+                                  inputName={key2}
+                                  inputType="text"
+                                  onChangeMethod={onChange}
+                                  value={obj[key][key2]}
+                                />
+                              </Form.Group>
+                            ))
+                          )
+                      )}
 
                       <Button type="submit" className="mt-8" variant="success">
                         Simpan & perbarui
@@ -374,7 +368,6 @@ const HomeAuth = () => {
                               labelText={obj[key]}
                               documentName={key}
                               userId={user._id}
-                              documentUrl={key}
                             />
                           </ListGroup.Item>
                         ))
@@ -384,8 +377,6 @@ const HomeAuth = () => {
                 </Accordion.Collapse>
               </Card>
             </Accordion>
-
-            {/* */}
           </Col>
         </Row>
       </Container>
