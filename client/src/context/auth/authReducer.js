@@ -66,7 +66,6 @@ export default (state, action) => {
         error: action.payload,
       };
     case TOKEN_REFRESH:
-      // localStorage.removeItem("token");
       localStorage.setItem("token", action.payload.token);
 
       return {
