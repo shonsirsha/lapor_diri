@@ -55,7 +55,7 @@ router.post(
       const token = generateAccessToken(payload);
       const refresh_token = jwt.sign(payload, config.get("refreshToken"));
 
-      user.refresh_tokens.push(refresh_token); // creating an array of refresh tokens and pushed a the new refresh token value into it
+      user.refresh_tokens.push(refresh_token); // gets an array of refresh tokens from the user object, and pushes the new refresh token value into it
       await user.save();
 
       res.json({
@@ -91,7 +91,9 @@ router.post("/logout/:id", auth, async (req, res) => {
     res.status(500).send("Server error " + e);
   }
 });
-
+//@route    POST api/auth/refresh_token/:id
+//@desc     Generates a new access token
+//@access   Private
 router.post("/refresh_token/:id", async (req, res) => {
   const { refresh_token } = req.body;
 
@@ -99,7 +101,7 @@ router.post("/refresh_token/:id", async (req, res) => {
     let user = await checkUserExists("_id", req.params.id);
 
     if (refresh_token === null) res.status(401).json({ msg: "no token found" });
-    //refresh token isnt sent by user
+    //no refresh token being sent
 
     if (!user.refresh_tokens.includes(refresh_token))
       res.status(401).json({ msg: "no token found" });
