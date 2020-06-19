@@ -212,52 +212,26 @@ const HomeAuth = () => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <Form className="mb-32" onSubmit={onSubmit}>
-                      <Form.Group>
-                        <FormLabel htmlFor="nama_depan" text="Nama Depan" />
-                        <FormInput
-                          inputName="nama_depan"
-                          inputType="text"
-                          onChangeMethod={onChange}
-                          value={nama_depan}
-                        />
-                      </Form.Group>
-
-                      <Form.Group>
-                        <FormLabel
-                          htmlFor="nama_belakang"
-                          text="Nama Belakang"
-                        />
-                        <FormInput
-                          inputName="nama_belakang"
-                          inputType="text"
-                          onChangeMethod={onChange}
-                          value={nama_belakang}
-                        />
-                      </Form.Group>
-
-                      <Form.Group>
-                        <FormLabel htmlFor="paspor" text="Nomor Paspor" />
-                        <FormInput
-                          inputName="paspor"
-                          inputType="text"
-                          onChangeMethod={onChange}
-                          value={paspor}
-                        />
-                      </Form.Group>
-
-                      <Form.Group>
-                        <FormLabel
-                          htmlFor="kantor_pengeluaran"
-                          text="Kantor Pengeluaran Paspor"
-                        />
-                        <FormInput
-                          inputName="kantor_pengeluaran"
-                          inputType="text"
-                          onChangeMethod={onChange}
-                          value={kantor_pengeluaran}
-                        />
-                      </Form.Group>
-
+                      {[
+                        { "Nama Depan": { nama_depan } },
+                        { "Nama Belakang": { nama_belakang } },
+                        { "Nomor Paspor": { paspor } },
+                        { "Kantor Pengeluaran Paspor": { kantor_pengeluaran } },
+                      ].map((obj) =>
+                        Object.keys(obj).map((key) =>
+                          Object.keys(obj[key]).map((key2, i) => (
+                            <Form.Group key={i}>
+                              <FormLabel htmlFor={key2} text={key} />
+                              <FormInput
+                                inputName={key2}
+                                inputType="text"
+                                onChangeMethod={onChange}
+                                value={obj[key][key2]}
+                              />
+                            </Form.Group>
+                          ))
+                        )
+                      )}
                       <Button type="submit" className="mt-8" variant="success">
                         Simpan & perbarui
                       </Button>
