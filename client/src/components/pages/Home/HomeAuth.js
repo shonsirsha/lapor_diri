@@ -363,31 +363,22 @@ const HomeAuth = () => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <ListGroup variant="flush">
-                      <ListGroup.Item className="mt-8">
-                        <FileUpload
-                          labelText="Pas Foto"
-                          documentName="pasfoto_pic"
-                          userId={user._id}
-                          documentUrl={pasfoto_pic}
-                        />
-                      </ListGroup.Item>
-
-                      <ListGroup.Item className="mt-8">
-                        <FileUpload
-                          labelText="Meldebescheinigung"
-                          documentName="melde_pic"
-                          userId={user._id}
-                          documentUrl={melde_pic}
-                        />
-                      </ListGroup.Item>
-                      <ListGroup.Item className="mt-8">
-                        <FileUpload
-                          labelText="Paspor"
-                          documentName="paspor_pic"
-                          userId={user._id}
-                          documentUrl={paspor_pic}
-                        />
-                      </ListGroup.Item>
+                      {[
+                        { pasfoto_pic: "Pas Foto" },
+                        { melde_pic: "Meldebescheinigung" },
+                        { paspor_pic: "Paspor" },
+                      ].map((obj) =>
+                        Object.keys(obj).map((key, i) => (
+                          <ListGroup.Item className="mt-8" key={i}>
+                            <FileUpload
+                              labelText={obj[key]}
+                              documentName={key}
+                              userId={user._id}
+                              documentUrl={key}
+                            />
+                          </ListGroup.Item>
+                        ))
+                      )}
                     </ListGroup>
                   </Card.Body>
                 </Accordion.Collapse>
