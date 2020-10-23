@@ -31,7 +31,7 @@ A self-report web app (lapor diri is Indonesian for self-report) for Indonesians
 
 ⭐ If the JWT included for a request to a protected route is expired, then it will simply "refreshes" the JWT, and new token will be generated. This happens really quickly and won't be noticable by the user.
 
-⭐ More information on the auth method <a href="authMethod">here.</a>
+⭐ More information on the auth method <a href="#authMethod">here.</a>
 
 ### REST API Server
 
