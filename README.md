@@ -109,7 +109,7 @@ A self-report web app (lapor diri is Indonesian for self-report) for Indonesians
 
 ## More about Authentication
 
-User signs up by hitting the `/api/auth/sign-up` endpoint. User is automatically authenticated (signed in) after this - OR - User signs in by hitting the `/api/auth/sign-in` endpoint. This returns (jwt) `token` and `userId`. Store these two in `localStorage`.
+User signs up by hitting the `/api/user/` (POST) endpoint. User is automatically authenticated (signed in) after this - OR - User signs in by hitting the `/api/auth/` (POST) endpoint. This returns (jwt) `token` and `userId`. Store these two in `localStorage`.
 
 The reason for saving `userId` is because it is used on very few endpoints that does not require a fresh (not-expired) `token`. Read more on <a href="#authFlow">authentication flow</a>.
 
