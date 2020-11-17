@@ -29,7 +29,7 @@ A self-report web app (lapor diri is Indonesian for self-report) for Indonesians
 
 ⭐ It uses the JWT, which expires every 15 minutes.
 
-⭐ If the JWT included for a request to a protected route is expired, then it will simply "refreshes" the JWT, and new token will be generated. This happens really quickly and won't be noticable by the user.
+⭐ If the JWT included for a request to a protected route is expired, then it will simply "refreshes" the JWT, and new token will be generated. This happens really quickly and isn't noticable to the user.
 
 ⭐ More information on the auth method <a href="#authMethod">here.</a>
 
